@@ -44,7 +44,7 @@ size_t chercherPosition( const vector<int>& v , int val ) {
 }
 
 
-/**ME
+/**
  * 2. Trie un vector.
  *
  * Pour la complexité, on considère le nombre de comparaisons (>)
@@ -81,7 +81,7 @@ unsigned trier2( vector<int>& v ) {
     return nbIterations;
 }
 
-/**ME
+/**
  * 3. Retourne true si la valeur est contenue dans le vector.
  *
  * Pour la complexité, on considère le nombre d'itérations.
@@ -143,7 +143,7 @@ unsigned long long f( unsigned n ) {
     return f(n-1) + f(n-1) + f(n-1);
 }
 
-/**ME
+/**
  * 5. Pour la complexité, on considère le nombre d'additions (+=)
  *
  * @param v
@@ -225,40 +225,16 @@ int main() {
 
     //initialisation du générateur aléatoire
     srand (time(NULL));
-
-    //testChercherPosition(NB_TESTS);
+    
     testTrier(8, 2, NB_TESTS);
 
     cout << "\n--------------\n";
 
-    testChercherSiContient(10, 2, 100000);
+    testChercherSiContient(10, 2, NB_TESTS);
 
     cout << "\n--------------\n";
 
     testG(8, 2, NB_TESTS);
-}
-
-void testChercherPosition(int nbTests) {
-    cout << fixed << setprecision(2);
-
-    cout << "Fonction : chercherPosition()\n";
-    for (int i = 1; i <= 6; ++i) {
-        vector<int> v = generateVector((size_t)pow(10, i));
-        double averageIterations = 0.;
-
-        cout << "Iterations pour n = " << v.size() << endl;
-        for (int j = 1; j <= nbTests; ++j) {
-            size_t posVal = chercherPosition(v, rand() % v.size());
-
-            if (posVal != -1) {
-                averageIterations += (double)(posVal + 1) / nbTests;
-            } else {
-                averageIterations += (double)v.size() / nbTests;
-            }
-        }
-
-        cout << "---------------\nAverage: " << averageIterations << endl << endl;
-    }
 }
 
 void testTrier(int nbValeurs, int base, int nbTests) {
