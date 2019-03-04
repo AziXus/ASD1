@@ -10,7 +10,6 @@
 using namespace std;
 
 
-
 vector<int> generateVector(size_t size) {
     vector<int> v(size);
 

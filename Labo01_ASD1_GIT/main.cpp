@@ -11,8 +11,10 @@
 #include <stdlib.h>
 #include <vector>
 #include <random>
+#include <iomanip>
 #include <ctime>
 #include <iostream>
+#include <algorithm>
 #include <chrono>
 
 #include "Test.h"

@@ -13,6 +13,4 @@ void testTrier(int nbValeurs, int base);
 void testChercherSiContient(int nbValeurs, int base, int nbTests);
 void testG(int nbValeurs, int base);
 
-
-
 #endif //LABO_01_TEST_H
