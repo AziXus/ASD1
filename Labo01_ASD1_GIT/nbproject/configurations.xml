@@ -37,6 +37,10 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <commandLine>-Wall -Wconversion -Wextra -pedantic</commandLine>
+        </ccTool>
       </compileType>
       <item path="Test.cpp" ex="false" tool="1" flavor2="0">
       </item>
