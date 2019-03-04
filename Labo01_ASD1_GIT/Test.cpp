@@ -6,7 +6,9 @@
 #include <iomanip>
 #include <algorithm>
 
+
 using namespace std;
+
 
 
 vector<int> generateVector(size_t size) {
@@ -116,3 +118,5 @@ void testG(int nbValeurs, int base) {
         cout << "Iterations pour n = " << v.size() << " (" << base << "^" << i  << ") : " << g2(v) << endl;
     }
 }
+
+
