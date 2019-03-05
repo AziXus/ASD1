@@ -56,6 +56,12 @@ void testChercherSiContient(int base, int nbValeurs, int nbTests);
 void testG(int base, int nbValeurs);
 
 /**
+ * Fonction utilisé pour tester la fonction f().
+ * @param nbValeurs nombres de valeurs à tester
+ */
+void testF(int nbValeurs);
+
+/**
  * Fonction permettant de tester la fonction random
  * @param exposant entier indiquant l'exposant jusq'au quel tester la fonction
  * @param base entier inqiuant la base avec laquel tester la fonction

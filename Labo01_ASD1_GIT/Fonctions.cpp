@@ -59,11 +59,10 @@ unsigned chercherSiContient(const vector<int>& v, int val) {
     return nbIterations;
 }
 
-unsigned long long f( unsigned n ) {
-
+unsigned long long f( unsigned n, unsigned& counter) {
     if( n == 0 ) return 1;
-
-    return f(n-1) + f(n-1) + f(n-1);
+    counter += 2;
+    return f(n-1, counter) + f(n-1, counter) + f(n-1, counter);
 }
 
 unsigned g(vector<int>& v) {

@@ -56,7 +56,7 @@ unsigned chercherSiContient(const std::vector<int>& v, int val);
  * @param n
  * @return
  */
-unsigned long long f( unsigned n );
+unsigned long long f( unsigned n, unsigned& counter );
 
 //TODO: Modifié
 /**

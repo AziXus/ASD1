@@ -35,6 +35,9 @@ int main() {
     
     testG(2, 8);
     cout << endl;
+
+    testF(6);
+    cout << endl;
     
     cout << "random()" << endl;
     //Test de la fonction random avec une valeur maximale de 1000 jusqu'à 2 puissance 10 de taille de vecteur

@@ -107,6 +107,15 @@ void testG(int base, int nbValeurs) {
     }
 }
 
+void testF(int nbValeurs) {
+    cout << "Fonction : f()\n";
+    for (int i = 1; i <= nbValeurs; ++i) {
+         unsigned counter = 0;
+        f(i, counter);
+        cout << "Iterations pour n = " << i << " : " << counter << endl;
+    }
+}
+
 void testRandom(int exposant, int base, int maxVal, int nb_test)
 {
     for(int i = 1; i <= exposant; i++)
@@ -139,7 +148,7 @@ void testRandom2(int nbTests, int multiple, int valeurMax){
       random2(x, valeurMax);
       high_resolution_clock::time_point t2 = high_resolution_clock::now();
       unsigned int temps = duration_cast<nanoseconds>( t2 - t1 ).count() / 1000; // en ns
-      cout << "Temps pour n = " << x << " : " << temps << endl;
+      cout << "Temps pour n = " << x << " : " << temps << "ns"<< endl;
       x *= multiple;
    }
 }
