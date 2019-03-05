@@ -63,9 +63,6 @@ vector<int> remplissageVecteur(size_t taille)
 }
 
 void testTrier(int base, int nbValeurs) {
-    cout << fixed << setprecision(2);
-
-    cout << "Fonction : trier()\n";
     for (int i = 1; i <= nbValeurs; ++i) {
         vector<int> v = remplissageVecteur((size_t)pow(base, i));
 
@@ -74,9 +71,6 @@ void testTrier(int base, int nbValeurs) {
 }
 
 void testChercherSiContient(int base, int nbValeurs, int nbTests) {
-    cout << fixed << setprecision(2);
-
-    cout << "Fonction : chercherSiContient()\n";
     for (int i = 1; i <= nbValeurs; ++i) {
         vector<int> v = remplissageVecteur((size_t)pow(base, i));
         sort(v.begin(), v.end());
@@ -97,9 +91,6 @@ void testChercherSiContient(int base, int nbValeurs, int nbTests) {
 }
 
 void testG(int base, int nbValeurs) {
-    cout << fixed << setprecision(2);
-
-    cout << "Fonction : g()\n";
     for (int i = 1; i <= nbValeurs; ++i) {
         vector<int> v = remplissageVecteur((size_t)pow(base, i));
 

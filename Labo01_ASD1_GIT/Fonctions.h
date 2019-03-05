@@ -25,45 +25,46 @@
  */
 std::size_t chercherPosition( const std::vector<int>& v , int val );
 
-//TODO: Modifié
 /**
  * 2. Trie un vector.
  *
  * Pour la complexité, on considère le nombre de comparaisons (>)
+ * La fonction a été modifiée afin de retourner le nombre de comparaisons.
  *
  * @param v vector à trier
+ * @return le nombre d'itérations (= au nombre de comparaisons)
  */
 unsigned trier(std::vector<int>& v);
 
-//TODO: Modifié
 /**
  * 3. Retourne true si la valeur est contenue dans le vector.
  *
  * Pour la complexité, on considère le nombre d'itérations.
  * v doit être trié en entrée !
  * Tester pour diverses valeurs de val, présentes ou non dans le vecteur.
+ * La fonction a été modifiée afin de retourner le nombre d'itérations.
  *
  * @param v vector trié dans lequel on cherche
  * @param val valeur à chercher
- * Retourne true si la valeur est contenue dans le vector, false sinon.
+ * @return le nombre d'itérations effectué par la fonction
  */
 unsigned chercherSiContient(const std::vector<int>& v, int val);
 
 
 /**
  * 4. Pour la complexité, on considère le nombre d'additions
- *
+ * La fonction a été modifiée en ajoutant un paramètre comptant le nombre d'additions (+=)
  * @param n
- * @param counter
+ * @param counter compte le nombre d'additions
  * @return
  */
 unsigned long long f( unsigned n, unsigned& counter );
 
-//TODO: Modifié
 /**
  * 5. Pour la complexité, on considère le nombre d'additions (+=)
- *
+ * La fonction a été modifiée afin de retourner le nombre d'additions (+=)
  * @param v
+ * @return le nombre d'additions (+=) effectué par la fonction
  */
 unsigned g(std::vector<int>& v);
 
