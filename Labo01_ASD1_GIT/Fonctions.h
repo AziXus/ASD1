@@ -54,6 +54,7 @@ unsigned chercherSiContient(const std::vector<int>& v, int val);
  * 4. Pour la complexité, on considère le nombre d'additions
  *
  * @param n
+ * @param counter
  * @return
  */
 unsigned long long f( unsigned n, unsigned& counter );
