@@ -107,14 +107,14 @@ void testF(int nbValeurs) {
     }
 }
 
-void testRandom(int exposant, int base, int maxVal, int nb_test)
+void testRandom(int exposant, int base, int maxVal, int nbTests)
 {
     for(int i = 1; i <= exposant; i++)
     {
         double temps = 0.;
         vector<int> v;
         unsigned tailleVecteur = (unsigned)(pow(base, i) + 0.5);
-        for(int j = 1; j <= nb_test; j++)
+        for(int j = 1; j <= nbTests; j++)
         {
             //prendre le moment du commencement de l'appel de la fonction
             high_resolution_clock::time_point t1 = high_resolution_clock::now();
@@ -127,19 +127,24 @@ void testRandom(int exposant, int base, int maxVal, int nb_test)
         }
         //Affichage de la moyenne du temps 
         //Pour cela, on prend le temps total de tout les tests divisé par le nombre de tests totaux
-        cout << "Temps d'execution pour nb Iteration = " << v.size() << " : " << temps/nb_test << " nanosecondes" << endl;
+        cout << "Temps d'execution pour nb Iteration = " << v.size() << " : " << temps/nbTests << " nanosecondes" << endl;
     }
 }
 
-void testRandom2(int nbTests, int multiple, int valeurMax){
-   unsigned long long x = 1;
-   for(size_t i = 1; i <= nbTests; i++)
+void testRandom2(int exposant, int base, int maxVal, int nbTests) {
+   for(size_t i = 1; i <= exposant; i++)
    {
-      high_resolution_clock::time_point t1 = high_resolution_clock::now();
-      random2(x, valeurMax);
-      high_resolution_clock::time_point t2 = high_resolution_clock::now();
-      unsigned int temps = duration_cast<nanoseconds>( t2 - t1 ).count() / 1000; // en microsecondes
-      cout << "Temps pour n = " << x << " : " << temps << " microsecondes"<< endl;
-      x *= multiple;
-   }
+      double temps = 0.;
+      vector<int> v;
+      unsigned tailleVecteur = (unsigned)(pow(base, i) + 0.5); //Arrondi avec +0.5
+       for (int j = 1; j <= nbTests; ++j) {
+
+           high_resolution_clock::time_point t1 = high_resolution_clock::now();
+           v = random2(tailleVecteur, maxVal);
+           high_resolution_clock::time_point t2 = high_resolution_clock::now();
+           temps += duration_cast<nanoseconds>( t2 - t1 ).count();
+       }
+
+       cout << "Temps d'execution pour nb Iteration = " << v.size() << " : " << temps/nbTests << " nanosecondes" << endl;
+    }
 }

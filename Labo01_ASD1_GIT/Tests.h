@@ -64,18 +64,19 @@ void testF(int nbValeurs);
 /**
  * Fonction permettant de tester la fonction random
  * @param exposant entier indiquant l'exposant jusq'au quel tester la fonction
- * @param base entier inqiuant la base avec laquel tester la fonction
+ * @param base entier indiquant la base avec laquel tester la fonction
  * @param maxVal entier indiquant la valeur maximale pouvant être ajouter au vecteur
- * @param nb_test nombre de test à effectuer par exposant
+ * @param nbTests nombre de test à effectuer par exposant
  */
-void testRandom(int exposant, int base, int maxVal, int nb_test);
+void testRandom(int exposant, int base, int maxVal, int nbTests);
 
 /**
- * Fonction utilisé pour tester la fonction random2(). Les valeurs sont multipliée par le multiplicateur * nbTestss
- * @param nbTests Nombre de tests a faire
- * @param multiple par combien multiplier chaque nombre de valeurs
- * @param valeurMax Valeur maximale à inserer dans le vecteur
+ * Fonction utilisé pour tester la fonction random2(). Les valeurs sont multipliée par le multiplicateur * nbTests
+ * @param exposant entier indiquant l'exposant jusq'au quel tester la fonction
+ * @param base entier indiquant la base avec laquel tester la fonction
+ * @param maxVal Valeur maximale à inserer dans le vecteur
+ * @param nbTests nombre de test à effectuer par exposant
  */
-void testRandom2(int nbTests, int multiple, int valeurMax);
+void testRandom2(int exposant, int base, int maxVal, int nbTests);
 
 #endif //TESTS_H
