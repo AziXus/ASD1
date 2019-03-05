@@ -28,15 +28,15 @@ void testChercherPos(int exposant, int base, int nb_test)
     //boucle parcourant jusqu'à l'exposant défini en paramètre
     for(int i = 1; i <= exposant; i++)
     {
-        //création d'un vecteur de taille
+        //création d'un vecteur de taille base puissance i
         vector<int> v = remplissageVecteur((unsigned)(pow(base, i) + 0.5));
         moyenne = 0;
         cout << "Iterations pour n = " << v.size() << " (" << base << "^" << i << ") : ";
-        //boucle permettant d'avoir une moyenne du nombre d'itéartions après un nombre de test(nb_test)
+        //boucle permettant d'avoir une moyenne du nombre d'itérations après un certain nombre de test(nb_test)
         for(int j = 1; j <= nb_test; j++)
         {
             size_t nbIteration = chercherPosition(v, rand()%v.size());
-            //test pour savoir si chercherPostion a trouvé une valeur ou non si ce n'est pas le cas nbIteration = -1
+            //test pour savoir si chercherPostion a trouvé une valeur ou non si ce n'est pas le cas nbIteration voudra -1
             if(nbIteration == (size_t)-1)
             {
                 //
@@ -114,19 +114,20 @@ void testRandom(int exposant, int base, int maxVal, int nb_test)
     {
         double temps = 0.;
         vector<int> v;
-        unsigned tailleVecteur = pow(base, i) + 0.5;
+        unsigned tailleVecteur = (unsigned)(pow(base, i) + 0.5);
         for(int j = 1; j <= nb_test; j++)
         {
-            //prendre le moment du commencement
+            //prendre le moment du commencement de l'appel de la fonction
             high_resolution_clock::time_point t1 = high_resolution_clock::now();
-            //Lancment de la focntion random
+            //Lancment de la fonction random
             v = random(tailleVecteur, maxVal);
             //prendre le moment d’arrivée
             high_resolution_clock::time_point t2 = high_resolution_clock::now();
             //calcul du temps, ici en nanosecondes
-            temps += duration_cast<nanoseconds>( t2 - t1 ).count();
+            temps += (double)duration_cast<nanoseconds>( t2 - t1 ).count();
         }
-        //moyenne de temps on prend le temps total de tout les tests divisé par le nombre de tests totals
+        //Affichage de la moyenne du temps 
+        //Pour cela, on prend le temps total de tout les tests divisé par le nombre de tests totaux
         cout << "Temps d'execution pour nb Iteration = " << v.size() << " : " << temps/nb_test << " nanosecondes" << endl;
     }
 }
