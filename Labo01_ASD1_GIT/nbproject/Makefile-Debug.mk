@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Test.o \
+	${OBJECTDIR}/Fonctions.o \
+	${OBJECTDIR}/Tests.o \
 	${OBJECTDIR}/main.o
 
 
@@ -63,10 +64,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/labo01_asd1_git.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/labo01_asd1_git ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/Test.o: Test.cpp
+${OBJECTDIR}/Fonctions.o: Fonctions.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Test.o Test.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fonctions.o Fonctions.cpp
+
+${OBJECTDIR}/Tests.o: Tests.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tests.o Tests.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

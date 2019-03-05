@@ -27,16 +27,7 @@ std::vector<int> remplissageVecteur(std::size_t taille);
  * @param base entier indiquant la base avec laquelle tester la fonction
  * @param nb_test nombre de test à effectuer par exposant
  */
-void chercherPos(int exposant, int base, int nb_test);
-
-/**
- * Fonction permettant de tester la fonction random
- * @param exposant entier indiquant l'exposant jusq'au quel tester la fonction
- * @param base entier inqiuant la base avec laquel tester la fonction
- * @param maxVal entier indiquant la valeur maximale pouvant être ajouter au vecteur
- * @param nb_test nombre de test à effectuer par exposant
- */
-void pushBack(int exposant, int base, int maxVal, int nb_test);
+void testChercherPos(int exposant, int base, int nb_test);
 
 /**
  * Fonction utilisé pour tester la fonction trier(). Les valeurs sont des puissances de base jusqu'à
@@ -63,6 +54,15 @@ void testChercherSiContient(int base, int nbValeurs, int nbTests);
  * @param nbValeurs puissance maximale
  */
 void testG(int base, int nbValeurs);
+
+/**
+ * Fonction permettant de tester la fonction random
+ * @param exposant entier indiquant l'exposant jusq'au quel tester la fonction
+ * @param base entier inqiuant la base avec laquel tester la fonction
+ * @param maxVal entier indiquant la valeur maximale pouvant être ajouter au vecteur
+ * @param nb_test nombre de test à effectuer par exposant
+ */
+void testRandom(int exposant, int base, int maxVal, int nb_test);
 
 /**
  * Fonction utilisé pour tester la fonction random2(). Les valeurs sont multipliée par le multiplicateur * nbTestss

@@ -91,7 +91,7 @@ void testRandom2(int nbTests, int multiple, int valeurMax){
    }
 }
 
-void chercherPos(int exposant, int base, int nb_test)
+void testChercherPos(int exposant, int base, int nb_test)
 {
     double moyenne;
     //boucle parcourant jusqu'à l'exposant défini en paramètre
@@ -120,7 +120,7 @@ void chercherPos(int exposant, int base, int nb_test)
         cout << "moyenne      : " << moyenne << endl;
     }
 }
-void pushBack(int exposant, int base, int maxVal, int nb_test)
+void testRandom(int exposant, int base, int maxVal, int nb_test)
 {
     for(int i = 1; i <= exposant; i++)
     {

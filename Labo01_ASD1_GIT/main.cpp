@@ -22,14 +22,14 @@ int main() {
     srand (time(NULL));
 
     cout << setprecision(2) << fixed;
-    //Test de la fonction chercherPos jusqu'à 2 puissance 7
     cout << "chercherPos()" << endl;
-    chercherPos(7, 2, NB_TESTS);
-
+    //Test de la fonction chercherPos jusqu'à 2 puissance 7
+    testChercherPos(7, 2, NB_TESTS);
     cout << endl;
+    
     cout << "random()" << endl;
-    //Test de la fonction push_Back avec une valeur maximale de 1000 jusqu'à 2 puissance 10 de taille de vecteur
-    pushBack(10, 2, 1000, NB_TESTS);
+    //Test de la fonction random avec une valeur maximale de 1000 jusqu'à 2 puissance 10 de taille de vecteur
+    testRandom(10, 2, 1000, NB_TESTS);
 
     testTrier(2, 8);
 
