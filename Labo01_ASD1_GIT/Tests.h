@@ -64,4 +64,12 @@ void testChercherSiContient(int base, int nbValeurs, int nbTests);
  */
 void testG(int base, int nbValeurs);
 
+/**
+ * Fonction utilisé pour tester la fonction random2(). Les valeurs sont multipliée par le multiplicateur * nbTestss
+ * @param nbTests Nombre de tests a faire
+ * @param multiple par combien multiplier chaque nombre de valeurs
+ * @param valeurMax Valeur maximale à inserer dans le vecteur
+ */
+void testRandom2(int nbTests, int multiple, int valeurMax);
+
 #endif //TESTS_H

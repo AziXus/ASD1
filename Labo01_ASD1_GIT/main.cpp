@@ -38,6 +38,9 @@ int main() {
 
     cout << endl;
     testG(2, 8);
+    cout << "random2()" << endl;
+    //Test random2 avec une incrementation de *2 16x
+    testRandom2(16, 2, 1000);
 
     return EXIT_SUCCESS;
 }

@@ -15,6 +15,7 @@
 #include <cmath>
 #include <algorithm>
 #include <chrono>
+#include <fstream>
 
 #include "Fonctions.h"
 
@@ -75,6 +76,19 @@ void testG(int base, int nbValeurs) {
 
         cout << "Iterations pour n = " << v.size() << " (" << base << "^" << i  << ") : " << g(v) << endl;
     }
+}
+
+void testRandom2(int nbTests, int multiple, int valeurMax){
+   unsigned long long x = 1;
+   for(size_t i = 1; i <= nbTests; i++)
+   {
+      high_resolution_clock::time_point t1 = high_resolution_clock::now();
+      random2(x, valeurMax);
+      high_resolution_clock::time_point t2 = high_resolution_clock::now();
+      unsigned int temps = duration_cast<nanoseconds>( t2 - t1 ).count() / 1000; // en ns
+      cout << "Temps pour n = " << x << " : " << temps << endl;
+      x *= multiple;
+   }
 }
 
 void chercherPos(int exposant, int base, int nb_test)
