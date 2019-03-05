@@ -53,7 +53,7 @@ int main() {
 
     //Test random2 avec une incrementation de *2 16x
     cout << "random2()" << endl;
-    testRandom(10, 2, 1000, NB_TESTS);
+    testRandom2(10, 2, 1000, NB_TESTS);
 
     return EXIT_SUCCESS;
 }
