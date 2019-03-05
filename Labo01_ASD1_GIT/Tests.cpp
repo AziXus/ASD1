@@ -9,6 +9,7 @@
 //
 
 #include "Tests.h"
+#include "Fonctions.h"
 
 #include <iostream>
 #include <iomanip>
@@ -16,8 +17,6 @@
 #include <algorithm>
 #include <chrono>
 #include <fstream>
-
-#include "Fonctions.h"
 
 using namespace std;
 using namespace chrono;
