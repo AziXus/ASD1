@@ -22,6 +22,36 @@
 using namespace std;
 using namespace chrono;
 
+void testChercherPos(int exposant, int base, int nb_test)
+{
+    double moyenne;
+    //boucle parcourant jusqu'à l'exposant défini en paramètre
+    for(int i = 1; i <= exposant; i++)
+    {
+        //création d'un vecteur de taille
+        vector<int> v = remplissageVecteur((unsigned)(pow(base, i) + 0.5));
+        moyenne = 0;
+        cout << "Taille vecteur : " << v.size() << " | " << base << " puissance "<< i << endl;
+        //boucle permettant d'avoir une moyenne du nombre d'itéartions après un nombre de test(nb_test)
+        for(int j = 1; j <= nb_test; j++)
+        {
+            size_t nbIteration = chercherPosition(v, rand()%v.size());
+            //test pour savoir si chercherPostion a trouvé une valeur ou non si ce n'est pas le cas nbIteration = -1
+            if(nbIteration == (size_t)-1)
+            {
+                //
+                moyenne += (double)v.size()/nb_test;
+            }
+            else
+            {
+                //nbIteration + 1 car chercherPosition commence à 0 et cela est déjà une iteration
+                moyenne += (double)(nbIteration+1)/(double)nb_test;
+            }
+        }
+        cout << "moyenne      : " << moyenne << endl;
+    }
+}
+
 vector<int> remplissageVecteur(size_t taille)
 {
     vector<int> v(taille);
@@ -78,48 +108,6 @@ void testG(int base, int nbValeurs) {
     }
 }
 
-void testRandom2(int nbTests, int multiple, int valeurMax){
-   unsigned long long x = 1;
-   for(size_t i = 1; i <= nbTests; i++)
-   {
-      high_resolution_clock::time_point t1 = high_resolution_clock::now();
-      random2(x, valeurMax);
-      high_resolution_clock::time_point t2 = high_resolution_clock::now();
-      unsigned int temps = duration_cast<nanoseconds>( t2 - t1 ).count() / 1000; // en ns
-      cout << "Temps pour n = " << x << " : " << temps << endl;
-      x *= multiple;
-   }
-}
-
-void testChercherPos(int exposant, int base, int nb_test)
-{
-    double moyenne;
-    //boucle parcourant jusqu'à l'exposant défini en paramètre
-    for(int i = 1; i <= exposant; i++)
-    {
-        //création d'un vecteur de taille
-        vector<int> v = remplissageVecteur((unsigned)(pow(base, i) + 0.5));
-        moyenne = 0;
-        cout << "Taille vecteur : " << v.size() << " | " << base << " puissance "<< i << endl;
-        //boucle permettant d'avoir une moyenne du nombre d'itéartions après un nombre de test(nb_test)
-        for(int j = 1; j <= nb_test; j++)
-        {
-            size_t nbIteration = chercherPosition(v, rand()%v.size());
-            //test pour savoir si chercherPostion a trouvé une valeur ou non si ce n'est pas le cas nbIteration = -1
-            if(nbIteration == (size_t)-1)
-            {
-                //
-                moyenne += (double)v.size()/nb_test;
-            }
-            else
-            {
-                //nbIteration + 1 car chercherPosition commence à 0 et cela est déjà une iteration
-                moyenne += (double)(nbIteration+1)/(double)nb_test;
-            }
-        }
-        cout << "moyenne      : " << moyenne << endl;
-    }
-}
 void testRandom(int exposant, int base, int maxVal, int nb_test)
 {
     for(int i = 1; i <= exposant; i++)
@@ -142,4 +130,17 @@ void testRandom(int exposant, int base, int maxVal, int nb_test)
         //moyenne de temps on prend le temps total de tout les tests divisé par le nombre de tests totals
         cout << "Temps execution : " << temps/nb_test << " nanosecondes" << endl;
     }
+}
+
+void testRandom2(int nbTests, int multiple, int valeurMax){
+   unsigned long long x = 1;
+   for(size_t i = 1; i <= nbTests; i++)
+   {
+      high_resolution_clock::time_point t1 = high_resolution_clock::now();
+      random2(x, valeurMax);
+      high_resolution_clock::time_point t2 = high_resolution_clock::now();
+      unsigned int temps = duration_cast<nanoseconds>( t2 - t1 ).count() / 1000; // en ns
+      cout << "Temps pour n = " << x << " : " << temps << endl;
+      x *= multiple;
+   }
 }
