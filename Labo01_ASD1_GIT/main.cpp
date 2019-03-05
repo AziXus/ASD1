@@ -34,10 +34,12 @@ int main() {
     cout << endl;
     
     testG(2, 8);
+    cout << endl;
     
     cout << "random()" << endl;
     //Test de la fonction random avec une valeur maximale de 1000 jusqu'à 2 puissance 10 de taille de vecteur
     testRandom(10, 2, 1000, NB_TESTS);
+    cout << endl;
     
     cout << "random2()" << endl;
     //Test random2 avec une incrementation de *2 16x
