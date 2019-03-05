@@ -31,7 +31,7 @@ void testChercherPos(int exposant, int base, int nb_test)
         //création d'un vecteur de taille
         vector<int> v = remplissageVecteur((unsigned)(pow(base, i) + 0.5));
         moyenne = 0;
-        cout << "Taille vecteur : " << v.size() << " | " << base << " puissance "<< i << endl;
+        cout << "Iterations pour n = " << v.size() << " (" << base << "^" << i << ") : ";
         //boucle permettant d'avoir une moyenne du nombre d'itéartions après un nombre de test(nb_test)
         for(int j = 1; j <= nb_test; j++)
         {
@@ -48,7 +48,7 @@ void testChercherPos(int exposant, int base, int nb_test)
                 moyenne += (double)(nbIteration+1)/(double)nb_test;
             }
         }
-        cout << "moyenne      : " << moyenne << endl;
+        cout << moyenne << endl;
     }
 }
 
@@ -126,9 +126,8 @@ void testRandom(int exposant, int base, int maxVal, int nb_test)
             //calcul du temps, ici en nanosecondes
             temps += duration_cast<nanoseconds>( t2 - t1 ).count();
         }
-        cout << "Taille vecteur : " << v.size() << " | nb Iteration : " << v.size() << endl;
         //moyenne de temps on prend le temps total de tout les tests divisé par le nombre de tests totals
-        cout << "Temps execution : " << temps/nb_test << " nanosecondes" << endl;
+        cout << "Temps d'execution pour nb Iteration = " << v.size() << " : " << temps/nb_test << " nanosecondes" << endl;
     }
 }
 

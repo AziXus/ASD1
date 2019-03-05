@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    const int NB_TESTS = 1000;
+    const int NB_TESTS = 100000;
 
     //initialisation du générateur aléatoire
     srand (time(NULL));
