@@ -45,11 +45,12 @@ void afficherPieces(Pieces pieces){
    cout << endl;
 }
 
-poserPiece(Pieces& used, Pieces& disponibles){
+void poserPiece(Pieces& used, Pieces& disponibles){
    //On fake qu'on a pas trouvé mais on print quand meme l'ordre
    //Comme ca il calcul les autres solutions
    if(disponibles.size() == 0){
       afficherPieces(used);
+      return;
    }
    for(auto i = disponibles.begin(); i != disponibles.end(); i++)
    {
