@@ -45,13 +45,11 @@ void afficherPieces(Pieces pieces){
    cout << endl;
 }
 
-
-bool poserPiece(Pieces& used, Pieces& disponibles){
+poserPiece(Pieces& used, Pieces& disponibles){
    //On fake qu'on a pas trouvé mais on print quand meme l'ordre
    //Comme ca il calcul les autres solutions
    if(disponibles.size() == 0){
       afficherPieces(used);
-      return false;
    }
    for(auto i = disponibles.begin(); i != disponibles.end(); i++)
    {
@@ -61,21 +59,10 @@ bool poserPiece(Pieces& used, Pieces& disponibles){
          (used.size() < 3 && estCompatible(used.back(), SIDES::DROITE, *i, SIDES::GAUCHE) || 
          (used.size() >= 3 && used.size() % 3 == 0 && estCompatible(used.at(used.size()-3), SIDES::BAS, *i, SIDES::HAUT)) ||
          (used.size() >= 3 && used.size() % 3 != 0 && estCompatible(used.at(used.size()-3), SIDES::BAS, *i, SIDES::HAUT) && estCompatible(used.back(), SIDES::DROITE, *i, SIDES::GAUCHE)))){
-
             used.push_back(*i);
             disponibles.erase(i);
             //On pose la piece suivante
-            if(poserPiece(used, disponibles)){
-               if(used.size() == 0){
-                  afficherPiece(used.front());
-                  cout << endl;
-               }
-               else{
-                  afficherPiece(used.front());
-                  used.erase(used.begin());
-               return true;
-               }  
-            }
+            poserPiece(used, disponibles);
             //Ca marche pas on remet comme avant
             disponibles.insert(i, used.back());
             used.pop_back();
@@ -84,8 +71,6 @@ bool poserPiece(Pieces& used, Pieces& disponibles){
          rotate(i->begin(), i->begin() + 1, i->end()); 
       }
    }
-   //On a pas de suite
-   return false;
 }
 
 int main(){
