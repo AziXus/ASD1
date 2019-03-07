@@ -6,7 +6,7 @@
 using namespace std;
 
 //Enum des cotes d'une piece
-enum SIDES {HAUT, DROITE, BAS, GAUCHE};
+enum COTES {HAUT, DROIT, BAS, GAUCHE};
 
 const unsigned short MAX_ROTATIONS = 3;   // Nombre de rotations max d'une pièce
 const unsigned short MAX_PAIR = 7;        // Id de AttachementType qui fait encore partit d'une paire
@@ -15,7 +15,7 @@ const unsigned short PAIR_OFFSET = 1;     // Offset de chaque paire dans Attache
 
 /**
  * @brief Verifie si deux pièces sont compatible
- * 
+ *
  * @param lhs première pièce
  * @param lSide côté a comparer de la première pièce
  * @param rhs deuxième pièce
@@ -23,7 +23,7 @@ const unsigned short PAIR_OFFSET = 1;     // Offset de chaque paire dans Attache
  * @return true si les pièces sont compatibles
  * @return false si les pièces ne sont pas compatibles
  */
-bool verifierPieces(const Piece& lhs, SIDES lSide, const Piece& rhs, SIDES rSide){
+bool verifierPieces(const Piece& lhs, COTES lSide, const Piece& rhs, COTES rSide){
    //Si le coté n'a pas de paire
    if(rhs[rSide] > MAX_PAIR)
       return false;
@@ -37,7 +37,7 @@ bool verifierPieces(const Piece& lhs, SIDES lSide, const Piece& rhs, SIDES rSide
 /**
  * @brief Affiche l'id et l'orientation d'une pièce
  *        A partir de la variable globale PIECES
- * 
+ *
  * @param piece pièce à afficher
  */
 void afficherPiece(Piece& piece){
@@ -56,10 +56,10 @@ void afficherPiece(Piece& piece){
 
 /**
  * @brief Affiche un vecteur de Piece (Pieces)
- * 
+ *
  * @param pieces vecteur de Piece
  */
-void afficherPieces(Pieces& pieces){ 
+void afficherPieces(Pieces& pieces){
    for(auto i = pieces.begin(); i != pieces.end(); i++)
       afficherPiece(*i);
    cout << endl;
@@ -67,22 +67,36 @@ void afficherPieces(Pieces& pieces){
 
 /**
  * @brief Verifie si une pièce peut être posée
- * 
+ *
  * @param used Pièces utilisées
  * @param piece Piece à poser
  * @return true Si la pièce peut être posée
  * @return false Si la pièce ne peut pas être posée
  */
 bool estCompatible(Pieces& used, Piece& piece){
-   return used.size() == 0 || 
-         (used.size() < 3 && verifierPieces(used.back(), SIDES::DROITE, piece, SIDES::GAUCHE)) || 
-         (used.size() >= 3 && used.size() % 3 == 0 && verifierPieces(used.at(used.size()-3), SIDES::BAS, piece, SIDES::HAUT)) ||
-         (used.size() >= 3 && used.size() % 3 != 0 && verifierPieces(used.at(used.size()-3), SIDES::BAS, piece, SIDES::HAUT) && verifierPieces(used.back(), SIDES::DROITE, piece, SIDES::GAUCHE));
+   /*return used.size() == 0 ||
+         (used.size() < 3 && verifierPieces(used.back(), COTES::DROITE, piece, COTES::GAUCHE)) ||
+         (used.size() >= 3 && used.size() % 3 == 0 && verifierPieces(used.at(used.size()-3), COTES::BAS, piece, COTES::HAUT)) ||
+         (used.size() >= 3 && used.size() % 3 != 0 && verifierPieces(used.at(used.size()-3), COTES::BAS, piece, COTES::HAUT) && verifierPieces(used.back(), COTES::DROITE, piece, COTES::GAUCHE));*/
+    bool compatibleGauche = true,
+            compatibleHaut   = true;
+
+    //Si la pièce n'est pas sur la première colonne, on vérifie que la pièce de gauche est compatible
+    if (used.size() % 3 != 0) {
+        compatibleGauche = verifierPieces(used.back(), COTES::DROIT, piece, COTES::GAUCHE);
+    }
+
+    //On vérifie que la pièce soit compatible avec le pièce du dessus.
+    if (used.size() >= 3) {
+        compatibleHaut = verifierPieces(used.at(used.size() - 3), COTES::BAS, piece, COTES::HAUT);
+    }
+
+    return compatibleGauche and compatibleHaut;
 }
 
 void poserPiece(Pieces& used, Pieces& disponibles){
-   /*Si la dernière Piece à été posée, afficher les pièces utilisées 
-   et return pour tester les autres solutions*/
+   //Si la dernière Piece à été posée, afficher les pièces utilisées
+   //et return pour tester les autres solutions
    if(disponibles.size() == 0){
       afficherPieces(used);
       return;
@@ -108,7 +122,8 @@ void poserPiece(Pieces& used, Pieces& disponibles){
 int main(){
    Pieces base = PIECES;
    Pieces used;
-   cout << "*** SOLUTIONS ***" << endl;
+   cout << "******** SOLUTIONS *******" << endl;
    poserPiece(used, base);
-   return 0;
+
+   return EXIT_SUCCESS;
 }
