@@ -93,8 +93,9 @@ bool estCompatible(Pieces& used, Piece& piece){
 
     return compatibleGauche and compatibleHaut;
 }
-
+int ntm = 0;
 void poserPiece(Pieces& used, Pieces& disponibles){
+    ntm++;
    //Si la dernière Piece à été posée, afficher les pièces utilisées
    //et return pour tester les autres solutions
    if(disponibles.size() == 0){
@@ -124,6 +125,6 @@ int main(){
    Pieces used;
    cout << "******** SOLUTIONS *******" << endl;
    poserPiece(used, base);
-
+   cout << ntm;
    return EXIT_SUCCESS;
 }
