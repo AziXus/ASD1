@@ -27,15 +27,15 @@ bool verifierPieces(const Piece& lhs, COTES lSide, const Piece& rhs, COTES rSide
    //Si le coté n'a pas de paire
    if(rhs[rSide] > MAX_PAIR)
       return false;
-   //Si c'est la partie gauche de la paire
+   //Si la partie gauche à une paire
    if (lhs[lSide] % 2 == 0)
      return lhs[lSide] + PAIR_OFFSET == rhs[rSide];
-   //La droite
+   //Sinon il ne reste plus que la dorite à verifier
    return lhs[lSide] - PAIR_OFFSET == rhs[rSide];
 }
 
 /**
- * @brief Affiche l'id et l'orientation d'une pièce
+ * @brief Affiche l'id et l'orientation d'une pièce desirée
  *        A partir de la variable globale PIECES
  *
  * @param piece pièce à afficher
@@ -93,9 +93,7 @@ bool estCompatible(Pieces& used, Piece& piece){
 
     return compatibleGauche and compatibleHaut;
 }
-int ntm = 0;
 void poserPiece(Pieces& used, Pieces& disponibles){
-    ntm++;
    //Si la dernière Piece à été posée, afficher les pièces utilisées
    //et return pour tester les autres solutions
    if(disponibles.size() == 0){
