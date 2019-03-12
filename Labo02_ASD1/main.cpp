@@ -94,8 +94,8 @@ bool estCompatible(Pieces& used, Piece& piece){
     return compatibleGauche and compatibleHaut;
 }
 /**
- * 
- * @param used
+ * Fonction récursive permettant de poser les pièces pour obtenir les solutions du jeu
+ * @param used 
  * @param disponibles
  */
 void poserPiece(Pieces& used, Pieces& disponibles){
