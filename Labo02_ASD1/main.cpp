@@ -35,6 +35,15 @@ bool verifierPieces(const Piece& lhs, COTES lSide, const Piece& rhs, COTES rSide
 }
 
 /**
+ * @brief Effectue une rotation vers la gauche des attachments de la pièce
+ * @param piece piece en référence à tourner
+ */
+void tournerPiece(Piece& piece) {
+    //On shift a gauche pour simuler une rotation de la pièce (comme le site)
+    rotate(piece.begin(), piece.begin() + 1, piece.end());
+}
+
+/**
  * @brief Affiche l'id et l'orientation d'une pièce desirée
  *        A partir de la variable globale PIECES
  *
@@ -49,7 +58,7 @@ void afficherPiece(Piece& piece){
             cout << (char) ((int) 'a' + j) << " ";
             return;
          }
-         rotate(i->begin(), i->begin() + 1, i->end());
+         tournerPiece(*i);
       }
    }
 }
@@ -60,8 +69,8 @@ void afficherPiece(Piece& piece){
  * @param pieces vecteur de Piece
  */
 void afficherPieces(Pieces& pieces){
-   for(auto i = pieces.begin(); i != pieces.end(); i++)
-      afficherPiece(*i);
+   for (Piece p: pieces)
+      afficherPiece(p);
    cout << endl;
 }
 
@@ -79,7 +88,7 @@ bool estCompatible(Pieces& used, Piece& piece){
          (used.size() >= 3 && used.size() % 3 == 0 && verifierPieces(used.at(used.size()-3), COTES::BAS, piece, COTES::HAUT)) ||
          (used.size() >= 3 && used.size() % 3 != 0 && verifierPieces(used.at(used.size()-3), COTES::BAS, piece, COTES::HAUT) && verifierPieces(used.back(), COTES::DROITE, piece, COTES::GAUCHE));*/
     bool compatibleGauche = true,
-            compatibleHaut   = true;
+         compatibleHaut   = true;
 
     //Si la pièce n'est pas sur la première colonne, on vérifie que la pièce de gauche est compatible
     if (used.size() % 3 != 0) {
@@ -101,7 +110,7 @@ bool estCompatible(Pieces& used, Piece& piece){
 void poserPiece(Pieces& used, Pieces& disponibles){
    //Si la dernière Piece à été posée, afficher les pièces utilisées
    //et return pour tester les autres solutions
-   if(disponibles.size() == 0){
+   if(disponibles.empty()){
       afficherPieces(used);
       return;
    }
@@ -117,8 +126,8 @@ void poserPiece(Pieces& used, Pieces& disponibles){
             disponibles.insert(i, used.back());
             used.pop_back();
          }
-         //On shift a gauche pour simuler une rotation de la pièce (comme le site)
-         rotate(i->begin(), i->begin() + 1, i->end()); 
+
+         tournerPiece(*i);
       }
    }
 }
