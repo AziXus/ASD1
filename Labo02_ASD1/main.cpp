@@ -8,30 +8,30 @@ using namespace std;
 //Enum des côtés d'une pièce
 enum COTES {HAUT, DROIT, BAS, GAUCHE};
 
-const unsigned short MAX_ROTATIONS = 3;   // Nombre de rotations max d'une pièce
-const unsigned short PAIR_OFFSET = 1;     // Offset de chaque paire dans AttachementType
+const unsigned short MAX_ROTATIONS = 3; // Nombre de rotations max d'une pièce
+const unsigned short PAIR_OFFSET = 1;   // Offset de chaque paire dans AttachementType
 
 
 /**
  * @brief Verifie si deux pièces sont compatible
  *
  * @param lhs première pièce
- * @param lSide côté a comparer de la première pièce
+ * @param lCote côté a comparer de la première pièce
  * @param rhs deuxième pièce
- * @param rSide côté a comparer de la deuxième pièce
+ * @param rCote côté a comparer de la deuxième pièce
  * @return true si les pièces sont compatibles
  * @return false si les pièces ne sont pas compatibles
  */
-bool verifierPieces(const Piece& lhs, COTES lSide, const Piece& rhs, COTES rSide){
-   //Si la partie gauche à une paire
-   if (lhs[lSide] % 2 == 0)
-     return lhs[lSide] + PAIR_OFFSET == rhs[rSide];
-   //Sinon il ne reste plus que la dorite à verifier
-   return lhs[lSide] - PAIR_OFFSET == rhs[rSide];
+bool verifierPieces(const Piece& lhs, COTES lCote, const Piece& rhs, COTES rCote){
+   //Si la piece gauche à une paire
+   if (lhs[lCote] % 2 == 0)
+     return lhs[lCote] + PAIR_OFFSET == rhs[rCote];
+   //Sinon il ne reste plus que la droite à verifier
+   return lhs[lCote] - PAIR_OFFSET == rhs[rCote];
 }
 
 /**
- * @brief Effectue une rotation vers la gauche des attachments de la pièce
+ * @brief Effectue une rotation vers la gauche de la pièce
  * @param piece piece en référence à tourner
  */
 void tournerPiece(Piece& piece) {
@@ -74,7 +74,7 @@ void afficherPieces(Pieces& pieces){
  * @brief Verifie si une pièce peut être posée
  *
  * @param used Pièces utilisées
- * @param piece Piece à poser
+ * @param piece Piece rstante à poser
  * @return true Si la pièce peut être posée
  * @return false Si la pièce ne peut pas être posée
  */
@@ -95,8 +95,8 @@ bool estCompatible(Pieces& used, Piece& piece){
 }
 /**
  * Fonction récursive permettant de poser les pièces pour obtenir les solutions du jeu
- * @param used 
- * @param disponibles
+ * @param used pieces utilisées
+ * @param disponibles pièces diponibles à poser
  */
 void poserPiece(Pieces& used, Pieces& disponibles){
    //Si la dernière Piece à été posée, afficher les pièces utilisées
@@ -113,10 +113,11 @@ void poserPiece(Pieces& used, Pieces& disponibles){
             used.push_back(*i);
             disponibles.erase(i);
             poserPiece(used, disponibles);
-            //Ca marche pas on remet comme avant
+            //Si ça ne marche pas on remet comme avant
             disponibles.insert(i, used.back());
             used.pop_back();
          }
+         //on tourne la pièce pour voir si elle est compatible après une rotation
          tournerPiece(*i);
       }
    }
