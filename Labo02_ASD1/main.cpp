@@ -21,7 +21,6 @@ enum COTES {HAUT, DROIT, BAS, GAUCHE};
 const unsigned short MAX_ROTATIONS = 3; // Nombre de rotations max d'une pièce
 const unsigned short PAIR_OFFSET = 1;   // Offset de chaque paire dans AttachementType
 
-
 /**
  * @brief Verifie si deux pièces sont compatible
  *
@@ -92,6 +91,11 @@ bool estCompatible(Pieces& used, Piece& piece){
     bool compatibleGauche = true,
          compatibleHaut   = true;
 
+    //Si on a un arrosoir inverse qui est en bas et qu'on est sur la ligne 1 ou la ligne 2, on aura une incompatibilté plus tard
+    //On déclare la pièce invalide afin de réduire le nombre d'appels de la recursive (300 appels en moins)
+    if (piece[COTES::BAS] == ARROSOIR_INVERSE && used.size() <= 5)
+        return false;
+
     //Si la pièce n'est pas sur la première colonne, on vérifie que la pièce de gauche est compatible
     if (used.size() % 3 != 0) {
         compatibleGauche = verifierPieces(used.back(), COTES::DROIT, piece, COTES::GAUCHE);
@@ -115,7 +119,7 @@ void poserPiece(Pieces& used, Pieces& disponibles){
       afficherPieces(used);
       return;
    }
-   //On teste chaque pièces disponibles
+   //On test chaque pièces disponibles
    for(auto i = disponibles.begin(); i != disponibles.end(); i++) {
       //On tourne chaque pièces
       for(size_t j = 0; j <= MAX_ROTATIONS; j++) {
@@ -136,7 +140,9 @@ void poserPiece(Pieces& used, Pieces& disponibles){
 int main(){
    Pieces base = PIECES;
    Pieces used;
+
    cout << "******** SOLUTIONS *******" << endl;
    poserPiece(used, base);
+
    return EXIT_SUCCESS;
 }
