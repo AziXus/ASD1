@@ -5,7 +5,7 @@
  Labo 2 :Mettre en place un algorithme récursif permettant de trouver toutes les solutions
          du "Puzzle impossible" (https://ocuisenaire.github.io/ASD1-Labs/puzzle/).
          Les fichiers pieces.cpp et pieces.h sont requis.
-         Les solutions sont affichèes dès qu'elles sont trouvées.
+         Les solutions sont affichées dès qu'elles sont trouvées.
          Une rotation complète de tout le puzzle est considéré comme une solution différente.
  */
 
