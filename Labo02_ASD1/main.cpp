@@ -1,19 +1,12 @@
-/*
- -----------------------------------------------------------------------------------
- Laboratoire : 2 - Puzzle impossible
- Fichier     : main.cpp
- Auteur(s)   : Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
- Date        : 19.03.2019
-
- But         : Mettre en place un algorithme récursif permettant de trouver toutes les solutions
-               du "Puzzle impossible" (https://ocuisenaire.github.io/ASD1-Labs/puzzle/).
-
- Remarque(s) : Les fichiers pieces.cpp et pieces.h sont requis.
-               Les solutions sont affichèes dès qu'elles sont trouvées.
-               Une rotation complète de tout le puzzle est considéré comme une solution différente.
-
- Compilateur : MinGW-g++ 6.3.0
- -----------------------------------------------------------------------------------
+/**
+ \file main.cpp
+ \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
+ \date 19 Mars 2019
+ Labo 2 :Mettre en place un algorithme récursif permettant de trouver toutes les solutions
+         du "Puzzle impossible" (https://ocuisenaire.github.io/ASD1-Labs/puzzle/).
+         Les fichiers pieces.cpp et pieces.h sont requis.
+         Les solutions sont affichèes dès qu'elles sont trouvées.
+         Une rotation complète de tout le puzzle est considéré comme une solution différente.
  */
 
 #include <iostream>
