@@ -31,10 +31,11 @@ const unsigned short PAIR_OFFSET = 1;   // Offset de chaque paire d'attachment d
  * @return true si les pièces sont compatibles, false sinon
  */
 bool verifierPieces(const Piece& lhs, COTES lCote, const Piece& rhs, COTES rCote){
-   //Si la piece gauche à une paire
+   //Si l'attachment est pair, on ajoute l'offset et on regarde si l'attachement est le même que
+   //la pièce de droite (FILLE_HAUT = 0, FILLE_BAS = 1 et donc FILLE_HAUT + 1 est égal FILLE_BAS)
    if (lhs[lCote] % 2 == 0)
      return lhs[lCote] + PAIR_OFFSET == rhs[rCote];
-   //Sinon il ne reste plus que la droite à verifier
+   //Si l'attachment est impair, on soustrait l'offset
    return lhs[lCote] - PAIR_OFFSET == rhs[rCote];
 }
 
