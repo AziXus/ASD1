@@ -5,7 +5,7 @@
 //  Created by Olivier Cuisenaire on 16.12.16.
 //  Copyright © 2016 Olivier Cuisenaire. All rights reserved.
 //
-//	Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
+//  Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
 //
 
 #include <iostream>
