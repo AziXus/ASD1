@@ -18,7 +18,7 @@ using namespace std;
 //Enum des côtés d'une pièce
 enum COTES {HAUT, DROIT, BAS, GAUCHE};
 
-const unsigned short MAX_ROTATIONS = 3; // Nombre de rotations max d'une pièce
+const unsigned short MAX_ROTATIONS = 3; // Nombre de rotations maximum d'une pièce
 const unsigned short PAIR_OFFSET = 1;   // Offset de chaque paire dans AttachementType
 
 /**
@@ -28,8 +28,7 @@ const unsigned short PAIR_OFFSET = 1;   // Offset de chaque paire dans Attacheme
  * @param lCote côté a comparer de la première pièce
  * @param rhs deuxième pièce
  * @param rCote côté a comparer de la deuxième pièce
- * @return true si les pièces sont compatibles
- * @return false si les pièces ne sont pas compatibles
+ * @return true si les pièces sont compatibles, false sinon
  */
 bool verifierPieces(const Piece& lhs, COTES lCote, const Piece& rhs, COTES rCote){
    //Si la piece gauche à une paire
@@ -44,7 +43,7 @@ bool verifierPieces(const Piece& lhs, COTES lCote, const Piece& rhs, COTES rCote
  * @param piece piece en référence à tourner
  */
 void tournerPiece(Piece& piece) {
-    //On shift a gauche pour simuler une rotation de la pièce (comme le site)
+    //On shift a gauche pour simuler une rotation de la pièce (comme sur le site)
     rotate(piece.begin(), piece.begin() + 1, piece.end());
 }
 
@@ -58,7 +57,9 @@ void afficherPiece(Piece& piece){
    Pieces def = PIECES;
    for(auto i = def.begin(); i != def.end(); i++) {
       for(size_t j = 0; j <= MAX_ROTATIONS; j++) {
+         //on fait tourner la pièce jusqu'à retrouver son orientation de base dans PIECES
          if(piece == *i) {
+            //distance + 1 car le vecteur def commence à 0
             cout << distance(def.begin(), i)+1;
             cout << (char) ((int) 'a' + j) << " ";
             return;
@@ -71,7 +72,7 @@ void afficherPiece(Piece& piece){
 /**
  * @brief Affiche un vecteur de Piece (Pieces)
  *
- * @param pieces vecteur de Piece
+ * @param pieces vecteur en référence de Piece
  */
 void afficherPieces(Pieces& pieces){
    for (Piece p: pieces)
@@ -80,12 +81,11 @@ void afficherPieces(Pieces& pieces){
 }
 
 /**
- * @brief Verifie si une pièce peut être posée
+ * @brief Verifie si une pièce est compatible et peut donc être posée
  *
  * @param used Pièces utilisées
- * @param piece Piece rstante à poser
- * @return true Si la pièce peut être posée
- * @return false Si la pièce ne peut pas être posée
+ * @param piece Piece restante à poser
+ * @return true Si la pièce peut être posée, false sinon
  */
 bool estCompatible(Pieces& used, Piece& piece){
     bool compatibleGauche = true,
@@ -107,6 +107,7 @@ bool estCompatible(Pieces& used, Piece& piece){
     }
     return compatibleGauche && compatibleHaut;
 }
+
 /**
  * Fonction récursive permettant de poser les pièces pour obtenir les solutions du jeu
  * @param used pieces utilisées
@@ -114,7 +115,7 @@ bool estCompatible(Pieces& used, Piece& piece){
  */
 void poserPiece(Pieces& used, Pieces& disponibles){
    //Si la dernière Piece à été posée, afficher les pièces utilisées
-   //et return pour tester les autres solutions
+   //et return pour continuer à tester les autres solutions
    if(disponibles.empty()){
       afficherPieces(used);
       return;
