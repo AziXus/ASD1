@@ -1,12 +1,3 @@
-//
-//  main.cpp
-//  Labos ASD1 2018
-//
-//  Created by Olivier Cuisenaire on 16.12.16.
-//  Copyright © 2016 Olivier Cuisenaire. All rights reserved.
-//
-//  Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
-//
 /*
  -----------------------------------------------------------------------------------
  Laboratoire : 2 - Puzzle impossible
