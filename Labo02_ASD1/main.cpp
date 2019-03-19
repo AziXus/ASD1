@@ -18,8 +18,8 @@ using namespace std;
 //Enum des côtés d'une pièce
 enum COTES {HAUT, DROIT, BAS, GAUCHE};
 
-const unsigned short MAX_ROTATIONS = 3; // Nombre de rotations maximum d'une pièce
-const unsigned short PAIR_OFFSET = 1;   // Offset de chaque paire dans AttachementType
+const unsigned short MAX_ROTATIONS = 3; // Nombre de rotations max d'une pièce
+const unsigned short PAIR_OFFSET = 1;   // Offset de chaque paire d'attachment dans AttachementType
 
 /**
  * @brief Verifie si deux pièces sont compatible
@@ -31,10 +31,11 @@ const unsigned short PAIR_OFFSET = 1;   // Offset de chaque paire dans Attacheme
  * @return true si les pièces sont compatibles, false sinon
  */
 bool verifierPieces(const Piece& lhs, COTES lCote, const Piece& rhs, COTES rCote){
-   //Si la piece gauche à une paire
+   //Si l'attachment est pair, on ajoute l'offset et on regarde si l'attachement est le même que
+   //la pièce de droite (FILLE_HAUT = 0, FILLE_BAS = 1 et donc FILLE_HAUT + 1 est égal FILLE_BAS)
    if (lhs[lCote] % 2 == 0)
      return lhs[lCote] + PAIR_OFFSET == rhs[rCote];
-   //Sinon il ne reste plus que la droite à verifier
+   //Si l'attachment est impair, on soustrait l'offset
    return lhs[lCote] - PAIR_OFFSET == rhs[rCote];
 }
 
@@ -43,7 +44,7 @@ bool verifierPieces(const Piece& lhs, COTES lCote, const Piece& rhs, COTES rCote
  * @param piece piece en référence à tourner
  */
 void tournerPiece(Piece& piece) {
-    //On shift a gauche pour simuler une rotation de la pièce (comme sur le site)
+    //On shift a gauche pour simuler une rotation de la pièce
     rotate(piece.begin(), piece.begin() + 1, piece.end());
 }
 
@@ -109,13 +110,13 @@ bool estCompatible(Pieces& used, Piece& piece){
 }
 
 /**
- * Fonction récursive permettant de poser les pièces pour obtenir les solutions du jeu
+ * @brief Fonction récursive permettant de poser les pièces pour obtenir les solutions du jeu
  * @param used pieces utilisées
  * @param disponibles pièces diponibles à poser
  */
 void poserPiece(Pieces& used, Pieces& disponibles){
    //Si la dernière Piece à été posée, afficher les pièces utilisées
-   //et return pour continuer à tester les autres solutions
+   //et return pour arrêter la recursion et tester les autres solutions
    if(disponibles.empty()){
       afficherPieces(used);
       return;
@@ -124,7 +125,7 @@ void poserPiece(Pieces& used, Pieces& disponibles){
    for(auto i = disponibles.begin(); i != disponibles.end(); i++) {
       //On tourne chaque pièces
       for(size_t j = 0; j <= MAX_ROTATIONS; j++) {
-         if(estCompatible(used, *i)){
+         if(estCompatible(used, *i)) {
             used.push_back(*i);
             disponibles.erase(i);
             poserPiece(used, disponibles);
