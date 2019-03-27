@@ -6,11 +6,53 @@
 #define CountingSort_h
 
 #include <vector>
-#include <ostream>
+#include <iostream>
 #include <algorithm>
 #include <type_traits>
 
+using namespace std;
+
 namespace asd1 {
+    
+    template < typename RandomAccessIterator >
+    void display( const RandomAccessIterator begin,
+                 const RandomAccessIterator it1,
+                 const RandomAccessIterator it2,
+                 const RandomAccessIterator end )
+    {
+        for(auto it = begin; it<it1; ++it) cout << " " << *it << " ";
+        if(it1<end) cout << "[" << *it1 << "]";
+        for(auto it = it1+1; it<it2; ++it) cout << " " << *it << " ";
+        if(it2<end && it1!=it2) cout << "[" << *it2 << "]";
+        for(auto it = it2+1; it<end; ++it) cout << " " << *it << " ";
+        cout << endl;
+    }
+    
+    // selectionSort
+    //
+    // Effectue le tri par sélection des éléments entre begin
+    // et end (non inclus). Doit appeler display() après chaque
+    // échange.
+    //
+    // A COMPLETER
+    template < typename RandomAccessIterator >
+    void selectionSort( RandomAccessIterator begin,
+                       RandomAccessIterator end )
+    {
+        for(auto i = begin; i < end - 1; i++)
+        {
+           RandomAccessIterator imin = i;
+           for(auto j = i + 1; j < end; j++)
+           {
+              if(*j < *imin)
+              {
+                 imin = j;
+              }
+           }
+           swap(*i, *imin);
+           display(begin,i,imin,end);
+        }
+    }
 
     /**
      Tri comptage générique
