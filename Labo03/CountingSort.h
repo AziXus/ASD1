@@ -50,7 +50,7 @@ namespace asd1 {
               }
            }
            swap(*i, *imin);
-           display(begin,i,imin,end);
+           //display(begin,i,imin,end);
         }
     }
 
