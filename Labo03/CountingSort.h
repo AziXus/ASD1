@@ -1,3 +1,4 @@
+/*
 //
 //  CountingSort.h
 //
@@ -13,7 +14,7 @@
 using namespace std;
 
 namespace asd1 {
-    
+
     template < typename RandomAccessIterator >
     void display( const RandomAccessIterator begin,
                  const RandomAccessIterator it1,
@@ -27,7 +28,7 @@ namespace asd1 {
         for(auto it = it2+1; it<end; ++it) cout << " " << *it << " ";
         cout << endl;
     }
-    
+
     // selectionSort
     //
     // Effectue le tri par sélection des éléments entre begin
@@ -54,7 +55,8 @@ namespace asd1 {
         }
     }
 
-    /**
+    */
+/**
      Tri comptage générique
 
      https://en.wikipedia.org/wiki/Counting_sort
@@ -68,7 +70,8 @@ namespace asd1 {
      @param max_key valeur maximale pouvant être retournée par key(...). Si -1,
                     la fonction calcule cette valeur en parcourant le tableau une
                     fois de plus
-     */
+     *//*
+
     template<typename RandomAccessIterator, typename Fn>
     void CountingSort(RandomAccessIterator first,
                       RandomAccessIterator last,
@@ -98,14 +101,16 @@ namespace asd1 {
         }
     }
 
-    /**
+    */
+/**
      Tri par base d'entiers non signés sur 32 bits mis en oeuvre en appelant
      4 fois le tri comptage en triant successivement par groupe de 8 bits.
 
      https://en.wikipedia.org/wiki/Radix_sort
 
      @param v vecteur à trier, modifié par cette fonction
-     */
+     *//*
+
     void RadixSort(std::vector<unsigned int>& v)
     {
         std::vector<unsigned int> temp(v.size());
@@ -123,4 +128,6 @@ namespace asd1 {
     }
 }
 
-#endif /* CountingSort_h */
+#endif */
+/* CountingSort_h */
+
