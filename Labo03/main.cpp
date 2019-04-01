@@ -16,14 +16,15 @@ using namespace std;
 // selectionSort
 //
 // Effectue le tri par sélection des éléments entre begin
-// et end (non inclus). Doit appeler display() après chaque
-// échange.
+// et end (non inclus).
 template < typename RandomAccessIterator >
 void selectionSort( RandomAccessIterator begin,
                     RandomAccessIterator end )
 {
+    //end - 1 car end non-inclus
     for(auto i = begin; i < end - 1; i++)
     {
+        //on effectue i + 1 pour ne pas avoir i = j
         RandomAccessIterator imin = i;
         for(auto j = i + 1; j < end; j++)
         {
@@ -33,7 +34,6 @@ void selectionSort( RandomAccessIterator begin,
             }
         }
         swap(*i, *imin);
-        //display(begin,i,imin,end);
     }
 }
 
@@ -44,8 +44,6 @@ void selectionSort( RandomAccessIterator begin,
 // entre le premier, le dernier et l'élément central.
 // retourne un iterateur du même type que begin et end
 // pointant sur la valeur choisie.
-//
-// NE RIEN MODIFIER DANS CETTE FONCTION
 
 template < typename RandomAccessIterator >
 RandomAccessIterator selectPivot( const RandomAccessIterator begin,
@@ -247,7 +245,7 @@ void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigne
     }
 }
 
-void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t n = 100000, unsigned nbTests = 30) {
+void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t n = 1000, unsigned nbTests = 70) {
     cout << "******* n = " << n << ", k change *******";
     vector<unsigned> v(n);
     vector<unsigned> v2(n);
@@ -303,76 +301,9 @@ void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t 
 
     cout << "**************************************************";
 }
-//
-//void testSort3(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigned valMax = 100, unsigned nbTests = 30) {
-//    cout << "******* valeur " << valMin << "-" << valMax << ", n change *******\n";
-//
-//    std::mt19937_64 gen(0);
-//    high_resolution_clock::time_point t1, t2;
-//    std::uniform_int_distribution<unsigned> alea(valMin, valMax);
-//
-//    for (unsigned m = 1 ; m <= exposantMax ; m++) {
-//        long temps1 = 0;
-//        long temps2 = 0;
-//        //long temps3 = 0;
-//        //long temps4 = 0;
-//
-//        unsigned n = (unsigned)(pow(base, m) + 0.5); //Arrondi avec +0.5
-//        cout << "\nn = " << n << " = " << base << "^" << m << endl;
-//
-//        vector<unsigned> v(n);
-//
-//        for (unsigned j = 1 ; j <= nbTests ; ++j) {
-//            generate(v.begin(), v.end(), [&]() { return alea(gen); });
-//
-//            t1 = high_resolution_clock::now();
-//            selectionSort(v.begin(), v.end());
-//            t2 = high_resolution_clock::now();
-//            temps1 += duration_cast<nanoseconds>(t2 - t1).count();
-//        }
-//
-//        cout << "Temps d'execution pour le tri par selection : " << temps1 / nbTests << " ns" << endl;
-//    }
-//}
-//
-//void testSort4(unsigned exposantMax, unsigned base, size_t n = 100000, unsigned nbTests = 30) {
-//
-//    cout << "******* n = " << n << ", valeur max change *******\n";
-//    vector<unsigned> v(n);
-//    vector<unsigned> w(n);
-//
-//    std::mt19937_64 gen(0);
-//    high_resolution_clock::time_point t1, t2;
-//
-//    for (unsigned m = 1 ; m <= exposantMax ; m++) {
-//        long temps1 = 0;
-//        long temps2 = 0;
-//        //long temps3 = 0;
-//        //long temps4 = 0;
-//
-//        unsigned k = (unsigned)(pow(base, m) + 0.5); //Arrondi avec +0.5
-//        std::uniform_int_distribution<unsigned> alea(0, k);
-//
-//        cout << "\nvaleur max = " << k << " = " << base << "^" << m << endl;
-//
-//        for (unsigned j = 1 ; j <= nbTests ; ++j) {
-//            //On génére un vecteur puis on créer une copie pour le tri radix
-//            generate(v.begin(), v.end(), [&]() { return alea(gen); });
-//
-//            t1 = high_resolution_clock::now();
-//            selectionSort(v.begin(), v.end());
-//            t2 = high_resolution_clock::now();
-//            temps1 += duration_cast<nanoseconds>(t2 - t1).count();
-//        }
-//
-//        cout << "Temps d'execution pour tri par selection : " << setw(10) << temps1 / nbTests << " ns" << endl;
-//    }
-//
-//    cout << "**************************************************";
-//}
 
 int main() {
-    const unsigned EXPOSANT_MAX = 2;
+    const unsigned EXPOSANT_MAX = 6;
     const unsigned BASE = 10;
 
     cout << "n = taille vecteur, k = [val min, val max]\n";
@@ -380,10 +311,6 @@ int main() {
     testSort1(EXPOSANT_MAX, BASE);
     cout << endl;
     testSort2(EXPOSANT_MAX + 2, BASE);
-//    cout << endl;
-//    testSort3(EXPOSANT_MAX, BASE);
-//    cout << endl;
-//    testSort4(EXPOSANT_MAX, BASE);
 
     return EXIT_SUCCESS;
 }
