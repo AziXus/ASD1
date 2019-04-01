@@ -191,7 +191,7 @@ void RadixSort(std::vector<unsigned int>& v)
 
 using namespace chrono;
 
-void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigned valMax = 100, unsigned nbTests = 30) {
+void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigned valMax = 100, unsigned nbTests = 70) {
     std::mt19937_64 gen(0);
     high_resolution_clock::time_point t1, t2;
     std::uniform_int_distribution<unsigned> alea(valMin, valMax);
