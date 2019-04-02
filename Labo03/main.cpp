@@ -72,26 +72,26 @@ RandomAccessIterator partition ( const RandomAccessIterator begin,
                                  const RandomAccessIterator end )
 {
     RandomAccessIterator i = begin-1;
-    RandomAccessIterator k = end-1;
+    RandomAccessIterator k = (end - 1);
 
     while(true){
         do
         {
             i++;
-        } while (*i < *(end-1));
+        } while (*i < *(end - 1));
 
         do
         {
             k--;
-        } while (k > begin && *(end-1) < *k);
+        } while (k > begin && *(end - 1) < *k);
 
         if(i >= k)
             break;
 
-        swap(*i, *k);
+        iter_swap(i, k);
     }
 
-    swap(*i, *(end-1));
+    iter_swap(i, end - 1);
     return i;
 }
 
@@ -106,11 +106,11 @@ template < typename RandomAccessIterator >
 void quickSort( RandomAccessIterator begin,
                 RandomAccessIterator end )
 {
-    if(end-1 <= begin)
+    if(end - 1 <= begin)
         return;
 
     RandomAccessIterator pivot = selectPivot(begin, end);
-    swap(*pivot, *(end-1));
+    iter_swap(pivot, end - 1);
     RandomAccessIterator i = partition(begin, end);
 
     quickSort(begin, i);
@@ -154,7 +154,7 @@ void CountingSort(RandomAccessIterator first,
     for (auto it = first; it != last; ++it)
         ++count[key(*it)];
 
-    //On ajoute la somme précédente à chaque somme
+    //On ajoute la somme précédente à chaque somme afin d'obtenir un index
     for (size_t i = 1; i < count.size(); ++i)
         count[i] += count[i - 1];
 
@@ -177,16 +177,11 @@ void RadixSort(std::vector<unsigned int>& v)
 {
     std::vector<unsigned int> temp(v.size());
 
-//        for (int i = 0 ; i < std::numeric_limits<unsigned int>::digits / 8 ; ++i) {
-//            CountingSort(v.begin(), v.end(), temp.begin(), [&] (unsigned x) {return (unsigned char)(x >> (8 * i) & 0xFF);}, 255); //On garde les 8 * i bits
-//            v = temp;
-//        }
-
-    //On trie des bits de poids faible aux bits de poids fort
-    CountingSort(v.begin(),    v.end(),    temp.begin(), [] (unsigned x) {return (unsigned char)(x       & 0xFF);}, 255); //On garde les 8 premiers bits
-    CountingSort(temp.begin(), temp.end(), v.begin(),    [] (unsigned x) {return (unsigned char)(x >> 8  & 0xFF);}, 255); //On garde les 8 bits suivants
-    CountingSort(v.begin(),    v.end(),    temp.begin(), [] (unsigned x) {return (unsigned char)(x >> 16 & 0xFF);}, 255); //On garde les 8 bits suivant
-    CountingSort(temp.begin(), temp.end(), v.begin(),    [] (unsigned x) {return (unsigned char)(x >> 24 & 0xFF);}, 255); //On garde les 8 derniers bits
+    //On trie des bits de poids faible aux bits de poids fort en les sélectionnant grâce à un masque
+    for (int i = 0 ; i < std::numeric_limits<unsigned int>::digits / 8 ; ++i) {
+        CountingSort(v.begin(), v.end(), temp.begin(), [&] (unsigned x) {return (unsigned char)(x >> (8 * i) & 0xFF);}, 255); //On garde les 8 * i bits
+        v = temp;
+    }
 }
 
 using namespace chrono;
