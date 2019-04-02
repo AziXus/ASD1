@@ -88,10 +88,10 @@ RandomAccessIterator partition ( const RandomAccessIterator begin,
         if(i >= k)
             break;
 
-        iter_swap(i, k);
+        swap(*i, *k);
     }
 
-    iter_swap(i, end-1);
+    swap(*i, *(end-1));
     return i;
 }
 
@@ -110,7 +110,7 @@ void quickSort( RandomAccessIterator begin,
         return;
 
     RandomAccessIterator pivot = selectPivot(begin, end);
-    iter_swap(pivot, end-1);
+    swap(*pivot, *(end-1));
     RandomAccessIterator i = partition(begin, end);
 
     quickSort(begin, i);
@@ -245,7 +245,7 @@ void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigne
     }
 }
 
-void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t n = 1000, unsigned nbTests = 70) {
+void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t n = 100000, unsigned nbTests = 70) {
     cout << "******* n = " << n << ", k change *******";
     vector<unsigned> v(n);
     vector<unsigned> v2(n);
