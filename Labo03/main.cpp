@@ -212,10 +212,10 @@ void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigne
             v2 = v;
             v3 = v;
 
-//            t1 = high_resolution_clock::now();
-//            selectionSort(v2.begin(), v2.end());
-//            t2 = high_resolution_clock::now();
-//            temps1 += duration_cast<nanoseconds>(t2 - t1).count();
+            t1 = high_resolution_clock::now();
+            selectionSort(v2.begin(), v2.end());
+            t2 = high_resolution_clock::now();
+            temps1 += duration_cast<nanoseconds>(t2 - t1).count();
 
             t1 = high_resolution_clock::now();
             quickSort(v3.begin(), v3.end());
