@@ -1,5 +1,5 @@
 /**
- \file main.cpp
+ \file labo3.cpp
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 04 Avril 2019
  Labo 3 : Mettre en place un programme permettant de tester les différents tris 
