@@ -2,9 +2,9 @@
  \file main.cpp
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 04 Avril 2019
- Labo 3 :Mettre en place un programme permettant de tester les différents tris 
-         demandés pour le laboratoire(selection sort, quick sort, counting sort, radix sort.
-         La comparaison se fera avec le temps d'éxecution des 4 tris.
+ Labo 3 : Mettre en place un programme permettant de tester les différents tris 
+          demandés pour le laboratoire(selection sort, quick sort, counting sort, radix sort.
+          La comparaison se fera avec le temps d'éxecution des 4 tris.
  */
 
 #include <iostream>
@@ -28,7 +28,6 @@ void selectionSort( RandomAccessIterator begin,
     //end - 1 car end non-inclus
     for(auto i = begin; i < end - 1; i++)
     {
-        //on effectue i + 1 pour ne pas avoir i = j
         RandomAccessIterator imin = i;
         for(auto j = i + 1; j < end; j++)
         {
