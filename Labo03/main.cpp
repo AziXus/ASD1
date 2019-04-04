@@ -7,11 +7,10 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <chrono>
 
 using namespace std;
-// Fonction principale
-
-#include <chrono>
+using namespace chrono;
 
 // selectionSort
 //
@@ -184,8 +183,14 @@ void RadixSort(std::vector<unsigned int>& v)
     }
 }
 
-using namespace chrono;
-
+/**
+ * Test les différents tris en mesurant le temps d'exécution pour un vecteur de taille variable et une val min et max fixe
+ * @param exposantMax Puissance maximal à atteindre
+ * @param base base à utiliser pour la taille du vecteur
+ * @param valMin plus petite valeur à stocker dans le vecteur
+ * @param valMax plus grande valeur à stocker dans le vecteur
+ * @param nbTests nombre de tests à effectuer pour calculer la moyenne du temps d'exécution de chaque tri
+ */
 void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigned valMax = 100, unsigned nbTests = 70) {
     std::mt19937_64 gen(0);
     high_resolution_clock::time_point t1, t2;
@@ -241,6 +246,14 @@ void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigne
     }
 }
 
+/**
+ * Test les différents tris en mesurant le temps d'exécution pour un vecteur de taille fixe avec une valeur max variable
+ * @param exposantMax Puissance maximal à atteindre
+ * @param base base à utiliser pour le calcul de la valeur max
+ * @param valMin plus petite valeur à stocker dans le vecteur
+ * @param n taille du vecteur à utiliser
+ * @param nbTests nombre de tests à effectuer pour calculer la moyenne du temps d'exécution de chaque tri
+ */
 void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t n = 100000, unsigned nbTests = 70) {
     cout << "******* n = " << n << ", k change *******";
     vector<unsigned> v(n);
