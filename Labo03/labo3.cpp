@@ -180,7 +180,7 @@ void RadixSort(vector<unsigned int>& v)
 {
     vector<unsigned int> temp(v.size());
 
-    //On trie des bits de poids faible aux bits de poids fort en les sélectionnant grâce à un masque
+    //On trie les bits de poids faible aux bits de poids fort en les sélectionnant grâce à un masque
     for (int i = 0 ; i < numeric_limits<unsigned int>::digits / 8 ; ++i) {
         CountingSort(v.begin(), v.end(), temp.begin(), [&] (unsigned x) {return (unsigned char)(x >> (8 * i) & 0xFF);}, 255); //On garde les 8 * i bits
         v = temp;
@@ -219,11 +219,12 @@ void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigne
         vector<unsigned> out(n);
 
         for (unsigned j = 1 ; j <= nbTests ; ++j) {
+            //On génère un vecteur puis on créée des copies pour les différents tris
             generate(v.begin(), v.end(), [&]() { return alea(gen); });
             v2 = v;
             v3 = v;
 
-            //Selection sort desactivé pour ne pas prendre trop de temps
+            //Selection sort desactivé pour ne pas prendre trop de temps lors des tests
             //t1 = high_resolution_clock::now();
             //selectionSort(v2.begin(), v2.end());
             //t2 = high_resolution_clock::now();
@@ -283,12 +284,12 @@ void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t 
         cout << "\nk = [" << alea.min() << ", " << alea.max() << "]" << endl;
 
         for (unsigned j = 1 ; j <= nbTests ; ++j) {
-            //On génére un vecteur puis on créer des copies pour les différents tris
+            //On génère un vecteur puis on créée des copies pour les différents tris
             generate(v.begin(), v.end(), [&]() { return alea(gen); });
             v2 = v;
             v3 = v;
             
-            //Selection sort desactivé pour ne pas prendre trop de temps
+            //Selection sort desactivé pour ne pas prendre trop de temps lors des tests
             //t1 = high_resolution_clock::now();
             //selectionSort(v2.begin(), v2.end());
             //t2 = high_resolution_clock::now();
