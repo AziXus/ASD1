@@ -212,10 +212,11 @@ void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigne
             v2 = v;
             v3 = v;
 
-//            t1 = high_resolution_clock::now();
-//            selectionSort(v2.begin(), v2.end());
-//            t2 = high_resolution_clock::now();
-//            temps1 += duration_cast<nanoseconds>(t2 - t1).count();
+            //Selection sort desactivé pour ne pas prendre trop de temps
+            //t1 = high_resolution_clock::now();
+            //selectionSort(v2.begin(), v2.end());
+            //t2 = high_resolution_clock::now();
+            //temps1 += duration_cast<nanoseconds>(t2 - t1).count();
 
             t1 = high_resolution_clock::now();
             quickSort(v3.begin(), v3.end());
@@ -266,11 +267,12 @@ void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t 
             generate(v.begin(), v.end(), [&]() { return alea(gen); });
             v2 = v;
             v3 = v;
-
-//            t1 = high_resolution_clock::now();
-//            selectionSort(v2.begin(), v2.end());
-//            t2 = high_resolution_clock::now();
-//            temps1 += duration_cast<nanoseconds>(t2 - t1).count();
+            
+            //Selection sort desactivé pour ne pas prendre trop de temps
+            //t1 = high_resolution_clock::now();
+            //selectionSort(v2.begin(), v2.end());
+            //t2 = high_resolution_clock::now();
+            //temps1 += duration_cast<nanoseconds>(t2 - t1).count();
 
             t1 = high_resolution_clock::now();
             quickSort(v3.begin(), v3.end());
@@ -298,14 +300,15 @@ void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t 
 }
 
 int main() {
-    const unsigned EXPOSANT_MAX = 6;
+    const unsigned EXPOSANT_MAX_SORT1 = 6;
+    const unsigned EXPOSANT_MAX_SORT2 = 8;
     const unsigned BASE = 10;
 
     cout << "n = taille vecteur, k = [val min, val max]\n";
 
-    testSort1(EXPOSANT_MAX, BASE);
+    testSort1(EXPOSANT_MAX_SORT1, BASE);
     cout << endl;
-    testSort2(EXPOSANT_MAX + 2, BASE);
+    testSort2(EXPOSANT_MAX_SORT2, BASE);
 
     return EXIT_SUCCESS;
 }
