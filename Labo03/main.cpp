@@ -1,6 +1,11 @@
-//
-//  main.cpp
-//
+/**
+ \file main.cpp
+ \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
+ \date 04 Avril 2019
+ Labo 3 :Mettre en place un programme permettant de tester les différents tris 
+         demandés pour le laboratoire(selection sort, quick sort, counting sort, radix sort.
+         La comparaison se fera avec le temps d'éxecution des 4 tris.
+ */
 
 #include <iostream>
 #include <iomanip>
@@ -147,7 +152,7 @@ void CountingSort(RandomAccessIterator first,
         }
     }
 
-    std::vector<int> count(max_key + 1);
+    vector<int> count(max_key + 1);
 
     //On stocke le nombre de valeurs de 0 à max_key - 1
     for (auto it = first; it != last; ++it)
@@ -158,7 +163,7 @@ void CountingSort(RandomAccessIterator first,
         count[i] += count[i - 1];
 
     //On commence par la fin pour garder la stabilité
-    for (auto it = std::prev(last); it != std::prev(first); --it) {
+    for (auto it = prev(last); it != prev(first); --it) {
         output[count[key(*it)] - 1] = *it;
         --count[key(*it)];
     }
@@ -172,12 +177,12 @@ void CountingSort(RandomAccessIterator first,
 
  @param v vecteur à trier, modifié par cette fonction
  */
-void RadixSort(std::vector<unsigned int>& v)
+void RadixSort(vector<unsigned int>& v)
 {
-    std::vector<unsigned int> temp(v.size());
+    vector<unsigned int> temp(v.size());
 
     //On trie des bits de poids faible aux bits de poids fort en les sélectionnant grâce à un masque
-    for (int i = 0 ; i < std::numeric_limits<unsigned int>::digits / 8 ; ++i) {
+    for (int i = 0 ; i < numeric_limits<unsigned int>::digits / 8 ; ++i) {
         CountingSort(v.begin(), v.end(), temp.begin(), [&] (unsigned x) {return (unsigned char)(x >> (8 * i) & 0xFF);}, 255); //On garde les 8 * i bits
         v = temp;
     }
@@ -192,9 +197,9 @@ void RadixSort(std::vector<unsigned int>& v)
  * @param nbTests nombre de tests à effectuer pour calculer la moyenne du temps d'exécution de chaque tri
  */
 void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigned valMax = 100, unsigned nbTests = 70) {
-    std::mt19937_64 gen(0);
+    mt19937_64 gen(0);
     high_resolution_clock::time_point t1, t2;
-    std::uniform_int_distribution<unsigned> alea(valMin, valMax);
+    uniform_int_distribution<unsigned> alea(valMin, valMax);
 
     cout << "******* n change, k = [" << alea.min() << ", " << alea.max() << "] *******";
 
@@ -261,7 +266,7 @@ void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t 
     vector<unsigned> v3(n);
     vector<unsigned> out(n);
 
-    std::mt19937_64 gen(0);
+    mt19937_64 gen(0);
     high_resolution_clock::time_point t1, t2;
 
     for (unsigned m = 1 ; m <= exposantMax ; m++) {
@@ -271,7 +276,7 @@ void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t 
         long temps4 = 0;
 
         unsigned k = (unsigned)(pow(base, m) + 0.5); //Arrondi avec +0.5
-        std::uniform_int_distribution<unsigned> alea(valMin, k);
+        uniform_int_distribution<unsigned> alea(valMin, k);
 
         cout << "\nk = [" << alea.min() << ", " << alea.max() << "]" << endl;
 
