@@ -3,7 +3,7 @@
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 04 Avril 2019
  Labo 3 : Mettre en place un programme permettant de tester les différents tris 
-          demandés pour le laboratoire(selection sort, quick sort, counting sort, radix sort.
+          demandés pour le laboratoire(selection sort, quick sort, counting sort, radix sort).
           La comparaison se fera avec le temps d'éxecution des 4 tris.
  */
 
@@ -196,8 +196,10 @@ void RadixSort(vector<unsigned int>& v)
  * @param nbTests nombre de tests à effectuer pour calculer la moyenne du temps d'exécution de chaque tri
  */
 void testSort1(unsigned exposantMax, unsigned base, unsigned valMin = 1, unsigned valMax = 100, unsigned nbTests = 70) {
+    //Type repris de codecheck
     mt19937_64 gen(0);
     high_resolution_clock::time_point t1, t2;
+    //Fonction reprise de codecheck
     uniform_int_distribution<unsigned> alea(valMin, valMax);
 
     cout << "******* n change, k = [" << alea.min() << ", " << alea.max() << "] *******";
@@ -264,7 +266,7 @@ void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t 
     vector<unsigned> v2(n);
     vector<unsigned> v3(n);
     vector<unsigned> out(n);
-
+    //Type repris de codecheck
     mt19937_64 gen(0);
     high_resolution_clock::time_point t1, t2;
 
@@ -275,6 +277,7 @@ void testSort2(unsigned exposantMax, unsigned base, unsigned valMin = 1, size_t 
         long temps4 = 0;
 
         unsigned k = (unsigned)(pow(base, m) + 0.5); //Arrondi avec +0.5
+        //Fonction reprise de codecheck
         uniform_int_distribution<unsigned> alea(valMin, k);
 
         cout << "\nk = [" << alea.min() << ", " << alea.max() << "]" << endl;
