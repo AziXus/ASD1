@@ -16,21 +16,6 @@ Complete the following file:
 
 uniquement vector.at, vector.size
 on double la capacité lorsque que nécessaire en créant un nouveau vect puis on swap
-
-
-
-size DONE
-capacity DONE
-empty DONE
-
-back() DONE
-front()
-
-push_back
-pop_back
-
-push_front
-pop_front
 */
 
 
@@ -58,8 +43,8 @@ public:
      * Constrcuteur spécifique de la classe ArrayDeque
      * @param capacity size_t indiquant la capacité du tableau car buffer.size() == buffer.capacity()
      */
-    ArrayDeque(size_type capacity = 0) : debut(0), taille(0), buffer(capacity) {
-    }
+    ArrayDeque(size_type capacity = 0) : debut(0), taille(0), buffer(capacity) {}
+    
     /**
      * Retourne la taille du tableau
      * @return size_t avec la taille du tableau 
@@ -67,6 +52,7 @@ public:
     size_type size() const {
         return taille;
     }
+    
     /**
      * Retourne la capacité du tableau
      * @return size_t indiquant la capacité du tableau 
@@ -75,6 +61,7 @@ public:
         //Comme dans la donnée on sait que buffer.size() == buffer.capacity() on retourne buffer.size()
         return buffer.size();
     }
+    
     /**
      * Permet de vérifier si le tableau est vide
      * @return vrai si vide, faux sinon
@@ -82,23 +69,27 @@ public:
     bool empty() const {
         return size() == 0;
     }
+    
     /**
      * Permet de retourner le dernier élément du tableau
      * @return une référence sur le dernier élément
      */
     reference back() {
+        //tableau vide, comportement indéterminé
         if (this->empty()) {
-            throw;
+            return;
         }
         return buffer[index_physique(taille - 1)];
     }
+    
     /**
      * Fonction back surchargée pour pouvoir l'utiliser avec un tableau constant
      * @return une référence constante du dernier élément
      */
     const_reference back() const {
+        //tableau vide, comportement indéterminé
         if (this->empty()) {
-            throw;
+            return;
         }
         return buffer[index_physique(taille - 1)];
     }
@@ -116,6 +107,7 @@ public:
         buffer.at(index_physique(taille)) = val;
         ++taille;
     }
+    
     /**
      * Supprime la dernière valeur du tableau
      */
@@ -127,38 +119,47 @@ public:
         //On ne libère pas la memoire, on descend juste la taille
         --taille;
     }
+    
     /**
-     * 
-     * @return 
+     * Renvoie la première valeur du tableau
+     * @return référence de la première valeur 
      */
     reference front() {
         if (this->empty()) {
-            //pas d'elem, on throw
+            //tableau vide, comportement indéterminé
             throw;
         }
-
         return buffer.at(debut);
     }
-
+    
+    /**
+     * Surcharge pour pouvoir renvoyer la première valeur pour un tableau constant
+     * @return référence constante de la première valeur 
+     */
     const_reference front() const {
         if (this->empty()) {
-            //pas d'elem, on throw
-            throw;
+            //tableau vide, comportement indéterminé
+            return;
         }
-
         return buffer.at(debut);
     }
-
+    /**
+    * Permet d'ajouter une valeur en début de tableau
+    * @param val valeur à ajouter au tableau
+    */
     void push_front(const_reference val) {
+        //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
+        //dans ce cas on l'augmente, sinon nous aurons un dépassement
         if (taille >= capacity()) {
             extend();
         }
-
         debut = index_physique(capacity() - 1);
         buffer[debut] = val;
         ++taille;
     }
-
+    /**
+     * Supprime la première valeur du tableau
+     */
     void pop_front() {
         if (this->empty()) {
             //impossible de supprimer
