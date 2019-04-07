@@ -54,28 +54,48 @@ private:
     size_type taille;
 
 public:
+    /**
+     * Constrcuteur spécifique de la classe ArrayDeque
+     * @param capacity size_t indiquant la capacité du tableau car buffer.size() == buffer.capacity()
+     */
     ArrayDeque(size_type capacity = 0) : debut(0), taille(0), buffer(capacity) {
     }
-
+    /**
+     * Retourne la taille du tableau
+     * @return size_t avec la taille du tableau 
+     */
     size_type size() const {
         return taille;
     }
-
+    /**
+     * Retourne la capacité du tableau
+     * @return size_t indiquant la capacité du tableau 
+     */
     size_type capacity() const {
+        //Comme dans la donnée on sait que buffer.size() == buffer.capacity() on retourne buffer.size()
         return buffer.size();
     }
-
+    /**
+     * Permet de vérifier si le tableau est vide
+     * @return vrai si vide, faux sinon
+     */
     bool empty() const {
         return size() == 0;
     }
-
+    /**
+     * Permet de retourner le dernier élément du tableau
+     * @return une référence sur le dernier élément
+     */
     reference back() {
         if (this->empty()) {
             throw;
         }
         return buffer[index_physique(taille - 1)];
     }
-
+    /**
+     * Fonction back surchargée pour pouvoir l'utiliser avec un tableau constant
+     * @return une référence constante du dernier élément
+     */
     const_reference back() const {
         if (this->empty()) {
             throw;
@@ -83,52 +103,34 @@ public:
         return buffer[index_physique(taille - 1)];
     }
 
-    size_type index_physique(size_type i_logique) const {
-        if (debut + i_logique == 0)
-            return 0;
-        size_type ip = (debut + i_logique) % capacity();
-        if (ip >= 0)
-            return ip;
-        else
-            return ip + capacity();
-    }
-
-    void extend() {
-        //Créer un nouveau vecteur deux fois plus grand
-        //Copier les valeurs dans le nouveau vecteur
-        //Swap les vecteur
-        size_type capacite;
-        if (capacity() == 0)
-            capacite = 1;
-        else
-            capacite = capacity() * 2;
-
-        //Déplace les valeurs dans l'ordre, en commençant depuis 0
-        std::vector<value_type> tmp(capacite);
-        for (size_type i = 0 ; i < capacity() ; ++i) {
-            tmp[i] = std::move(buffer[index_physique(i)]);
-        }
-        debut = 0;
-        std::swap(tmp, buffer);
-    }
-
+    /**
+     * Ajoute une valeur en fin de tableau
+     * @param val valeur à ajouter au tableau
+     */
     void push_back(const_reference val) {
+        //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
+        //dans ce cas on l'augmente, sinon nous aurons un dépassement
         if (taille >= this->capacity()) {
             extend();
         }
         buffer.at(index_physique(taille)) = val;
         ++taille;
     }
-
+    /**
+     * Supprime la dernière valeur du tableau
+     */
     void pop_back() {
+        //Si le tableau est vide impossible de supprimer
         if (this->empty()) {
-            //impossible de supprimer
             return;
         }
-        //On ne libere pas la memoire
+        //On ne libère pas la memoire, on descend juste la taille
         --taille;
     }
-
+    /**
+     * 
+     * @return 
+     */
     reference front() {
         if (this->empty()) {
             //pas d'elem, on throw
@@ -168,6 +170,40 @@ public:
 
     void shift(size_type amount) {
 
+    }
+private:
+        /**
+     * Calcul l'adresse physique d'une variable dans un tableau grâce à une adresse logique
+     * @param i_logique adresse logigue de la variable
+     * @return un size_t donnant l'index physique de la variable  
+     */
+    size_type index_physique(size_type i_logique) const {
+        //
+        if (debut + i_logique == 0)
+            return 0;
+        size_type ip = (debut + i_logique) % capacity();
+        if (ip >= 0)
+            return ip;
+        else
+            return ip + capacity();
+    }
+    void extend() {
+        //Créer un nouveau vecteur deux fois plus grand
+        //Copier les valeurs dans le nouveau vecteur
+        //Swap les vecteur
+        size_type capacite;
+        if (capacity() == 0)
+            capacite = 1;
+        else
+            capacite = capacity() * 2;
+
+        //Déplace les valeurs dans l'ordre, en commençant depuis 0
+        std::vector<value_type> tmp(capacite);
+        for (size_type i = 0 ; i < capacity() ; ++i) {
+            tmp[i] = std::move(buffer[index_physique(i)]);
+        }
+        debut = 0;
+        std::swap(tmp, buffer);
     }
 };
 
