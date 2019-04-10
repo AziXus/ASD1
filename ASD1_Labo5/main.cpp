@@ -126,7 +126,7 @@ int main() {
     }
 #endif
 
-#if TEST_NR > 4
+/*#if TEST_NR > 4
     {
         cout << "T5 - copie par constructeur \n";
         StackList<int> s1;
@@ -137,7 +137,7 @@ int main() {
         printAndEmptyStack("s2", s2);
         cout << "\n";
     }
-#endif
+#endif*/
 
 #if TEST_NR > 5
     {

@@ -13,6 +13,7 @@
 #define StackList_h
 
 #include <utility>
+#include <algorithm>
 
 namespace asd1 {
 
@@ -35,11 +36,6 @@ namespace asd1 {
     public:
         StackList() {
             topNode = nullptr;
-        }
-
-        StackList(value_type val, Node* nxt = nullptr) {
-            topNode->nxt = nxt;
-            topNode->val = val;
         }
 
         ~StackList() {
@@ -78,7 +74,33 @@ namespace asd1 {
             return topNode->val;
         }
 
-
+        StackList& operator=(const StackList& rhs) {
+            Node* currentNode = rhs.topNode;
+            while(this->topNode != nullptr)
+                this->pop();
+            while(currentNode != nullptr)
+            {
+                *this->topNode->nxt = currentNode->nxt;
+                //this->push(currentNode->val);
+                currentNode = currentNode->nxt;
+            }
+            /*Node* currentNode = *this.topNode;
+            while(currentNode != nullptr)
+            {
+                this->push(currentNode->val);
+                currentNode = currentNode->nxt;
+            }*/
+            /*StackList<int> temp;
+            Node* currentNode = *this.topNode;
+            while(this->topNode != nullptr)
+            {
+                temp.topNode = currentNode;
+                currentNode = currentNode->nxt;
+            }*/
+            
+               
+            return *this;
+        }
 
 
 
