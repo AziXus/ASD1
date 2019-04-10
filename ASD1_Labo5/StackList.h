@@ -48,14 +48,11 @@ namespace asd1 {
         }
 
         bool empty() const {
-            return topNode;
+            return topNode == nullptr;
         }
 
         void push(value_type val) {
-            Node* mynode;
-            mynode->val = val;
-            mynode->nxt = topNode;
-            //topNode = &(new Node{.val = val, .topNode = topNode});
+            topNode = new Node{topNode, val};
         }
 
         void pop() {
@@ -68,12 +65,20 @@ namespace asd1 {
         }
 
         reference& top() {
+            if (empty())
+                throw StackEmptyException();
+
             return topNode->val;
         }
 
         const_reference& top() const {
+            if (empty())
+                throw StackEmptyException();
+
             return topNode->val;
         }
+
+
 
 
 
