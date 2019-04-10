@@ -43,7 +43,8 @@ namespace asd1 {
         }
 
         ~StackList() {
-
+            while(topNode != nullptr)
+                delete topNode;
         }
 
         bool empty() const {
