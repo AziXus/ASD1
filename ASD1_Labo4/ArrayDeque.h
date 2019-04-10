@@ -43,25 +43,25 @@ public:
      * Constrcuteur spécifique de la classe ArrayDeque
      * @param capacity size_t indiquant la capacité du tableau car buffer.size() == buffer.capacity()
      */
-    ArrayDeque(size_type capacity = 0) : debut(0), taille(0), buffer(capacity) {}
-    
+    ArrayDeque(size_type capacity = 0) : buffer(capacity), debut(0), taille(0) {}
+
     /**
      * Retourne la taille du tableau
-     * @return size_t avec la taille du tableau 
+     * @return size_t avec la taille du tableau
      */
     size_type size() const {
         return taille;
     }
-    
+
     /**
      * Retourne la capacité du tableau
-     * @return size_t indiquant la capacité du tableau 
+     * @return size_t indiquant la capacité du tableau
      */
     size_type capacity() const {
         //Comme dans la donnée on sait que buffer.size() == buffer.capacity() on retourne buffer.size()
         return buffer.size();
     }
-    
+
     /**
      * Permet de vérifier si le tableau est vide
      * @return vrai si vide, faux sinon
@@ -69,7 +69,7 @@ public:
     bool empty() const {
         return size() == 0;
     }
-    
+
     /**
      * Permet de retourner le dernier élément du tableau
      * @return une référence sur le dernier élément
@@ -77,11 +77,11 @@ public:
     reference back() {
         //tableau vide, comportement indéterminé
         if (this->empty()) {
-            return;
+            throw;
         }
         return buffer[index_physique(taille - 1)];
     }
-    
+
     /**
      * Fonction back surchargée pour pouvoir l'utiliser avec un tableau constant
      * @return une référence constante du dernier élément
@@ -89,7 +89,7 @@ public:
     const_reference back() const {
         //tableau vide, comportement indéterminé
         if (this->empty()) {
-            return;
+            throw;
         }
         return buffer[index_physique(taille - 1)];
     }
@@ -107,22 +107,22 @@ public:
         buffer.at(index_physique(taille)) = val;
         ++taille;
     }
-    
+
     /**
      * Supprime la dernière valeur du tableau
      */
     void pop_back() {
         //Si le tableau est vide impossible de supprimer
         if (this->empty()) {
-            return;
+            throw;
         }
         //On ne libère pas la memoire, on descend juste la taille
         --taille;
     }
-    
+
     /**
      * Renvoie la première valeur du tableau
-     * @return référence de la première valeur 
+     * @return référence de la première valeur
      */
     reference front() {
         if (this->empty()) {
@@ -131,15 +131,15 @@ public:
         }
         return buffer.at(debut);
     }
-    
+
     /**
      * Surcharge pour pouvoir renvoyer la première valeur pour un tableau constant
-     * @return référence constante de la première valeur 
+     * @return référence constante de la première valeur
      */
     const_reference front() const {
         if (this->empty()) {
             //tableau vide, comportement indéterminé
-            return;
+            throw;
         }
         return buffer.at(debut);
     }
@@ -163,7 +163,7 @@ public:
     void pop_front() {
         if (this->empty()) {
             //impossible de supprimer
-            return;
+            throw;
         }
         debut = index_physique(1);
         --taille;
@@ -176,7 +176,7 @@ private:
         /**
      * Calcul l'adresse physique d'une variable dans un tableau grâce à une adresse logique
      * @param i_logique adresse logigue de la variable
-     * @return un size_t donnant l'index physique de la variable  
+     * @return un size_t donnant l'index physique de la variable
      */
     size_type index_physique(size_type i_logique) const {
         //
