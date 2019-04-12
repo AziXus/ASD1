@@ -114,9 +114,6 @@ namespace asd1 {
                 currentNode = tmp;
             }
 
-            //On move la StackList
-
-
             /*Node* currentNode = *this.topNode;
             while(currentNode != nullptr)
             {
