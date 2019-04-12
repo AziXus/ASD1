@@ -13,7 +13,8 @@
 #define StackList_h
 
 #include <utility>
-#include <algorithm>
+#include <type_traits>
+#include <stdexcept>
 
 namespace asd1 {
 
@@ -38,18 +39,33 @@ namespace asd1 {
             topNode = nullptr;
         }
 
+        StackList(const StackList& rhs) {
+            topNode = nullptr;
+        }
+
         ~StackList() {
-            while(topNode != nullptr)
+            while(topNode != nullptr) {
+                Node* tmp = topNode->nxt;
                 delete topNode;
+                topNode = tmp;
+            }
         }
 
         bool empty() const {
             return topNode == nullptr;
         }
 
-        void push(value_type val) {
-            topNode = new Node{topNode, val};
+        void push(value_type&& val) {
+//            try {
+                Node* node = new(std::nothrow) Node {topNode, val};
+                if (node != nullptr)
+                    topNode = node;
+//            } catch(...) {
+//                std::cout << "catch" << std::endl;
+//            }
+
         }
+
 
         void pop() {
             if (empty())
@@ -75,15 +91,32 @@ namespace asd1 {
         }
 
         StackList& operator=(const StackList& rhs) {
-            Node* currentNode = rhs.topNode;
-            while(this->topNode != nullptr)
-                this->pop();
-            while(currentNode != nullptr)
-            {
-                *this->topNode->nxt = currentNode->nxt;
-                //this->push(currentNode->val);
+            Node* oldNode = topNode;
+            topNode = new Node{nullptr, rhs.topNode->val};
+            Node* currentNode = rhs.topNode->nxt;
+            Node* currentTopNode = topNode;
+            while(currentNode != nullptr) {
+                delete currentTopNode->nxt;
+
+                Node* node = new(std::nothrow) Node{nullptr, currentNode->val};
+                currentTopNode->nxt = node;
+
                 currentNode = currentNode->nxt;
+                currentTopNode = currentTopNode->nxt;
             }
+
+
+            //Si tout a fonctionner, on vide la pile originale
+            currentNode = oldNode;
+            while(currentNode != nullptr) {
+                Node* tmp = currentNode->nxt;
+                delete currentNode;
+                currentNode = tmp;
+            }
+
+            //On move la StackList
+
+
             /*Node* currentNode = *this.topNode;
             while(currentNode != nullptr)
             {
