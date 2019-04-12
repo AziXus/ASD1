@@ -60,7 +60,7 @@ namespace asd1 {
             topNode = tmp;
         }
 
-        reference top() {
+        reference& top() {
             if (empty())
                 throw StackEmptyException();
 
