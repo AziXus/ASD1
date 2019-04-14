@@ -47,7 +47,7 @@ public:
 
     /**
      * Retourne la taille du tableau
-     * @return size_t avec la taille du tableau
+     * @return size_t donnant la taille du tableau
      */
     size_type size() const {
         return taille;
@@ -72,7 +72,7 @@ public:
 
     /**
      * Permet de retourner le dernier élément du tableau
-     * @return une référence sur le dernier élément
+     * @return référence de type T sur le dernier élément
      */
     reference back() {
         //tableau vide, comportement indéterminé
@@ -84,7 +84,7 @@ public:
 
     /**
      * Fonction back surchargée pour pouvoir l'utiliser avec un tableau constant
-     * @return une référence constante du dernier élément
+     * @return référence constante de type T du dernier élément
      */
     const_reference back() const {
         //tableau vide, comportement indéterminé
@@ -122,11 +122,11 @@ public:
 
     /**
      * Renvoie la première valeur du tableau
-     * @return référence de la première valeur
+     * @return référence de type T de la première valeur
      */
     reference front() {
+        //tableau vide, comportement indéterminé
         if (this->empty()) {
-            //tableau vide, comportement indéterminé
             throw;
         }
         return buffer.at(debut);
@@ -137,8 +137,8 @@ public:
      * @return référence constante de la première valeur
      */
     const_reference front() const {
+        //tableau vide, comportement indéterminé
         if (this->empty()) {
-            //tableau vide, comportement indéterminé
             throw;
         }
         return buffer.at(debut);
@@ -168,20 +168,17 @@ public:
         debut = index_physique(1);
         --taille;
     }
-
-    void shift(size_type amount) {
-
-    }
+    
 private:
-        /**
+     /**
      * Calcul l'adresse physique d'une variable dans un tableau grâce à une adresse logique
-     * @param i_logique adresse logigue de la variable
+     * @param i_logique indique l'index logigue de la variable
      * @return un size_t donnant l'index physique de la variable
      */
     size_type index_physique(size_type i_logique) const {
-        //
         if (debut + i_logique == 0)
             return 0;
+        //calcul de l'index physique de la donnée dans le tableau
         size_type ip = (debut + i_logique) % capacity();
         if (ip >= 0)
             return ip;
@@ -190,8 +187,6 @@ private:
     }
     void extend() {
         //Créer un nouveau vecteur deux fois plus grand
-        //Copier les valeurs dans le nouveau vecteur
-        //Swap les vecteur
         size_type capacite;
         if (capacity() == 0)
             capacite = 1;
@@ -204,6 +199,7 @@ private:
             tmp[i] = std::move(buffer[index_physique(i)]);
         }
         debut = 0;
+        //Swap les vecteur car buffer est vide à cause de move
         std::swap(tmp, buffer);
     }
 };
