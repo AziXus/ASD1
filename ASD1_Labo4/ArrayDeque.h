@@ -19,8 +19,8 @@ on double la capacité lorsque que nécessaire en créant un nouveau vect puis o
 */
 
 
-#ifndef ArrayDeque_hpp
-#define ArrayDeque_hpp
+#ifndef ArrayDeque_h
+#define ArrayDeque_h
 
 #include <vector>
 
@@ -40,7 +40,7 @@ private:
 
 public:
     /**
-     * Constrcuteur spécifique de la classe ArrayDeque
+     * Constructeur spécifique de la classe ArrayDeque
      * @param capacity size_t indiquant la capacité du tableau car buffer.size() == buffer.capacity()
      */
     ArrayDeque(size_type capacity = 0) : buffer(capacity), debut(0), taille(0) {}
@@ -143,6 +143,7 @@ public:
         }
         return buffer.at(debut);
     }
+    
     /**
     * Permet d'ajouter une valeur en début de tableau
     * @param val valeur à ajouter au tableau
@@ -157,6 +158,7 @@ public:
         buffer[debut] = val;
         ++taille;
     }
+    
     /**
      * Supprime la première valeur du tableau
      */
@@ -208,4 +210,4 @@ private:
     }
 };
 
-#endif /* ArrayDeque_hpp */
+#endif /* ArrayDeque_h */
