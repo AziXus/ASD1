@@ -1,23 +1,12 @@
-/*Complétez la classe générique ArrayDeque pour qu'elle passe ce codecheck.
-
-Cette classe met en oeuvre le comportement de double-ended queue en utilisant un buffer circulaire de capacité variable. Les données sont stockées dans un std::vector que vous redimensionnerez quand c'est nécessaire. Maintenez en permanence les relations
-
-buffer.size() == buffer.capacity()
-
-et
-
-this->capacity() == buffer.size()
-
-Vous ne pouvez ajouter aucun attribut privé à la classe ni modifier les attributs et le constructeur fourni. Vous ne pouvez ajouter comme méthodes publiques que celles nécessaires pour passer les tests d'API. Vous pouvez ajouter toute méthode privée dont vous auriez besoin
-
-Pour ce laboratoire, il n'est pas nécessaire de générer des exceptions. En cas de mauvaise utilisation, le comportement est non spécifié.
-
-Complete the following file:
-
-uniquement vector.at, vector.size
-on double la capacité lorsque que nécessaire en créant un nouveau vect puis on swap
+/**
+\file ArrayDeque.h
+\author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
+\date 15 avril 2019
+Labo 4 : Création d'une classe générique ArrayDeque pour qu'elle passe le codecheck.
+Cette classe met en oeuvre le comportement de double-ended queue en utilisant 
+un buffer circulaire de capacité variable. 
+Les données sont stockées dans un std::vector.
 */
-
 
 #ifndef ArrayDeque_h
 #define ArrayDeque_h
@@ -41,21 +30,21 @@ private:
 public:
     /**
      * Constructeur spécifique de la classe ArrayDeque
-     * @param capacity size_t indiquant la capacité du tableau car buffer.size() == buffer.capacity()
+     * @param capacity size_t indiquant la capacité de l'ArrayDeque car buffer.size() == buffer.capacity()
      */
     ArrayDeque(size_type capacity = 0) : buffer(capacity), debut(0), taille(0) {}
 
     /**
-     * Retourne la taille du tableau
-     * @return size_t donnant la taille du tableau
+     * Retourne la taille de l'ArrayDeque
+     * @return size_t donnant la taille de l'ArrayDeque
      */
     size_type size() const {
         return taille;
     }
 
     /**
-     * Retourne la capacité du tableau
-     * @return size_t indiquant la capacité du tableau
+     * Retourne la capacité de l'ArrayDeque
+     * @return size_t indiquant la capacité de l'ArrayDeque
      */
     size_type capacity() const {
         //Comme dans la donnée on sait que buffer.size() == buffer.capacity() on retourne buffer.size()
@@ -63,7 +52,7 @@ public:
     }
 
     /**
-     * Permet de vérifier si le tableau est vide
+     * Permet de vérifier si l'ArrayDeque est vide
      * @return vrai si vide, faux sinon
      */
     bool empty() const {
@@ -71,11 +60,11 @@ public:
     }
 
     /**
-     * Permet de retourner le dernier élément du tableau
+     * Permet de retourner le dernier élément de l'ArrayDeque
      * @return référence de type T sur le dernier élément
      */
     reference back() {
-        //tableau vide, comportement indéterminé
+        //ArrayDeque vide, comportement indéterminé
         if (this->empty()) {
             throw;
         }
@@ -83,11 +72,11 @@ public:
     }
 
     /**
-     * Fonction back surchargée pour pouvoir l'utiliser avec un tableau constant
+     * Fonction back surchargée pour pouvoir l'utiliser avec une ArrayDeque constante
      * @return référence constante de type T du dernier élément
      */
     const_reference back() const {
-        //tableau vide, comportement indéterminé
+        //ArrayDeque vide, comportement indéterminé
         if (this->empty()) {
             throw;
         }
@@ -95,8 +84,8 @@ public:
     }
 
     /**
-     * Ajoute une valeur en fin de tableau
-     * @param val valeur à ajouter au tableau
+     * Ajoute une valeur en fin de l'ArrayDeque
+     * @param val valeur a ajouter a l'ArrayDeque
      */
     void push_back(const_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
@@ -109,10 +98,10 @@ public:
     }
 
     /**
-     * Supprime la dernière valeur du tableau
+     * Supprime la dernière valeur de l'ArrayDeque
      */
     void pop_back() {
-        //Si le tableau est vide impossible de supprimer
+        //Si l'ArrayDeque est vide impossible de supprimer
         if (this->empty()) {
             throw;
         }
@@ -121,11 +110,11 @@ public:
     }
 
     /**
-     * Renvoie la première valeur du tableau
+     * Renvoie la première valeur de l'ArrayDeque
      * @return référence de type T de la première valeur
      */
     reference front() {
-        //tableau vide, comportement indéterminé
+        //ArrayDeque vide, comportement indéterminé
         if (this->empty()) {
             throw;
         }
@@ -133,11 +122,11 @@ public:
     }
 
     /**
-     * Surcharge pour pouvoir renvoyer la première valeur pour un tableau constant
+     * Surcharge pour pouvoir renvoyer la première valeur pour une ArrayDeque constante
      * @return référence constante de la première valeur
      */
     const_reference front() const {
-        //tableau vide, comportement indéterminé
+        //ArrayDeque vide, comportement indéterminé
         if (this->empty()) {
             throw;
         }
@@ -145,8 +134,8 @@ public:
     }
     
     /**
-    * Permet d'ajouter une valeur en début de tableau
-    * @param val valeur à ajouter au tableau
+    * Permet d'ajouter une valeur en début de l'ArrayDeque
+    * @param val valeur a ajouter a l'ArrayDeque
     */
     void push_front(const_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
@@ -160,7 +149,7 @@ public:
     }
     
     /**
-     * Supprime la première valeur du tableau
+     * Supprime la première valeur de l'ArrayDeque
      */
     void pop_front() {
         if (this->empty()) {
@@ -173,14 +162,14 @@ public:
     
 private:
      /**
-     * Calcul l'adresse physique d'une variable dans un tableau grâce à une adresse logique
+     * Calcul l'adresse physique d'une variable dans l'ArrayDeque grâce à une adresse logique
      * @param i_logique indique l'index logigue de la variable
      * @return un size_t donnant l'index physique de la variable
      */
     size_type index_physique(size_type i_logique) const {
         if (debut + i_logique == 0)
             return 0;
-        //calcul de l'index physique de la donnée dans le tableau
+        //calcul de l'index physique de la donnée dans l'ArrayDeque
         size_type ip = (debut + i_logique) % capacity();
         if (ip >= 0)
             return ip;
@@ -189,7 +178,7 @@ private:
     }
     
     /**
-     * Permet de doubler la capacité du tableau 
+     * Permet de doubler la capacité de l'ArrayDeque
      */
     void extend() {
         //Créer un nouveau vecteur deux fois plus grand
