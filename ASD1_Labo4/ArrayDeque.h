@@ -185,6 +185,10 @@ private:
         else
             return ip + capacity();
     }
+    
+    /**
+     * Permet de doubler la capacité du tableau 
+     */
     void extend() {
         //Créer un nouveau vecteur deux fois plus grand
         size_type capacite;
