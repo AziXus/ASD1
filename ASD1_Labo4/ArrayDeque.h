@@ -3,7 +3,7 @@
 \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
 \date 15 avril 2019
 Labo 4 : Création d'une classe générique ArrayDeque pour qu'elle passe le codecheck.
-Cette classe met en oeuvre le comportement de double-ended queue en utilisant 
+Cette classe met en oeuvre le comportement d'une double-ended queue en utilisant 
 un buffer circulaire de capacité variable. 
 Les données sont stockées dans un std::vector.
 */
