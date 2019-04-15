@@ -34,13 +34,25 @@ namespace asd1 {
         };
         Node* topNode;
 
+        //Effectue une copie complete d'une Node
+        void deepNodeCopy(Node* n){
+            if(n == nullptr)
+               return;
+            deepNodeCopy(n->nxt);
+
+            //Workaround pour PUSH une rvalue
+            value_type tmp = n->val; //Copie la valeur
+            push(std::move(tmp)); //Move la valeur pour passer en rvalue
+        }
+
     public:
         StackList() {
             topNode = nullptr;
         }
 
-        StackList(const StackList& rhs) {
+        StackList(const StackList<value_type>& rhs) {
             topNode = nullptr;
+            deepNodeCopy(rhs.topNode);
         }
 
         ~StackList() {

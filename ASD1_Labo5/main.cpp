@@ -126,18 +126,18 @@ int main() {
     }
 #endif
 
-//#if TEST_NR > 4
-//    {
-//        cout << "T5 - copie par constructeur \n";
-//        StackList<int> s1;
-//        for(int i = 0; i < 5; ++i)
-//            s1.push(i*i);
-//        StackList<int> s2 = s1;
-//        printAndEmptyStack("s1", s1);
-//        printAndEmptyStack("s2", s2);
-//        cout << "\n";
-//    }
-//#endif
+#if TEST_NR > 4
+    {
+       cout << "T5 - copie par constructeur \n";
+        StackList<int> s1;
+        for(int i = 0; i < 5; ++i)
+            s1.push(i*i);
+        StackList<int> s2 = s1;
+        printAndEmptyStack("s1", s1);
+        printAndEmptyStack("s2", s2);
+        cout << "\n";
+    }
+#endif
 
 #if TEST_NR > 5
     {
