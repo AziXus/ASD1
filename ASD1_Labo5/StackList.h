@@ -51,8 +51,21 @@ namespace asd1 {
         }
 
         StackList(const StackList<value_type>& rhs) {
-            topNode = nullptr;
-            deepNodeCopy(rhs.topNode);
+                topNode = nullptr;
+                Node* currentNode = rhs.topNode->nxt;
+                StackList<value_type> temp;
+                temp.topNode = new Node{nullptr, rhs.topNode->val};
+                Node* currentTopNode = temp.topNode;
+                while(currentNode != nullptr) {
+                    Node* node = new(std::nothrow) Node{nullptr, currentNode->val};
+                    currentTopNode->nxt = node;
+
+                    currentNode = currentNode->nxt;
+                    currentTopNode = currentTopNode->nxt;
+                }
+                topNode = temp.topNode;
+                temp.topNode =nullptr;
+            //deepNodeCopy(rhs.topNode);
         }
 
         ~StackList() {
@@ -103,20 +116,23 @@ namespace asd1 {
         }
 
         StackList& operator=(const StackList& rhs) {
-            Node* oldNode = topNode;
-            topNode = new Node{nullptr, rhs.topNode->val};
-            Node* currentNode = rhs.topNode->nxt;
-            Node* currentTopNode = topNode;
-            while(currentNode != nullptr) {
-                delete currentTopNode->nxt;
+            try{
+                Node* oldNode = topNode;
+                Node* currentNode = rhs.topNode->nxt;
+                StackList<value_type> temp(rhs);
+                /*temp.topNode = new Node{nullptr, rhs.topNode->val};
+                Node* currentTopNode = temp.topNode;
+                while(currentNode != nullptr) {
+                    delete currentTopNode->nxt;
 
-                Node* node = new(std::nothrow) Node{nullptr, currentNode->val};
-                currentTopNode->nxt = node;
+                    Node* node = new(std::nothrow) Node{nullptr, currentNode->val};
+                    currentTopNode->nxt = node;
 
-                currentNode = currentNode->nxt;
-                currentTopNode = currentTopNode->nxt;
-            }
-
+                    currentNode = currentNode->nxt;
+                    currentTopNode = currentTopNode->nxt;
+                }*/
+                topNode = temp.topNode;
+                temp.topNode = nullptr; 
 
             //Si tout a fonctionner, on vide la pile originale
             currentNode = oldNode;
@@ -124,24 +140,15 @@ namespace asd1 {
                 Node* tmp = currentNode->nxt;
                 delete currentNode;
                 currentNode = tmp;
-            }
-
-            /*Node* currentNode = *this.topNode;
-            while(currentNode != nullptr)
-            {
-                this->push(currentNode->val);
-                currentNode = currentNode->nxt;
-            }*/
-            /*StackList<int> temp;
-            Node* currentNode = *this.topNode;
-            while(this->topNode != nullptr)
-            {
-                temp.topNode = currentNode;
-                currentNode = currentNode->nxt;
-            }*/
-            
-               
+            }  
+            temp.~StackList();
             return *this;
+            }
+            catch(...){
+                
+                return *this;
+                throw;
+            };
         }
 
 

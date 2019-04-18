@@ -158,19 +158,19 @@ int main() {
 #endif
 
 
-//#if TEST_NR > 6
-//    {
-//        cout << "T7 - const correctness \n";
-//        StackList<int> s1;
-//        for(int i = 0; i < 5; ++i)
-//            s1.push(i*i);
-//
-//        const auto s2 = s1;
-//        cout << s2.top() << " " << s2.empty();
-//
-//        cout << "\n\n";
-//    }
-//#endif
+#if TEST_NR > 6
+    {
+        cout << "T7 - const correctness \n";
+        StackList<int> s1;
+        for(int i = 0; i < 5; ++i)
+            s1.push(i*i);
+
+        const auto s2 = s1;
+        cout << s2.top() << " " << s2.empty();
+
+        cout << "\n\n";
+    }
+#endif
 
 #if TEST_NR > 7
     {
@@ -214,24 +214,24 @@ int main() {
 #endif
 
 
-//#if TEST_NR > 9
-//    {
-//        cout << "T10 - weak garantee copy constructor \n";
-//        TimeBomb::timer = 100;
-//        StackList<TimeBomb> s1;
-//        for(int i = 0; i < 5; ++i)
-//            s1.push(i*i);
-//        cout << endl;
-//
-//        try {
-//            TimeBomb::timer = 3;
-//            StackList<TimeBomb> s2 = s1;
-//        } catch(...) {
-//        }
-//        cout << endl;
-//    }
-//    cout << endl << endl;
-//#endif
+#if TEST_NR > 9
+    {
+        cout << "T10 - weak garantee copy constructor \n";
+        TimeBomb::timer = 100;
+        StackList<TimeBomb> s1;
+        for(int i = 0; i < 5; ++i)
+            s1.push(i*i);
+        cout << endl;
+
+        try {
+            TimeBomb::timer = 3;
+            StackList<TimeBomb> s2 = s1;
+        } catch(...) {
+        }
+        cout << endl;
+    }
+    cout << endl << endl;
+#endif
 
 #if TEST_NR > 9
     {
