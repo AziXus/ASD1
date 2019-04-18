@@ -259,6 +259,4 @@ int main() {
     cout << endl;
 
 #endif
-
-
 }

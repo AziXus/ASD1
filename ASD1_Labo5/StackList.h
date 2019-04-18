@@ -91,6 +91,17 @@ namespace asd1 {
 
         }
 
+        void push(const_reference val) {
+//            try {
+                Node* node = new(std::nothrow) Node {topNode, val};
+                if (node != nullptr)
+                    topNode = node;
+//            } catch(...) {
+//                std::cout << "catch" << std::endl;
+//            }
+
+        }
+
 
         void pop() {
             if (empty())
@@ -132,7 +143,7 @@ namespace asd1 {
                     currentTopNode = currentTopNode->nxt;
                 }*/
                 topNode = temp.topNode;
-                temp.topNode = nullptr; 
+                temp.topNode = nullptr;
 
             //Si tout a fonctionner, on vide la pile originale
             currentNode = oldNode;
@@ -140,12 +151,12 @@ namespace asd1 {
                 Node* tmp = currentNode->nxt;
                 delete currentNode;
                 currentNode = tmp;
-            }  
+            }
             temp.~StackList();
             return *this;
             }
             catch(...){
-                
+
                 return *this;
                 throw;
             };
