@@ -1,5 +1,5 @@
 /**
-\file ArrayDeque.h
+\file StackList.h
 \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
 \date 29 avril 2019
 Labo 5 : Création d'une classe générique StackList pour qu'elle passe le codecheck.
@@ -50,7 +50,7 @@ namespace asd1 {
 
                 Node* currentNode = rhs.topNode->nxt;
                 Node* currentTopNode = temp.topNode;
-                //Parcours la StackList RHS et ajoute les éléments à this
+                //Boucle parcourant la StackList rhs en ajoutant les éléments à temp
                 while(currentNode != nullptr) {
                     currentTopNode->nxt = new Node{nullptr, currentNode->val};;
 
@@ -72,7 +72,7 @@ namespace asd1 {
             //Appel du constructeur par copie
             StackList<value_type> temp = rhs;
 
-            //On echange les deux topNodes afin de supprimer les anciennes nodes lors de la destruction de temp
+            //On échange les deux topNodes afin de supprimer les anciennes nodes lors de la destruction de temp
             std::swap(topNode, temp.topNode);
 
             return *this;
@@ -99,7 +99,7 @@ namespace asd1 {
 
         /**
          * Ajoute une nouvelle valeur à la StackList
-         * @param val const_reference étant la valeur à ajouter
+         * @param val de type const_reference étant la valeur à ajouter
          */
         void push(const_reference val) {
             Node* node = new(std::nothrow) Node {topNode, val};
@@ -120,8 +120,8 @@ namespace asd1 {
         }
 
         /**
-         * Obtient le dernier élément de la StackList
-         * @return reference vers le dernier élément
+         * Renvoie le dernier élément de la StackList
+         * @return valeur de type T étant une référence vers le dernier élément
          */
         reference top() {
             if (empty())
@@ -131,9 +131,9 @@ namespace asd1 {
         }
 
         /**
-         * Obtient le dernier élément de la StackList
+         * Retourne le dernier élément de la StackList
          * Surcharge de la fonction pour une StackList constante
-         * @return const_reference vers le dernier élément
+         * @return valeur de type T étant une const_reference vers le dernier élément
          */
         const_reference top() const {
             if (empty())
