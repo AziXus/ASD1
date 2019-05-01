@@ -37,6 +37,8 @@ public:
         for (unsigned i = 0 ; i < taille; ++i) {
             donnees[i].~value_type();
         }
+
+        ::operator delete(donnees);
     }
 
     Pile(const Pile& other)
@@ -44,19 +46,19 @@ public:
     {
         donnees = (pointer)::operator new(CAPACITE * sizeof(value_type));
         for(unsigned i = 0; i < taille; ++i) {
-            new(donnees + i) T(other.donnees[i]);
+            new(donnees + i) value_type(other.donnees[i]);
         }
     }
 
     void empiler(const value_type& v)
     {
-        new(donnees + taille) T(v);
+        new(donnees + taille) value_type(v);
         ++taille;
     }
 
     void depiler()
     {
-//        donnees[taille - 1].~T();
+        donnees[taille - 1].~value_type();
         --taille;
     }
 

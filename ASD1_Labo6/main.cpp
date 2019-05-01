@@ -35,19 +35,6 @@ int main2() {
 int main3() {
     Int* p = (Int*)::operator new(4 * sizeof(Int));
 
-//    Int* a = new(p) Int();
-//    Int* b = new(p + 1) Int(5);
-//    Int* c = new(p + 2) Int(*b);
-//    Int* d = new(p + 3) Int(move(*c));
-//
-//    *a = *b;
-//    *b = move(*d);
-//
-//    d->~Int();
-//    c->~Int();
-//    b->~Int();
-//    a->~Int();
-
     new(p) Int();
     new(p + 1) Int(5);
     new(p + 2) Int(p[1]);
