@@ -1,3 +1,11 @@
+/**
+\file Pile.h
+\author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
+\date 06 mai 2019
+Labo 6 : Création d'une classe générique Pile pour qu'elle passe le codecheck.
+Cette classe met en oeuvre le comportement d'une stack (pile) en utilisant le concept d'allocation dynamique.
+L'allocation est effectuée avec new [] et delete[].
+*/
 #ifndef Pile_hpp
 #define Pile_hpp
 
