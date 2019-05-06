@@ -54,7 +54,7 @@ int main3() {
 }
 
 #include "Mouchard.h"
-#include "Pile_2.h"
+#include "Pile.h"
 
 #include <iostream>
 using namespace std;

@@ -35,7 +35,7 @@ private:
 
 public:
     /**
-     * Constructeur spécifique de la classe Pile n'indiuqant que la taille
+     * Constructeur spécifique de la classe Pile n'indiquant que la capacité
      * @param _capacite size_t indiquant la capacite de la pile
      */
     Pile(size_t _capacite)
@@ -54,7 +54,7 @@ public:
         for (unsigned i = 0 ; i < taille; ++i) {
             donnees[i].~value_type();
         }
-        //destruction en mémoire de la pile
+        //libère la mémoire de la pile
         ::operator delete(donnees);
     }
     
@@ -72,6 +72,7 @@ public:
             new(donnees + i) value_type(other.donnees[i]);
         }
     }
+
     /**
      * Permet d'ajouter une nouvelle valeur à la pile
      * @param v valeur de type value_type à ajouter
@@ -82,6 +83,7 @@ public:
         new(donnees + taille) value_type(v);
         ++taille;
     }
+
     /**
      * Enlève la valeur au sommet de la pile. Fait appel au destructeur de value_type
      */
@@ -90,6 +92,7 @@ public:
         donnees[taille - 1].~value_type();
         --taille;
     }
+
     /**
      * Permet de donner la valeur du sommet de la pile
      * @return const_reference étant la valeur au sommet de la pile

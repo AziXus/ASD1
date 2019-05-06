@@ -34,17 +34,28 @@ private:
     const size_t CAPACITE;
 
 public:
+    /**
+    * Constructeur spécifique de la classe Pile n'indiquant que la capacité
+    * @param _capacite size_t indiquant la capacite de la pile
+    */
     Pile(size_t _capacite)
             : taille(0), CAPACITE(_capacite)
     {
         donnees = new value_type[CAPACITE];
     }
 
+    /**
+    * Destructeur de la classe Pile
+    */
     ~Pile()
     {
         delete[] donnees;
     }
 
+    /**
+     * Constucteur par copie de la classe Pile
+     * @param other Pile allant être copié
+     */
     Pile(const Pile& other)
             : taille(other.taille), CAPACITE(other.CAPACITE)
     {
@@ -52,18 +63,28 @@ public:
         std::copy(other.donnees, other.donnees + taille, donnees);
     }
 
+    /**
+    * Permet d'ajouter une nouvelle valeur à la pile
+    * @param v valeur de type value_type à ajouter
+    */
     void empiler(const value_type& v)
     {
         donnees[taille] = v;
         ++taille;
     }
 
+    /**
+     * Enlève la valeur au sommet de la pile
+     */
     void depiler()
     {
-//        donnees[taille - 1].~value_type();
         --taille;
     }
 
+    /**
+    * Permet de donner la valeur du sommet de la pile
+    * @return const_reference étant la valeur au sommet de la pile
+    */
     const_reference sommet() const
     {
         return donnees[taille - 1];
