@@ -54,7 +54,7 @@ public:
         for (unsigned i = 0 ; i < taille; ++i) {
             donnees[i].~value_type();
         }
-        //libère la mémoire de la pile
+        //libère la mémoire utilisée par la pile
         ::operator delete(donnees);
     }
     

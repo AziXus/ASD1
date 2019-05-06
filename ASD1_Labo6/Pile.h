@@ -54,7 +54,7 @@ public:
 
     /**
      * Constucteur par copie de la classe Pile
-     * @param other Pile allant être copié
+     * @param other Pile allant être copiée
      */
     Pile(const Pile& other)
             : taille(other.taille), CAPACITE(other.CAPACITE)
