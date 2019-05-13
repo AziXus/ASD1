@@ -73,13 +73,21 @@ private:
     }
 
 public:
+     /**
+     * Constructeur spécifique de la classe ArrayDeque
+     * @param cap size_t indiquant la capacité de l'ArrayDeque
+     */
     ArrayDeque(size_type cap = 0) : debut(0), taille(0), capacite(cap)
     {
         buffer = capacite != 0 ?
                  (pointer) ::operator new(capacite * sizeof(value_type))
                                : nullptr;
     }
-
+    
+    /**
+     * Constructeur par copie de la classe ArrayDeque
+     * @param rhs ArraDeque de laquelle il faut copier les valeurs
+     */
     ArrayDeque(const ArrayDeque& rhs) : ArrayDeque(rhs.capacite) {
         debut = rhs.debut;
         for (size_type i = 0; i < rhs.taille; ++i) {
@@ -87,7 +95,12 @@ public:
             ++taille;
         }
     }
-
+    
+    /**
+     * Surcharge de l'opérateur d'affectation pour permttre d'affecter un ArrayDeque
+     * @param rhs ArrayDeque du quel prendre les valeurs
+     * @return l'ArrayDeque avec les valeurs de rhs
+     */
     ArrayDeque& operator=(const ArrayDeque& rhs) {
         //Appel du constructeur par copie
         ArrayDeque tmp = rhs;
