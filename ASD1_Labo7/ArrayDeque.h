@@ -45,18 +45,18 @@ private:
         if (debut + i_logique == 0)
             return 0;
         //calcul de l'index physique de la donnée dans l'ArrayDeque
-        size_type ip = (debut + i_logique) % capacity();
+        size_type ip = (debut + i_logique) % capacite;
         if (ip >= 0)
             return ip;
         else
-            return ip + capacity();
+            return ip + capacite;
     }
 
     /**
      * Permet de doubler la capacité de l'ArrayDeque
      */
     void extend() {
-        size_type newCapacity = capacity() == 0 ? 1 : capacity() * 2;
+        size_type newCapacity = capacite == 0 ? 1 : capacite * 2;
 
         ArrayDeque tmp(newCapacity);
         //pointer tmp = (pointer) ::operator new(newCapacity * sizeof(value_type));
@@ -109,7 +109,9 @@ public:
 
         return *this;
     }
-
+    /**
+     * Destructeur de l'ArrayDeque
+     */
     ~ArrayDeque() {
         for (size_type i = 0; i < taille; ++i) {
             buffer[index_physique(i)].~value_type();
@@ -215,7 +217,7 @@ public:
     void push_back(const_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
         //dans ce cas on l'augmente, sinon nous aurons un dépassement
-        if (taille >= this->capacity())
+        if (taille >= capacite)
             extend();
 
         new(buffer + index_physique(taille)) value_type(val);
@@ -225,7 +227,7 @@ public:
     void push_back(rvalue_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
         //dans ce cas on l'augmente, sinon nous aurons un dépassement
-        if (taille >= this->capacity())
+        if (taille >= capacite)
             extend();
 
         new(buffer + index_physique(taille)) value_type(std::move(val));
@@ -251,12 +253,12 @@ public:
     void push_front(const_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
         //dans ce cas on l'augmente, sinon nous aurons un dépassement
-        if (taille >= capacity())
+        if (taille >= capacite)
             extend();
 
         //Ameliorer ?
-        new(buffer + index_physique(capacity() - 1)) value_type(val);
-        debut = index_physique(capacity() - 1);
+        new(buffer + index_physique(capacite - 1)) value_type(val);
+        debut = index_physique(capacite - 1);
         ++taille;
     }
 
@@ -267,11 +269,11 @@ public:
     void push_front(rvalue_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
         //dans ce cas on l'augmente, sinon nous aurons un dépassement
-        if (taille >= capacity())
+        if (taille >= capacite)
             extend();
 
-        new(buffer + index_physique(capacity() - 1)) value_type(std::move(val));
-        debut = index_physique(capacity() - 1);
+        new(buffer + index_physique(capacite - 1)) value_type(std::move(val));
+        debut = index_physique(capacite - 1);
         ++taille;
     }
 
