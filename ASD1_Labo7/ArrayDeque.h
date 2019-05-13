@@ -1,9 +1,20 @@
+/**
+\file ArrayDeque.h
+\author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
+\date 13 Mai 2019
+Labo 4 : Création d'une classe générique ArrayDeque pour qu'elle passe le codecheck.
+Cette classe met en oeuvre le comportement d'une double-ended queue en utilisant 
+un buffer circulaire de capacité variable. 
+Les données sont stockées dans un tableau buffer alloué dynamiquement. 
+L'allocation et la construction sont séparées, de sorte que la capacité non utilisée n'est pas construite.
+Destruction et libération de la mémoire le sont également.
+*/
 /*
  * Buffer circulaire (2)
 
 Complétez la classe générique ArrayDeque pour qu'elle passe ce codecheck.
 
-Cette classe met en oeuvre le comportement de double-ended queue en utilisant un buffer circulaire de capacité variable. Les données sont stockées dans un tableau buffer alloué dynamiquement. L'allocation et la construction sont séparées, de sorte que la capacité non utilisée n'est pas construite. Destruction et libération de la mémoire le sont également.
+Cette classe met en oeuvre le comportement de double-ended queue en utilisant un buffer circulaire de capacité variable. 
 
 Vous ne pouvez ajouter aucun attribut privé à la classe ni modifier les attributs et le constructeur fourni. Vous ne pouvez ajouter comme méthodes publiques que celles nécessaires pour passer les tests d'API. Vous pouvez ajouter toute méthode privée dont vous auriez besoin
 
@@ -59,7 +70,6 @@ private:
         size_type newCapacity = capacite == 0 ? 1 : capacite * 2;
 
         ArrayDeque tmp(newCapacity);
-        //pointer tmp = (pointer) ::operator new(newCapacity * sizeof(value_type));
 
         for (size_type i = 0; i < taille; ++i) {
             new(tmp.buffer + i) value_type(std::move(buffer[index_physique(i)]));
@@ -79,6 +89,7 @@ public:
      */
     ArrayDeque(size_type cap = 0) : debut(0), taille(0), capacite(cap)
     {
+        //Allocation dynamique de la mémoire en fonction de la capacite
         buffer = capacite != 0 ?
                  (pointer) ::operator new(capacite * sizeof(value_type))
                                : nullptr;
