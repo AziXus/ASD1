@@ -85,7 +85,7 @@ public:
     
     /**
      * Constructeur par copie de la classe ArrayDeque
-     * @param rhs ArraDeque de laquelle il faut copier les valeurs
+     * @param rhs ArrayDeque de laquelle il faut copier les valeurs
      */
     ArrayDeque(const ArrayDeque& rhs) : ArrayDeque(rhs.capacite) {
         debut = rhs.debut;
@@ -96,7 +96,7 @@ public:
     }
     
     /**
-     * Surcharge de l'opérateur d'affectation pour permttre d'affecter un ArrayDeque
+     * Surcharge de l'opérateur d'affectation pour permettre d'affecter un ArrayDeque
      * @param rhs ArrayDeque du quel prendre les valeurs
      * @return l'ArrayDeque avec les valeurs de rhs
      */
@@ -209,7 +209,7 @@ public:
     }
 
     /**
-     * Surcharge pour pouvoir renvoyer la première valeur pour une ArrayDeque constante
+     * Surcharge de front pour pouvoir renvoyer la première valeur pour une ArrayDeque constante
      * @return référence constante de la première valeur
      */
     const_reference front() const {
@@ -222,7 +222,7 @@ public:
 
     /**
      * Ajoute une valeur en fin de l'ArrayDeque
-     * @param val valeur a ajouter a l'ArrayDeque
+     * @param val reference constante de la valeur a ajouter a l'ArrayDeque
      */
     void push_back(const_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
