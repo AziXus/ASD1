@@ -8,7 +8,7 @@ un buffer circulaire de capacité variable.
 Les données sont stockées dans un tableau buffer alloué dynamiquement. 
 L'allocation et la construction sont séparées, de sorte que la capacité non utilisée n'est pas construite.
 Destruction et libération de la mémoire le sont également.
-Toutes les méthodes et constructeurs doivent offrir des garanties fortes
+Toutes les méthodes et constructeurs doivent offrir des garanties fortes.
 */
 #ifndef ArrayDeque_h
 #define ArrayDeque_h
@@ -56,7 +56,7 @@ private:
      */
     void extend() {
         size_type newCapacity = capacite == 0 ? 1 : capacite * 2;
-
+        //Création d'un ArrayDeque temporaire pour la garantie forte
         ArrayDeque tmp(newCapacity);
 
         for (size_type i = 0; i < taille; ++i) {
