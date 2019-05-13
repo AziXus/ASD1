@@ -271,7 +271,6 @@ public:
         if (taille >= capacite)
             extend();
 
-        //Ameliorer ?
         new(buffer + index_physique(capacite - 1)) value_type(val);
         debut = index_physique(capacite - 1);
         ++taille;
