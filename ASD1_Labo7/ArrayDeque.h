@@ -63,6 +63,7 @@ private:
 
         for (size_type i = 0; i < taille; ++i) {
             new(tmp.buffer + i) value_type(std::move(buffer[index_physique(i)]));
+            //Chaque nouvel élément fait augmenter la taille du tableau
             ++tmp.taille;
         }
 
