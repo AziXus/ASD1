@@ -263,7 +263,7 @@ public:
 
     /**
     * Permet d'ajouter une valeur en début de l'ArrayDeque
-    * @param val valeur a ajouter a l'ArrayDeque
+    * @param val valeur a ajouter à l'ArrayDeque
     */
     void push_front(const_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
