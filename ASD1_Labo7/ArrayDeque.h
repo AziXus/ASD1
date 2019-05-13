@@ -168,7 +168,12 @@ public:
 
         return buffer[index_physique(taille - 1)];
     }
-
+    
+    /**
+     * Retourne la valeur contenue à une position donnée
+     * @param n size_t indiquant la position de la valeur
+     * @return référence donnant la valeur en position n
+     */
     reference at(size_type n) {
         //ArrayDeque vide, comportement indéterminé
         if (this->empty())
@@ -177,6 +182,12 @@ public:
         return buffer[index_physique(n)];
     }
 
+    /**
+     * Retourne la valeur contenue à une position donnée
+     * Une surcharge de la fonction a du être faite pour l'utiliser sur une ArrayDeque constante 
+     * @param n size_t indiquant la position de la valeur
+     * @return référence donnant la valeur en position n
+     */
     const_reference at(size_type n) const {
         //ArrayDeque vide, comportement indéterminé
         if (this->empty()) {
@@ -223,7 +234,12 @@ public:
         new(buffer + index_physique(taille)) value_type(val);
         ++taille;
     }
-
+    
+    /**
+     * Ajoute une valeur en fin de l'ArrayDeque
+     * Surcharge pour l'utilisation de valeur avec des doubles références(rvalue)
+     * @param val valeur a ajouter a l'ArrayDeque
+     */
     void push_back(rvalue_reference val) {
         //Vérification que la taille n'est pas déjà plus grande ou égal à la capacité
         //dans ce cas on l'augmente, sinon nous aurons un dépassement
@@ -264,6 +280,7 @@ public:
 
     /**
     * Permet d'ajouter une valeur en début de l'ArrayDeque
+    * Surcharge pour l'utilisation de valeur avec des doubles références(rvalue)
     * @param val valeur a ajouter a l'ArrayDeque
     */
     void push_front(rvalue_reference val) {
