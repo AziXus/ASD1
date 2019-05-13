@@ -2,7 +2,7 @@
 \file ArrayDeque.h
 \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
 \date 13 Mai 2019
-Labo 4 : Création d'une classe générique ArrayDeque pour qu'elle passe le codecheck.
+Labo 7 : Création d'une classe générique ArrayDeque pour qu'elle passe le codecheck.
 Cette classe met en oeuvre le comportement d'une double-ended queue en utilisant 
 un buffer circulaire de capacité variable. 
 Les données sont stockées dans un tableau buffer alloué dynamiquement. 
