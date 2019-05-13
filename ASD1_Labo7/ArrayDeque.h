@@ -8,20 +8,8 @@ un buffer circulaire de capacité variable.
 Les données sont stockées dans un tableau buffer alloué dynamiquement. 
 L'allocation et la construction sont séparées, de sorte que la capacité non utilisée n'est pas construite.
 Destruction et libération de la mémoire le sont également.
+Toutes les méthodes et constructeurs doivent offrir des garanties fortes
 */
-/*
- * Buffer circulaire (2)
-
-Complétez la classe générique ArrayDeque pour qu'elle passe ce codecheck.
-
-Cette classe met en oeuvre le comportement de double-ended queue en utilisant un buffer circulaire de capacité variable. 
-
-Vous ne pouvez ajouter aucun attribut privé à la classe ni modifier les attributs et le constructeur fourni. Vous ne pouvez ajouter comme méthodes publiques que celles nécessaires pour passer les tests d'API. Vous pouvez ajouter toute méthode privée dont vous auriez besoin
-
-Toutes les méthodes et constructeurs doivent offrir des garanties fortes, hormis pour la capacité qui a le droit de changer.
-
-Pour ce laboratoire, il n'est pas nécessaire de générer des exceptions. En cas de mauvaise utilisation, le comportement est non spécifié.
- */
 #ifndef ArrayDeque_h
 #define ArrayDeque_h
 
