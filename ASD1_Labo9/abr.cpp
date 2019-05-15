@@ -225,8 +225,28 @@ private:
   // @return vrai si la cle trouvee, faux sinon.
   //
   static bool contains(Node* r, const_reference key) noexcept {
-    /* ... */
-    return false;
+    /*
+    si R est nul, alors
+   signaler que C est introuvable
+   sinon si C < R.clé, alors
+   chercher( C, R.gauche )
+   sinon, si C > R.clé , alors
+   chercher( C, R.droit )
+   sinon // R.clé vaut C
+   retourner R
+   fin si
+    */
+    if(r == nullptr)
+      return false;
+    else if(key < (*r).key){
+      if(!contains((*r).left, key))
+         return false;
+    }
+    else if(key > (*r).key){
+      if(!contains((*r).right, key))
+         return false;
+    }
+    return true;
   }
   
 public:
