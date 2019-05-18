@@ -480,7 +480,7 @@ public:
     parcours pré-ordonné( R.droit )
     fin si
     */
-    auto node = (*this)._root;
+    /*auto node = (*this)._root;
     while(node != nullptr){
       f(node->key);
       //parcourt tout les éléments de gauche de l'arbre
@@ -511,7 +511,7 @@ public:
          }
       }
     }
-      auto nodeR = node->right;
+      auto nodeR = node->right;*/
     //}
     /*node = (*this)._root;
     while(node != nullptr){
@@ -522,6 +522,51 @@ public:
     {
        fn((*this)._root->key);
        visipre();
+    }*/
+    
+    queue<Node*> Q;
+    Q.push(_root);
+    Node* cur = Q.front();
+    //Q.push(newLevel);
+    
+    while(cur->left != nullptr){
+        Q.push(cur->left);
+        cur = cur->left;
+    }
+    
+    while(!Q.empty()) {
+      cur = Q.front();
+      Q.pop();
+      f(cur->key);
+      auto nodeR = cur->right;
+      while(nodeR != nullptr){
+        Q.push(nodeR);
+        nodeR = nodeR->left;
+      }
+    }
+
+      /*if(cur == newLevel) {
+        std::cout << "Fist" << std::endl;
+        if(!Q.empty())
+          Q.push(newLevel);
+      } else if(cur == nullptr) {
+        std::cout << "- ";
+        else if(cur->right != nullptr){
+        std::cout << "R";
+        f(cur->right->key);
+        Q.push(cur->right);
+      }
+      } else if(){
+        std::cout << "Left ->" << cur->key << std::endl;
+        //f(cur->left->key);
+       
+      } 
+      else{
+         std::cout << "Pop" << std::endl;
+         Q.pop();
+      }
+      cur = Q.back();
+      std::cout << "back ->" << cur->key << std::endl;
     }*/
     
   }
