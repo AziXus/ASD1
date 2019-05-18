@@ -473,7 +473,57 @@ public:
   //
   template < typename Fn >
   void visitPre (Fn f) {
-    /* ... */
+    /*
+    si R n’est pas un arbre vide, alors
+    traiter R
+    parcours pré-ordonné( R.gauche )
+    parcours pré-ordonné( R.droit )
+    fin si
+    */
+    auto node = (*this)._root;
+    while(node != nullptr){
+      f(node->key);
+      //parcourt tout les éléments de gauche de l'arbre
+      if(node->left != nullptr){
+         auto nodeL = node->left;
+         while(nodeL != nullptr){
+            f(nodeL->key);
+            node  = nodeL;
+            nodeL = nodeL->left;
+         }
+         if(node->right != nullptr)
+         {
+            node = node->right;
+         }
+      }
+      else{
+         if(node->right != nullptr){
+            auto nodeL = node->left;
+            while(nodeL != nullptr){
+               f(nodeL->key);
+               node  = nodeL;
+               nodeL = nodeL->left;
+            }
+            if(node->right != nullptr)
+            {
+               node = node->right;
+            }
+         }
+      }
+    }
+      auto nodeR = node->right;
+    //}
+    /*node = (*this)._root;
+    while(node != nullptr){
+      node = node->right;
+      f(node->key);
+    }*/
+    /*if(f() != null)
+    {
+       fn((*this)._root->key);
+       visipre();
+    }*/
+    
   }
   
   //
