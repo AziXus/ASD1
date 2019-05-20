@@ -134,7 +134,13 @@ private:
   //          peut éventuellement valoir nullptr
   //
   static void deleteSubTree(Node* r) noexcept {
-    /* ... */
+      if (r == nullptr)
+          return;
+
+      deleteSubTree(r->left);
+      deleteSubTree(r->right);
+
+      delete r;
   }
 
 public:
