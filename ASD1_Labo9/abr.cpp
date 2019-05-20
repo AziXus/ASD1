@@ -485,6 +485,33 @@ private:
   static void arborize(Node*& tree, Node*& list, size_t cnt) noexcept {
   }
   
+  template < typename Fn >
+  void parcoursPre(Node* R, Fn f){
+      if(R != nullptr){
+          f(R->key);
+          parcoursPre(R->left, f);
+          parcoursPre(R->right, f);
+      }
+  }
+
+  template < typename Fn >
+  void parcoursSym(Node* R, Fn f){
+      if(R != nullptr){
+          parcoursPre(R->left, f);
+          f(R->key);
+          parcoursPre(R->right, f);
+      }
+  }
+  
+  template < typename Fn >
+  void parcoursPost(Node* R, Fn f){
+      if(R != nullptr){
+          parcoursPre(R->left, f);
+          parcoursPre(R->right, f);
+          f(R->key);
+      }
+  }
+  
 public:
   //
   // @brief Parcours pre-ordonne de l'arbre
@@ -495,102 +522,7 @@ public:
   //
   template < typename Fn >
   void visitPre (Fn f) {
-    /*
-    si R n’est pas un arbre vide, alors
-    traiter R
-    parcours pré-ordonné( R.gauche )
-    parcours pré-ordonné( R.droit )
-    fin si
-    */
-    /*auto node = (*this)._root;
-    while(node != nullptr){
-      f(node->key);
-      //parcourt tout les éléments de gauche de l'arbre
-      if(node->left != nullptr){
-         auto nodeL = node->left;
-         while(nodeL != nullptr){
-            f(nodeL->key);
-            node  = nodeL;
-            nodeL = nodeL->left;
-         }
-         if(node->right != nullptr)
-         {
-            node = node->right;
-         }
-      }
-      else{
-         if(node->right != nullptr){
-            auto nodeL = node->left;
-            while(nodeL != nullptr){
-               f(nodeL->key);
-               node  = nodeL;
-               nodeL = nodeL->left;
-            }
-            if(node->right != nullptr)
-            {
-               node = node->right;
-            }
-         }
-      }
-    }
-      auto nodeR = node->right;*/
-    //}
-    /*node = (*this)._root;
-    while(node != nullptr){
-      node = node->right;
-      f(node->key);
-    }*/
-    /*if(f() != null)
-    {
-       fn((*this)._root->key);
-       visipre();
-    }*/
-    
-    queue<Node*> Q;
-    Q.push(_root);
-    Node* cur = Q.front();
-    //Q.push(newLevel);
-    
-    while(cur->left != nullptr){
-        Q.push(cur->left);
-        cur = cur->left;
-    }
-    
-    while(!Q.empty()) {
-      cur = Q.front();
-      Q.pop();
-      f(cur->key);
-      auto nodeR = cur->right;
-      while(nodeR != nullptr){
-        Q.push(nodeR);
-        nodeR = nodeR->left;
-      }
-    }
-
-      /*if(cur == newLevel) {
-        std::cout << "Fist" << std::endl;
-        if(!Q.empty())
-          Q.push(newLevel);
-      } else if(cur == nullptr) {
-        std::cout << "- ";
-        else if(cur->right != nullptr){
-        std::cout << "R";
-        f(cur->right->key);
-        Q.push(cur->right);
-      }
-      } else if(){
-        std::cout << "Left ->" << cur->key << std::endl;
-        //f(cur->left->key);
-       
-      } 
-      else{
-         std::cout << "Pop" << std::endl;
-         Q.pop();
-      }
-      cur = Q.back();
-      std::cout << "back ->" << cur->key << std::endl;
-    }*/
-    
+      parcoursPre(_root, f);
   }
   
   //
@@ -602,7 +534,7 @@ public:
   //
   template < typename Fn >
   void visitSym (Fn f) {
-    /* ... */
+    parcoursSym(_root, f);
   }
   
   //
@@ -614,7 +546,7 @@ public:
   //
   template < typename Fn >
   void visitPost (Fn f) {
-    /* ... */
+    parcoursPost(_root, f);
   }
   
   
