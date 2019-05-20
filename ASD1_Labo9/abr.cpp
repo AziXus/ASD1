@@ -131,7 +131,7 @@ private:
   // @brief Fonction détruisant (delete) un sous arbre
   //
   // @param r la racine du sous arbre à détruire.
-  //          peut éventuellement valoir nullptr
+  //          peut éventuellement valoir nullpt
   //
   static void deleteSubTree(Node* r) noexcept {
       if (r == nullptr)
