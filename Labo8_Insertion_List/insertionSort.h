@@ -1,8 +1,8 @@
 /**
- \file fizzy.cpp
+ file insertionsort.h
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 20 Mai 2019
- Labo 8 : Mettre en place une fonction permettant de d'effectuer dun tri par insertion sur une
+ Labo 8 : Mettre en place une fonction permettant de d'effectuer un tri par insertion sur une
           liste doublement chainée.
           Le code doit passer le codecheck donné.
  */
