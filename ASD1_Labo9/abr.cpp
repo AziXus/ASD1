@@ -346,12 +346,13 @@ private:
   static Node* deleteEl( Node*& r, const_reference key) noexcept {
    if(r == nullptr)
       return r;
+   if(!contains(r, key))
+      return nullptr;
    if(key < (*r).key){
       (*r).left = deleteEl((*r).left, key);
       if((*r).left == nullptr)
          return nullptr;
    }
-      
    else if(key > (*r).key){
       (*r).right = deleteEl((*r).right, key);
       if((*r).right == nullptr)
@@ -550,17 +551,17 @@ private:
   template < typename Fn >
   void parcoursSym(Node* R, Fn f){
       if(R != nullptr){
-          parcoursPre(R->left, f);
+          parcoursSym(R->left, f);
           f(R->key);
-          parcoursPre(R->right, f);
+          parcoursSym(R->right, f);
       }
   }
   
   template < typename Fn >
   void parcoursPost(Node* R, Fn f){
       if(R != nullptr){
-          parcoursPre(R->left, f);
-          parcoursPre(R->right, f);
+          parcoursPost(R->left, f);
+          parcoursPost(R->right, f);
           f(R->key);
       }
   }
