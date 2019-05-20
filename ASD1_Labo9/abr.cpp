@@ -250,11 +250,9 @@ public:
 
 private:
    //
-  // @brief Recherche de la cle minimale.
+  // @brief Recherche de l'élément minimale.
   //
-  // @return une const reference a la cle minimale
-  //
-  // @exception std::logic_error si necessaire
+  // @return Pointeur sur l'élément
   //
    static Node* minElement(Node* r){
       if((*r).left == nullptr)
@@ -287,16 +285,13 @@ public:
   }
 
 private:
-   //
-  // @brief Recherche de la cle minimale.
   //
-  // @return une const reference a la cle minimale
+  // @brief Supprime le plus petit element de l'arbre.
   //
   // @exception std::logic_error si necessaire
-  //
    static Node* deleteMin(Node* r){
       if(r == nullptr)
-         throw "a";
+         throw logic_error("Arbre Vide");
       else if((*r).left == nullptr){
          Node* tmp = (*r).right;
          delete r;
@@ -343,6 +338,11 @@ private:
       return el != nullptr;
   }
 
+  // @brief Fonction recursive qui supprime l'element de cle key du sous arbre.
+  //
+  // @param r la racine du sous arbre
+  // @param key l'element a supprimer
+  //
   static Node* deleteEl( Node*& r, const_reference key) noexcept {
    if(r == nullptr)
       return r;
@@ -357,9 +357,8 @@ private:
       if((*r).right == nullptr)
          return nullptr;
    }
-      
-   //Trouvé
-   else{
+   
+   else{//Elément trouvé
       if((*r).right == nullptr){
          delete r;
          return (*r).left;
