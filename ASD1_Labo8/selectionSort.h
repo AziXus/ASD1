@@ -1,3 +1,12 @@
+/**
+ \file selectionSort.h
+ \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
+ \date 20 Mai 2019
+ Labo 8 : Mettre en place une fonction permettant de d'effectuer un tri par séléction sur une
+          liste doublement chainée.
+          Le minimum trouvé est mis en place avec un appel à la fonction splice au lieu d'un swap.
+          Le code doit passer le codecheck donné.
+ */
 
 #ifndef selectionsort_h
 #define selectionsort_h
