@@ -15,24 +15,8 @@
 template <class T>
 void selectionSort(std::forward_list<T>& L) {
    using namespace std;
-   if(L.empty())
-      return;
-   /*for (auto i = L.before_begin(); next(next(i)) != L.end(); i++) {
-      auto prevI = i;
-      auto pMin = i;
-
-      for (auto j = next(i); j != L.end(); j++)
-      {
-         if(*j < *(next(pMin))){
-            pMin = prevI;
-         }
-           
-         prevI = j;
-      }
-
-      L.splice_after(i, L, pMin);
-      cout << L << endl;
-   }*/
+   //Si la liste est vide on ne fait rien
+   if(L.empty()) return;
    //Comme on affecte la valeur next de j à j et que ensuite on affetce à i le next de j.
    //Il faut vérifier que next next de j ne soit pas la fin du tableau
    for(auto j = L.before_begin(); next(next(j)) != L.end(); j = next(j))
@@ -45,6 +29,7 @@ void selectionSort(std::forward_list<T>& L) {
             iMin = i;
          
       }
+      //On échange l'itérateur iMin avec j
       L.splice_after(j, L, iMin);     
       cout << L << endl;
    }
