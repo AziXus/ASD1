@@ -238,31 +238,41 @@ private:
     return true;
   }
   
+//BESOIN POUR LE DELETE ET SUMPLIFICATION POUR LE MIN()
+public:
+  //
+  // @brief Recherche de la cle minimale.
+  //
+  // @return une const reference a la cle minimale
+  Node* minElement() const {
+    return minElement(_root);
+  }
+
+private:
+   //
+  // @brief Recherche de l'élément minimale.
+  //
+  // @return Pointeur sur l'élément
+  //
+   static Node* minElement(Node* r){
+      if((*r).left == nullptr)
+         return r;
+      else
+         return minElement((*r).left);
+   }
+
+
+
 public:
   //
   // @brief Recherche de la cle minimale.
   //
   // @return une const reference a la cle minimale
   const_reference min() const {
-    return min(_root);
+    return minElement()->key;
   }
 
-private:
-   //
-  // @brief Recherche de la cle minimale.
-  //
-  // @return une const reference a la cle minimale
-  //
-  // @exception std::logic_error si necessaire
-  //
-   static const_reference min(Node* r){
-      if((*r).left == nullptr)
-         return (*r).key;
-      else
-         return min((*r).left);
-   }
-  
-public:
+
   //
   // @brief Supprime le plus petit element de l'arbre.
   //
@@ -275,16 +285,13 @@ public:
   }
 
 private:
-   //
-  // @brief Recherche de la cle minimale.
   //
-  // @return une const reference a la cle minimale
+  // @brief Supprime le plus petit element de l'arbre.
   //
   // @exception std::logic_error si necessaire
-  //
    static Node* deleteMin(Node* r){
       if(r == nullptr)
-         throw "a";
+         throw logic_error("Arbre Vide");
       else if((*r).left == nullptr){
          Node* tmp = (*r).right;
          delete r;
@@ -294,6 +301,7 @@ private:
       (*r).left = deleteMin((*r).left);
       return r;
    }
+
 
 public:
   
@@ -325,9 +333,54 @@ private:
   // retourne vrai
   //
   static bool deleteElement( Node*& r, const_reference key) noexcept {
-    /* ... */
-    return false;
+      Node* el = deleteEl(r, key);
+      //printf("%d", el->key);
+      return el != nullptr;
   }
+
+  // @brief Fonction recursive qui supprime l'element de cle key du sous arbre.
+  //
+  // @param r la racine du sous arbre
+  // @param key l'element a supprimer
+  //
+  static Node* deleteEl( Node*& r, const_reference key) noexcept {
+   if(r == nullptr)
+      return r;
+   if(key < (*r).key){
+      (*r).left = deleteEl((*r).left, key);
+      if((*r).left == nullptr)
+         return nullptr;
+   }
+      
+   else if(key > (*r).key){
+      (*r).right = deleteEl((*r).right, key);
+      if((*r).right == nullptr)
+         return nullptr;
+   }
+   
+   else{//Elément trouvé
+      if((*r).right == nullptr){
+         delete r;
+         return (*r).left;
+      }
+      else if((*r).left == nullptr){
+         delete r;
+         return (*r).right;
+      }
+      else{ //Suppression de Hibbard
+         Node* m = minElement((*r).right);
+         value_type tmpR = (*r).key;
+         reference a = const_cast <reference> ((*r).key);
+         reference b = const_cast <reference> ((*m).key);
+         a = b;
+         b = tmpR;
+         deleteMin((*r).right);
+      }
+   }
+   return r;
+  }
+
+  
   
 public:
   //
