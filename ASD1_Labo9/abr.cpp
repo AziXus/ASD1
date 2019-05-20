@@ -165,38 +165,33 @@ private:
   // la fonction peut modifier x, reçu par référence, si nécessaire
   //
   static bool insert(Node*& r, const_reference key) {
-    /*
-    si R est nul, alors
-    R ← créer une feuille contenant E
-    sinon si E.clé < R.clé, alors
-    insérer( E, R.gauche )
-    sinon, si E.clé > R.clé , alors
-    insérer( E, R.droit )
-    sinon // R.clé vaut E.clé
-    l’élément est déjà présent dans l’arbre
-    fin si
-    */
+    //Si la racine est null on est arrivé enfin de l'arbre et on créer la feuille
     if(r == nullptr)
     {
       r = new Node(key);
       return true;
     }
+    //Si la clé à ajouter est plus petite que la clé de la racine on va l'ajouter à la branche gauche
     else if(key < (*r).key)
     {
+      //On lance l'insertion de la clé à gauche de la racine
       if(insert((*r).left, key)){
+        //Si la clé a été ajouté on incrémente le nombre d'élément de la racine
        (*r).nbElements++;
        return true;
       }
     }
+    //Si la clé à ajouter est plus garnde que la clé de la racine on va l'ajouter à la branche droite
     else if(key > (*r).key)
     {
+      //On lance l'insertion de la clé à droite de la racine
       if(insert((*r).right, key)){
+          //Si la clé a été ajouté on incrémente le nombre d'élément de la racine
          (*r).nbElements++;
-      //(*r).nbElements = (*r).left->nbElements + (*r).right->nbElements;
          return true;
       }
     }
-    
+    //L'élément n'a pas été ajouté ce qui veut dire qu'il est déjà dans l'arbre
     return false;
   }
   
@@ -225,27 +220,21 @@ private:
   // @return vrai si la cle trouvee, faux sinon.
   //
   static bool contains(Node* r, const_reference key) noexcept {
-    /*
-    si R est nul, alors
-   signaler que C est introuvable
-   sinon si C < R.clé, alors
-   chercher( C, R.gauche )
-   sinon, si C > R.clé , alors
-   chercher( C, R.droit )
-   sinon // R.clé vaut C
-   retourner R
-   fin si
-    */
+    //Si la racine est null cela signife que la clé est introuvable
     if(r == nullptr)
       return false;
+    //Si la clé est plus petite que la clé de la racine on va continuer le parcours dans la branche gauche
     else if(key < (*r).key){
       if(!contains((*r).left, key))
+         //Si la valeur n'a pas été trouvé on retourne false
          return false;
     }
     else if(key > (*r).key){
+      //Si la clé est plus grande que la clé de la racine on va continuer le parcours dans la branche droite
       if(!contains((*r).right, key))
          return false;
     }
+    //Si la fonction contains n'est entrée dans aucunes des conditions cela signifie que la valeur à été trouvée
     return true;
   }
   
