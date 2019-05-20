@@ -254,15 +254,26 @@ public:
   // @brief Recherche de la cle minimale.
   //
   // @return une const reference a la cle minimale
+  const_reference min() const {
+    return min(_root);
+  }
+
+private:
+   //
+  // @brief Recherche de la cle minimale.
+  //
+  // @return une const reference a la cle minimale
   //
   // @exception std::logic_error si necessaire
   //
-  // vous pouvez mettre en oeuvre de manière iterative ou recursive a choix
-  //
-  const_reference min() const {
-    /* ... */
-  }
+   static const_reference min(Node* r){
+      if((*r).left == nullptr)
+         return (*r).key;
+      else
+         return min((*r).left);
+   }
   
+public:
   //
   // @brief Supprime le plus petit element de l'arbre.
   //
@@ -271,9 +282,31 @@ public:
   // vous pouvez mettre en oeuvre de manière iterative ou recursive a choix
   //
   void deleteMin() {
-    /* ... */
+    deleteMin(_root);
   }
-  
+
+private:
+   //
+  // @brief Recherche de la cle minimale.
+  //
+  // @return une const reference a la cle minimale
+  //
+  // @exception std::logic_error si necessaire
+  //
+   static Node* deleteMin(Node* r){
+      if(r == nullptr)
+         throw "a";
+      else if((*r).left == nullptr){
+         Node* tmp = (*r).right;
+         delete r;
+         r = nullptr;
+         return tmp;
+      }
+      (*r).left = deleteMin((*r).left);
+      return r;
+   }
+
+public:
   
   //
   // @brief Supprime l'element de cle key de l'arbre.
