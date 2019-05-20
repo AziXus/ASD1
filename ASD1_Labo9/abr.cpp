@@ -238,13 +238,14 @@ private:
     return true;
   }
   
+//BESOIN POUR LE DELETE ET SUMPLIFICATION POUR LE MIN()
 public:
   //
   // @brief Recherche de la cle minimale.
   //
   // @return une const reference a la cle minimale
-  const_reference min() const {
-    return min(_root);
+  Node* minElement() const {
+    return minElement(_root);
   }
 
 private:
@@ -255,14 +256,25 @@ private:
   //
   // @exception std::logic_error si necessaire
   //
-   static const_reference min(Node* r){
+   static Node* minElement(Node* r){
       if((*r).left == nullptr)
-         return (*r).key;
+         return r;
       else
-         return min((*r).left);
+         return minElement((*r).left);
    }
-  
+
+
+
 public:
+  //
+  // @brief Recherche de la cle minimale.
+  //
+  // @return une const reference a la cle minimale
+  const_reference min() const {
+    return minElement()->key;
+  }
+
+
   //
   // @brief Supprime le plus petit element de l'arbre.
   //
@@ -295,6 +307,7 @@ private:
       return r;
    }
 
+
 public:
   
   //
@@ -325,9 +338,50 @@ private:
   // retourne vrai
   //
   static bool deleteElement( Node*& r, const_reference key) noexcept {
-    /* ... */
-    return false;
+      Node* el = deleteEl(r, key);
+      //printf("%d", el->key);
+      return el != nullptr;
   }
+
+  static Node* deleteEl( Node*& r, const_reference key) noexcept {
+   if(r == nullptr)
+      return r;
+   if(key < (*r).key){
+      (*r).left = deleteEl((*r).left, key);
+      if((*r).left == nullptr)
+         return nullptr;
+   }
+      
+   else if(key > (*r).key){
+      (*r).right = deleteEl((*r).right, key);
+      if((*r).right == nullptr)
+         return nullptr;
+   }
+      
+   //Trouvé
+   else{
+      if((*r).right == nullptr){
+         delete r;
+         return (*r).left;
+      }
+      else if((*r).left == nullptr){
+         delete r;
+         return (*r).right;
+      }
+      else{ //Suppression de Hibbard
+         Node* m = minElement((*r).right);
+         value_type tmpR = (*r).key;
+         reference a = const_cast <reference> ((*r).key);
+         reference b = const_cast <reference> ((*m).key);
+         a = b;
+         b = tmpR;
+         deleteMin((*r).right);
+      }
+   }
+   return r;
+  }
+
+  
   
 public:
   //
