@@ -1,5 +1,5 @@
 /**
- \file fizzy.cpp
+ \file selectionSort.h
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 20 Mai 2019
  Labo 8 : Mettre en place une fonction permettant de d'effectuer un tri par séléction sur une
