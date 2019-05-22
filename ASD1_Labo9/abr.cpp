@@ -59,10 +59,7 @@ public:
   /**
    *  @brief Constructeur par défaut. Construit un arbre vide
    */
-  BinarySearchTree() : _root(nullptr)
-  {
-    /* ... */
-  }
+  BinarySearchTree() : _root(nullptr) {}
   
   /**
    *  @brief Constucteur de copie.
@@ -243,18 +240,16 @@ private:
     //Si la fonction contains n'est entrée dans aucunes des conditions cela signifie que la valeur à été trouvée
     return true;
   }
-  
-//BESOIN POUR LE DELETE ET SUMPLIFICATION POUR LE MIN()
-public:
-  //
-  // @brief Recherche de la cle minimale.
-  //
-  // @return une const reference a la cle minimale
-  Node* minElement() const {
-    return minElement(_root);
-  }
 
 private:
+    //
+    // @brief Recherche de la cle minimale.
+    //
+    // @return une const reference a la cle minimale
+    Node* minElement() const {
+        return minElement(_root);
+    }
+
    //
   // @brief Recherche de l'élément minimale.
   //
@@ -266,8 +261,6 @@ private:
       else
          return minElement((*r).left);
    }
-
-
 
 public:
   //
