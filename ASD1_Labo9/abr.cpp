@@ -538,6 +538,14 @@ private:
   static void arborize(Node*& tree, Node*& list, size_t cnt) noexcept {
   }
   
+  //
+  // @brief Fonction permettant le parcours pré-ordonné de l'arbre de manière recursive 
+  //
+  // @param R la racine du sous arbre
+  // @param f une fonction capable d'être appelée en recevant une cle
+  //          en parametre. Pour le noeud n courrant, l'appel sera
+  //          f(n->key);
+  //
   template < typename Fn >
   void parcoursPre(Node* R, Fn f){
       if(R != nullptr){
@@ -547,6 +555,14 @@ private:
       }
   }
 
+  //
+  // @brief Fonction permettant le parcours symétrique de l'arbre de manière recursive 
+  //
+  // @param R la racine du sous arbre
+  // @param f une fonction capable d'être appelée en recevant une cle
+  //          en parametre. Pour le noeud n courrant, l'appel sera
+  //          f(n->key);
+  //
   template < typename Fn >
   void parcoursSym(Node* R, Fn f){
       if(R != nullptr){
@@ -556,6 +572,14 @@ private:
       }
   }
   
+  //
+  // @brief Fonction permettant le parcours post-ordonné de l'arbre de manière recursive 
+  //
+  // @param R la racine du sous arbre
+  // @param f une fonction capable d'être appelée en recevant une cle
+  //          en parametre. Pour le noeud n courrant, l'appel sera
+  //          f(n->key);
+  //
   template < typename Fn >
   void parcoursPost(Node* R, Fn f){
       if(R != nullptr){
