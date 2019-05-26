@@ -154,7 +154,7 @@ public:
   // @param key la clé à insérer.
   //
   // Ne pas modifier mais écrire la fonction
-  // rÃ©cursive privÃ©e insert(Node*&,const_reference)
+  // récursive privée insert(Node*&,const_reference)
   //
   void insert( const_reference key) {
     insert(_root,key);
@@ -165,43 +165,43 @@ private:
   // @brief Insertion d'une cle dans un sous-arbre
   //
   // @param r la racine du sous-arbre dans lequel
-  //          insÃ©rer la cle.
-  // @param key la clÃ© Ã  insÃ©rer.
+  //          insérer la cle.
+  // @param key la clé Ã  insérer.
   //
   // @return vrai si la cle est inseree. faux si elle etait deja presente.
   //
   // Si la cle est deja presente, cette fonction ne fait rien.
-  // x peut Ã©ventuellement valoir nullptr en entrÃ©e.
-  // la fonction peut modifier x, reÃ§u par rÃ©fÃ©rence, si nÃ©cessaire
+  // x peut éventuellement valoir nullptr en entrée.
+  // la fonction peut modifier x, reÃ§u par référence, si nécessaire
   //
   static bool insert(Node*& r, const_reference key) {
-    //Si la racine est null on est arrivÃ© enfin de l'arbre et on crÃ©er la feuille
+    //Si la racine est null on est arrivé enfin de l'arbre et on créer la feuille
     if(r == nullptr)
     {
       r = new Node(key);
       return true;
     }
-    //Si la clÃ© Ã  ajouter est plus petite que la clÃ© de la racine on va l'ajouter Ã  la branche gauche
+    //Si la clé à ajouter est plus petite que la clé de la racine on va l'ajouter à la branche gauche
     else if(key < (*r).key)
     {
-      //On lance l'insertion de la clÃ© Ã  gauche de la racine
+      //On lance l'insertion de la clé à gauche de la racine
       if(insert((*r).left, key)){
-        //Si la clÃ© a Ã©tÃ© ajoutÃ© on incrÃ©mente le nombre d'Ã©lÃ©ment de la racine
+        //Si la clé a été ajouté on incrémente le nombre d'élément de la racine
        (*r).nbElements++;
        return true;
       }
     }
-    //Si la clÃ© Ã  ajouter est plus garnde que la clÃ© de la racine on va l'ajouter Ã  la branche droite
+    //Si la clé à ajouter est plus grande que la clé de la racine on va l'ajouter à la branche droite
     else if(key > (*r).key)
     {
-      //On lance l'insertion de la clÃ© Ã  droite de la racine
+      //On lance l'insertion de la clé à droite de la racine
       if(insert((*r).right, key)){
-          //Si la clÃ© a Ã©tÃ© ajoutÃ© on incrÃ©mente le nombre d'Ã©lÃ©ment de la racine
+          //Si la clé a été ajouté on incrÃ©mente le nombre d'Ã©lÃ©ment de la racine
          (*r).nbElements++;
          return true;
       }
     }
-    //L'Ã©lÃ©ment n'a pas Ã©tÃ© ajoutÃ© ce qui veut dire qu'il est dÃ©jÃ  dans l'arbre
+    //L'élément n'a pas Ã©tÃ© ajoutÃ© ce qui veut dire qu'il est dÃ©jÃ  dans l'arbre
     return false;
   }
   
@@ -406,14 +406,16 @@ public:
   // @return une reference a la cle en position n par ordre croissant des
   // elements
   //
-  // @exception std::logic_error si nÃ©cessaire
+  // @exception std::logic_error si nécessaire
   //
   // ajoutez le code de gestion des exceptions, puis mettez en oeuvre
   // la fonction recursive nth_element(Node*, n)
   //
   const_reference nth_element(size_t n) const {
-    /* ... */
-    return nth_element(_root,n);
+    if(_root != nullptr){
+        return nth_element(_root, n);
+    }
+    return -1;
   }
   
 private:
@@ -428,7 +430,18 @@ private:
   //
   static const_reference nth_element(Node* r, size_t n) noexcept {
     assert(r != nullptr);
-    /* ... */
+    /*
+     si R n’est pas un arbre vide, alors
+     parcours croissant( R.gauche )
+     traiter R
+     parcours croissant( R.droit )
+     fin si
+     */
+    if(n == 0){
+        return r->key;
+    }
+    return nth_element(r->left, n-1);
+    return nth_element(r->right, n-1);
     return -1;
   }
   
