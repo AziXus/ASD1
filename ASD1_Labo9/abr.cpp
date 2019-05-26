@@ -52,7 +52,7 @@ private:
     {
       cout << "(D" << key << ") ";
     }
-    Node() = delete;             // pas de construction par dÃ©faut
+    Node() = delete;             // pas de construction par défaut
     Node(const Node&) = delete;  // pas de construction par copie
     Node(Node&&) = delete;       // pas de construction par déplacement
   };
@@ -110,7 +110,7 @@ public:
   }
   
   /**
-   *  @brief Opérateur d'affectation par dÃ©placement.
+   *  @brief Opérateur d'affectation par déplacement.
    *
    *  @param other le BST dont on vole le contenu
    *
@@ -134,7 +134,7 @@ private:
   //
   // @brief Fonction détruisant (delete) un sous arbre
   //
-  // @param r la racine du sous arbre à détruire.
+  // @param r la racine du sous arbre à détruire.
   //          peut éventuellement valoir nullpt
   //
   static void deleteSubTree(Node* r) noexcept {
@@ -166,13 +166,13 @@ private:
   //
   // @param r la racine du sous-arbre dans lequel
   //          insérer la cle.
-  // @param key la clé Ã  insérer.
+  // @param key la clé à insérer.
   //
   // @return vrai si la cle est inseree. faux si elle etait deja presente.
   //
   // Si la cle est deja presente, cette fonction ne fait rien.
   // x peut éventuellement valoir nullptr en entrée.
-  // la fonction peut modifier x, reÃ§u par référence, si nécessaire
+  // la fonction peut modifier x, reçu par référence, si nécessaire
   //
   static bool insert(Node*& r, const_reference key) {
     //Si la racine est null on est arrivé enfin de l'arbre et on créer la feuille
@@ -196,12 +196,12 @@ private:
     {
       //On lance l'insertion de la clé à droite de la racine
       if(insert((*r).right, key)){
-          //Si la clé a été ajouté on incrÃ©mente le nombre d'Ã©lÃ©ment de la racine
+          //Si la clé a été ajouté on incrémente le nombre d'élément de la racine
          (*r).nbElements++;
          return true;
       }
     }
-    //L'élément n'a pas Ã©tÃ© ajoutÃ© ce qui veut dire qu'il est dÃ©jÃ  dans l'arbre
+    //L'élément n'a pas été ajouté ce qui veut dire qu'il est déjà  dans l'arbre
     return false;
   }
   
@@ -213,8 +213,8 @@ public:
   //
   // @return vrai si la cle trouvee, faux sinon.
   //
-  // Ne pas modifier mais Ã©crire la fonction
-  // rÃ©cursive privÃ©e contains(Node*,const_reference)
+  // Ne pas modifier mais écrire la fonction
+  // récursive privée contains(Node*,const_reference)
   //
   bool contains( const_reference key ) const noexcept {
     return contains(_root,key);
@@ -233,18 +233,18 @@ private:
     //Si la racine est null cela signife que la clÃ© est introuvable
     if(r == nullptr)
       return false;
-    //Si la clÃ© est plus petite que la clÃ© de la racine on va continuer le parcours dans la branche gauche
+    //Si la clÃ© est plus petite que la clé de la racine on va continuer le parcours dans la branche gauche
     else if(key < (*r).key){
       if(!contains((*r).left, key))
-         //Si la valeur n'a pas Ã©tÃ© trouvÃ© on retourne false
+         //Si la valeur n'a pas été trouvée on retourne false
          return false;
     }
     else if(key > (*r).key){
-      //Si la clÃ© est plus grande que la clÃ© de la racine on va continuer le parcours dans la branche droite
+      //Si la clé est plus grande que la clé de la racine on va continuer le parcours dans la branche droite
       if(!contains((*r).right, key))
          return false;
     }
-    //Si la fonction contains n'est entrÃ©e dans aucunes des conditions cela signifie que la valeur Ã  Ã©tÃ© trouvÃ©e
+    //Si la fonction contains n'est entrÃ©e dans aucunes des conditions cela signifie que la valeur à été trouvée
     return true;
   }
 
@@ -258,9 +258,9 @@ private:
     }
 
    //
-  // @brief Recherche de l'Ã©lÃ©ment minimale.
+  // @brief Recherche de l'élément minimale.
   //
-  // @return Pointeur sur l'Ã©lÃ©ment
+  // @return Pointeur sur l'élément
   //
    static Node* minElement(Node* r){
       if((*r).left == nullptr)
@@ -284,7 +284,7 @@ public:
   //
   // @exception std::logic_error si necessaire
   //
-  // vous pouvez mettre en oeuvre de maniÃ¨re iterative ou recursive a choix
+  // vous pouvez mettre en oeuvre de manière iterative ou recursive a choix
   //
   void deleteMin() {
     deleteMin(_root);
@@ -321,8 +321,8 @@ public:
   // l'arbre mais retourne false. Si l'element est present, elle
   // retourne vrai
   //
-  // Ne pas modifier mais Ã©crire la fonction
-  // rÃ©cursive privÃ©e deleteElement(Node*&,const_reference)
+  // Ne pas modifier mais écrire la fonction
+  // récursive privée deleteElement(Node*&,const_reference)
   //
   bool deleteElement( const_reference key) noexcept {
     return deleteElement( _root, key );
@@ -369,7 +369,7 @@ private:
          return nullptr;
    }
    
-   else{//ElÃ©ment trouvÃ©
+   else{//Elément trouvé
       r->nbElements--;
       if((*r).right == nullptr){
          delete r;
@@ -423,6 +423,20 @@ public:
   }
   
 private:
+
+    Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
+    if (r->left) {
+        Node* temp = findNodeN(r->left, nodesVisited, n);
+        if (temp) return temp;
+    }
+    if (nodesVisited == n) return r;
+    ++nodesVisited;
+    if (r->right) {
+        Node* temp = findNodeN(r->right, nodesVisited, n);
+        if (temp) return temp;
+    }
+    return nullptr;
+}
   //
   // @brief cle en position n dans un sous arbre
   //
@@ -434,6 +448,8 @@ private:
   //
   static const_reference nth_element(Node* r, size_t n) noexcept {
     assert(r != nullptr);
+    return findNodeN(r, 0, n)->key;
+    static int nodesVisited = 0;
     /*
      si R n’est pas un arbre vide, alors
      parcours croissant( R.gauche )
@@ -441,12 +457,44 @@ private:
      parcours croissant( R.droit )
      fin si
      */
-    if(n == 0){
+    /*if (r->left) {
+        const_reference temp = nth_element(r->left, n);
+        if(temp != -1) return temp;
+    }
+    if (nodesVisited == n) return r->key;
+    ++nodesVisited;
+    if(r->left) {
+        const_reference temp = nth_element(r->right, n);
+        if(temp != -1) return temp;
+    }
+    return -1;*/
+    if (r->left == nullptr)
+        return (const_reference)0;
+    std::cout << n << std::endl;
+    // search in left subtree
+    
+    std::cout << (n+1) << std::endl;
+    const_reference left = nth_element(r->left, n);
+    // if k'th smallest is found in left subtree, return it
+    if (left != (const_reference)0)
+            return left;
+
+    // if current element is k'th smallest, return its value
+    std::cout << (n+2) << std::endl;
+    std::cout << nodesVisited << std::endl;
+    if(++nodesVisited == n){
+       return r->key;
+    }
+    // else search in right subtree
+    return nth_element(r->right, n);
+    /*if(r == nullptr){
+        return -1;
+    }
+    return nth_element(r->left, n);
+    if(--n == 0){
         return r->key;
     }
-    return nth_element(r->left, n-1);
-    return nth_element(r->right, n-1);
-    return -1;
+    return nth_element(r->right, n);*/
   }
   
 public:
@@ -457,8 +505,8 @@ public:
   //
   // @return la position entre 0 et size()-1, size_t(-1) si la cle est absente
   //
-  // Ne pas modifier mais Ã©crire la fonction
-  // rÃ©cursive privÃ©e rank(Node*,const_reference)
+  // Ne pas modifier mais écrire la fonction
+  // récursive privée rank(Node*,const_reference)
   //
   size_t rank(const_reference key) const noexcept {
     return rank(_root,key);
@@ -493,7 +541,7 @@ public:
   // arbre binaire de recherche
   //
   // Ne pas modifier cette fonction qui sert essentiellement a tester la
-  // fonction recursive linearize(Node*, Node*&, size_t&) utilisÃ©e par
+  // fonction recursive linearize(Node*, Node*&, size_t&) utilisée par
   // la methode publique arborize
   //
   void linearize() noexcept {
@@ -514,15 +562,15 @@ private:
   // @param cnt  calcule au fure et a mesure le nombre d'elements de la liste
   //             cree. l'effet de la fonction doit etre d'ajouter le nombre
   //             d'elements du sous-arbre de racine tree. Cependant, vous
-  //             avez uniquement le droit d'utiliser l'opÃ©rateur ++.
+  //             avez uniquement le droit d'utiliser l'opérateur ++.
   //
   static void linearize(Node* tree, Node*& list, size_t& cnt) noexcept {
     /* si R=nullptr alors
        retourner 0
-       N <- linÃ©ariser(R.droit, L)
+       N <- linéariser(R.droit, L)
        R.droit = L
        L = R
-       N <- N + linÃ©ariser(R.gauche, L)
+       N <- N + linéariser(R.gauche, L)
        R.gauche = null */
        if(tree == nullptr){}
        else{
@@ -568,10 +616,10 @@ private:
   }
   
   //
-  // @brief Fonction permettant le parcours prÃ©-ordonnÃ© de l'arbre de maniÃ¨re recursive 
+  // @brief Fonction permettant le parcours pré-ordonné de l'arbre de manière recursive 
   //
   // @param R la racine du sous arbre
-  // @param f une fonction capable d'Ãªtre appelÃ©e en recevant une cle
+  // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
@@ -585,10 +633,10 @@ private:
   }
 
   //
-  // @brief Fonction permettant le parcours symÃ©trique de l'arbre de maniÃ¨re recursive 
+  // @brief Fonction permettant le parcours symétrique de l'arbre de manière recursive 
   //
   // @param R la racine du sous arbre
-  // @param f une fonction capable d'Ãªtre appelÃ©e en recevant une cle
+  // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
@@ -602,10 +650,10 @@ private:
   }
   
   //
-  // @brief Fonction permettant le parcours post-ordonnÃ© de l'arbre de maniÃ¨re recursive 
+  // @brief Fonction permettant le parcours post-ordonné de l'arbre de manière recursive 
   //
   // @param R la racine du sous arbre
-  // @param f une fonction capable d'Ãªtre appelÃ©e en recevant une cle
+  // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
@@ -622,7 +670,7 @@ public:
   //
   // @brief Parcours pre-ordonne de l'arbre
   //
-  // @param f une fonction capable d'Ãªtre appelÃ©e en recevant une cle
+  // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
@@ -632,9 +680,9 @@ public:
   }
   
   //
-  // @brief Parcours symÃ©trique de l'arbre
+  // @brief Parcours symétrique de l'arbre
   //
-  // @param f une fonction capable d'Ãªtre appelÃ©e en recevant une cle
+  // @param f une fonction capable d'Ãªtre appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
@@ -646,7 +694,7 @@ public:
   //
   // @brief Parcours post-ordonne de l'arbre
   //
-  // @param f une fonction capable d'Ãªtre appelÃ©e en recevant une cle
+  // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
@@ -701,7 +749,7 @@ public:
   void display (Fn func, ostream& os = cout ) const {
     Node* newLevel = (Node*) -1;
     // addresse non nulle dont on est sur qu'elle ne contient pas
-    // vraiment un Node. UtilisÃ©e comme sentinelle.
+    // vraiment un Node. Utilisée comme sentinelle.
     
     queue<Node*> Q;
     Q.push(_root);
