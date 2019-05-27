@@ -424,7 +424,7 @@ public:
   
 private:
 
-    Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
+    /*Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
     if (r->left) {
         Node* temp = findNodeN(r->left, nodesVisited, n);
         if (temp) return temp;
@@ -436,7 +436,7 @@ private:
         if (temp) return temp;
     }
     return nullptr;
-}
+    }*/
   //
   // @brief cle en position n dans un sous arbre
   //
@@ -448,7 +448,6 @@ private:
   //
   static const_reference nth_element(Node* r, size_t n) noexcept {
     assert(r != nullptr);
-    return findNodeN(r, 0, n)->key;
     static int nodesVisited = 0;
     /*
      si R n’est pas un arbre vide, alors
