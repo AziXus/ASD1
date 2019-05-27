@@ -67,15 +67,27 @@ public:
    *  @brief Constructeur par défaut. Construit un arbre vide
    */
   BinarySearchTree() : _root(nullptr) {}
-  
+
+private:
+   void copyBinarySearchTree(Node*& newNode, Node*& srcNode) {
+      if (srcNode != nullptr) {
+         newNode = new Node(srcNode->key);
+         newNode->nbElements = srcNode->nbElements;
+
+         copyBinarySearchTree(newNode->left, srcNode->left);
+         copyBinarySearchTree(newNode->right, srcNode->right);
+      }
+   }
+
+public:
   /**
    *  @brief Constucteur de copie.
    *
    *  @param other le BinarySearchTree à copier
    *
    */
-  BinarySearchTree( BinarySearchTree& other ) {
-    /* ... */
+  BinarySearchTree( BinarySearchTree& other ) : BinarySearchTree() {
+      copyBinarySearchTree(_root, other._root);
   }
   
   /**
@@ -85,7 +97,13 @@ public:
    *
    */
   BinarySearchTree& operator= ( const BinarySearchTree& other ) {
-    /* ... */
+    BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
+
+//    swap(*this, tmp);
+    Node* tmpNode = tmp._root;
+    tmp._root = this->_root;
+    this->_root = tmpNode;
+
     return *this;
   }
   
@@ -96,7 +114,9 @@ public:
    *
    */
   void swap(BinarySearchTree& other ) noexcept {
-    /* ... */
+    Node* tmp = other._root;
+    other._root = this->_root;
+    this->_root = tmp;
   }
   
   /**
@@ -424,7 +444,7 @@ public:
   
 private:
 
-    /*Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
+    static Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
     if (r->left) {
         Node* temp = findNodeN(r->left, nodesVisited, n);
         if (temp) return temp;
@@ -436,7 +456,7 @@ private:
         if (temp) return temp;
     }
     return nullptr;
-    }*/
+    }
   //
   // @brief cle en position n dans un sous arbre
   //
@@ -448,7 +468,8 @@ private:
   //
   static const_reference nth_element(Node* r, size_t n) noexcept {
     assert(r != nullptr);
-    static int nodesVisited = 0;
+    size_t nodesVisited = 0;
+    return findNodeN(r, nodesVisited, n)->key;
     /*
      si R n’est pas un arbre vide, alors
      parcours croissant( R.gauche )
@@ -468,12 +489,15 @@ private:
     }
     return -1;*/
     if (r->left == nullptr)
-        return (const_reference)0;
+        return const_reference(-1);
     std::cout << n << std::endl;
     // search in left subtree
     
     std::cout << (n+1) << std::endl;
     const_reference left = nth_element(r->left, n);
+    if ((const_reference)left)
+      bool baf = true;
+
     // if k'th smallest is found in left subtree, return it
     if (left != (const_reference)0)
             return left;
