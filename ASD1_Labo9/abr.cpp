@@ -509,13 +509,15 @@ private:
   // @return la position entre 0 et size()-1, size_t(-1) si la cle est absente
   //
   static size_t rank(Node* r, const_reference key) noexcept {
-    if(r == nullptr)
+      if(r == nullptr)
          return -1;
       if(key < r->key)
          return rank(r->left, key);
-      if(key > r->key)
-         return (rank(r->right, key) + r->left->nbElements + 1);
-      return r->left->nbElements + 1;
+      if(key > r->key){
+         size_t rankNext = rank(r->right, key);
+         return (rankNext == -1 ? -1 : (rankNext + (r->left == nullptr ? 0 : r->left->nbElements) + 1));
+      } 
+      return r->left == nullptr ? 0 : r->left->nbElements;
   }
   
 public:
