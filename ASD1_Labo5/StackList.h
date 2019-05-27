@@ -69,12 +69,14 @@ namespace asd1 {
          * @return la nouvelle StackList copiée
          */
         StackList& operator=(const StackList& rhs) {
-            //Appel du constructeur par copie
-            StackList<value_type> temp = rhs;
+            //toujours faire le if pour eviter l'auto affectation
+            if(this != &rhs){
+                //Appel du constructeur par copie
+                StackList<value_type> temp = rhs;
 
-            //On échange les deux topNodes afin de supprimer les anciennes nodes lors de la destruction de temp
-            std::swap(topNode, temp.topNode);
-
+                //On échange les deux topNodes afin de supprimer les anciennes nodes lors de la destruction de temp
+                std::swap(topNode, temp.topNode);
+            }
             return *this;
         }
 
