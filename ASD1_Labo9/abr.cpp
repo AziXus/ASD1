@@ -70,13 +70,14 @@ public:
 
 private:
    void copyBinarySearchTree(Node*& newNode, Node*& srcNode) {
-      if (srcNode != nullptr) {
-         newNode = new Node(srcNode->key);
-         newNode->nbElements = srcNode->nbElements;
+      if (srcNode == nullptr)
+        return;
 
-         copyBinarySearchTree(newNode->left, srcNode->left);
-         copyBinarySearchTree(newNode->right, srcNode->right);
-      }
+      newNode = new Node(srcNode->key);
+      newNode->nbElements = srcNode->nbElements;
+
+      copyBinarySearchTree(newNode->left, srcNode->left);
+      copyBinarySearchTree(newNode->right, srcNode->right);
    }
 
 public:
@@ -100,10 +101,10 @@ public:
     BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
 
 //    swap(*this, tmp);
-    Node* tmpNode = tmp._root;
-    tmp._root = this->_root;
-    this->_root = tmpNode;
-
+//    Node* tmpNode = tmp._root;
+//    tmp._root = this->_root;
+//    this->_root = tmpNode;
+    this->swap(tmp);
     return *this;
   }
   
@@ -114,6 +115,9 @@ public:
    *
    */
   void swap(BinarySearchTree& other ) noexcept {
+    if (other._root == _root)
+      return;
+
     Node* tmp = other._root;
     other._root = this->_root;
     this->_root = tmp;
@@ -126,7 +130,9 @@ public:
    *
    */
   BinarySearchTree( BinarySearchTree&& other ) noexcept {
-    /* ... */
+    _root = nullptr;
+
+    this->swap(other);
   }
   
   /**
@@ -136,7 +142,8 @@ public:
    *
    */
   BinarySearchTree& operator= ( BinarySearchTree&& other ) noexcept {
-    /* ... */
+    this->swap(other);
+
     return *this;
   }
   
@@ -516,7 +523,7 @@ private:
       if(key > r->key){
          size_t rankNext = rank(r->right, key);
          return (rankNext == -1 ? -1 : (rankNext + (r->left == nullptr ? 0 : r->left->nbElements) + 1));
-      } 
+      }
       return r->left == nullptr ? 0 : r->left->nbElements;
   }
   
