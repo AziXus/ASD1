@@ -60,6 +60,7 @@ private:
         ArrayDeque tmp(newCapacity);
 
         for (size_type i = 0; i < taille; ++i) {
+            //remplir en faisant des push_back au lieu de ce qu'on a fait
             new(tmp.buffer + i) value_type(std::move(buffer[index_physique(i)]));
             //Chaque nouvel élément fait augmenter la taille du tableau
             ++tmp.taille;
