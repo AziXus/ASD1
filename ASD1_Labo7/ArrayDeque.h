@@ -91,6 +91,7 @@ public:
     ArrayDeque(const ArrayDeque& rhs) : ArrayDeque(rhs.capacite) {
         debut = rhs.debut;
         for (size_type i = 0; i < rhs.taille; ++i) {
+            //faire des push_back à nouveau c'est mieux
             new(buffer + index_physique(i)) value_type(rhs.at(i));
             ++taille;
         }
@@ -102,6 +103,7 @@ public:
      * @return l'ArrayDeque avec les valeurs de rhs
      */
     ArrayDeque& operator=(const ArrayDeque& rhs) {
+        if(&rhs == this) return *this;
         //Appel du constructeur par copie
         ArrayDeque tmp = rhs;
 
