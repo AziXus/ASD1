@@ -443,19 +443,28 @@ public:
   }
   
 private:
-
+    /**
+     * Fonction permettant de trouver la valeur n de l'arbre. Les valeurs sont trouvées dans l'ordre croissant.
+     * @param r la racine du sous arbre 
+     * @param nodesVisited size_t en référence permettant de savoir le nombre de nombre de node qui ont été parcouru
+     * @param n la position n du node désiré
+     * @return le noeu voulu ou nullptr si le n était trop grand
+     */
     static Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
-    if (r->left) {
-        Node* temp = findNodeN(r->left, nodesVisited, n);
-        if (temp) return temp;
-    }
-    if (nodesVisited == n) return r;
-    ++nodesVisited;
-    if (r->right) {
-        Node* temp = findNodeN(r->right, nodesVisited, n);
-        if (temp) return temp;
-    }
-    return nullptr;
+        if(r->left) {
+            Node* temp = findNodeN(r->left, nodesVisited, n);
+            if(temp)
+                return temp;
+        }
+        if(nodesVisited == n)
+            return r;
+        ++nodesVisited;
+        if(r->right){
+            Node* temp = findNodeN(r->right, nodesVisited, n);
+            if(temp)
+                return temp;
+        }
+        return nullptr;
     }
   //
   // @brief cle en position n dans un sous arbre
@@ -469,55 +478,10 @@ private:
   static const_reference nth_element(Node* r, size_t n) noexcept {
     assert(r != nullptr);
     size_t nodesVisited = 0;
-    return findNodeN(r, nodesVisited, n)->key;
-    /*
-     si R n’est pas un arbre vide, alors
-     parcours croissant( R.gauche )
-     traiter R
-     parcours croissant( R.droit )
-     fin si
-     */
-    /*if (r->left) {
-        const_reference temp = nth_element(r->left, n);
-        if(temp != -1) return temp;
-    }
-    if (nodesVisited == n) return r->key;
-    ++nodesVisited;
-    if(r->left) {
-        const_reference temp = nth_element(r->right, n);
-        if(temp != -1) return temp;
-    }
-    return -1;*/
-    if (r->left == nullptr)
-        return const_reference(-1);
-    std::cout << n << std::endl;
-    // search in left subtree
-    
-    std::cout << (n+1) << std::endl;
-    const_reference left = nth_element(r->left, n);
-    if ((const_reference)left)
-      bool baf = true;
-
-    // if k'th smallest is found in left subtree, return it
-    if (left != (const_reference)0)
-            return left;
-
-    // if current element is k'th smallest, return its value
-    std::cout << (n+2) << std::endl;
-    std::cout << nodesVisited << std::endl;
-    if(++nodesVisited == n){
-       return r->key;
-    }
-    // else search in right subtree
-    return nth_element(r->right, n);
-    /*if(r == nullptr){
-        return -1;
-    }
-    return nth_element(r->left, n);
-    if(--n == 0){
-        return r->key;
-    }
-    return nth_element(r->right, n);*/
+    Node* node = findNodeN(r, nodesVisited, n);
+    if(node)
+        return node->key;
+    return -1;
   }
   
 public:
