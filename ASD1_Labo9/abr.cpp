@@ -69,6 +69,11 @@ public:
   BinarySearchTree() : _root(nullptr) {}
 
 private:
+  /**
+   * Copie la node et sous-nodes vers une autre node.
+   * @param newNode Nouvelle Node à créer
+   * @param srcNode Node et sous-nodes à copier
+   */
    void copyBinarySearchTree(Node*& newNode, Node*& srcNode) {
       if (srcNode == nullptr)
         return;
@@ -100,10 +105,6 @@ public:
   BinarySearchTree& operator= ( const BinarySearchTree& other ) {
     BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
 
-//    swap(*this, tmp);
-//    Node* tmpNode = tmp._root;
-//    tmp._root = this->_root;
-//    this->_root = tmpNode;
     this->swap(tmp);
     return *this;
   }
@@ -131,8 +132,7 @@ public:
    */
   BinarySearchTree( BinarySearchTree&& other ) noexcept {
     _root = nullptr;
-
-    this->swap(other);
+    swap(other);
   }
   
   /**
