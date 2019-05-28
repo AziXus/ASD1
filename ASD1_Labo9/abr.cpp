@@ -457,22 +457,23 @@ private:
      * @param n la position n du node désiré
      * @return le noeu voulu ou nullptr si le n était trop grand
      */
-    static Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
-        if(r->left) {
-            Node* temp = findNodeN(r->left, nodesVisited, n);
-            if(temp)
-                return temp;
-        }
-        if(nodesVisited == n)
-            return r;
-        ++nodesVisited;
-        if(r->right){
-            Node* temp = findNodeN(r->right, nodesVisited, n);
-            if(temp)
-                return temp;
-        }
-        return nullptr;
-    }
+  static Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
+      if(r->left) {
+          Node* temp = findNodeN(r->left, nodesVisited, n);
+          if(temp)
+              return temp;
+      }
+      if(nodesVisited == n)
+          return r;
+      ++nodesVisited;
+      if(r->right){
+          Node* temp = findNodeN(r->right, nodesVisited, n);
+          if(temp)
+              return temp;
+      }
+      return nullptr;
+  }
+  
   //
   // @brief cle en position n dans un sous arbre
   //
