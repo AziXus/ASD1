@@ -209,22 +209,22 @@ private:
       return true;
     }
     //Si la clé à ajouter est plus petite que la clé de la racine on va l'ajouter à la branche gauche
-    else if(key < (*r).key)
+    else if(key < r->key)
     {
       //On lance l'insertion de la clé à gauche de la racine
-      if(insert((*r).left, key)){
+      if(insert(r->left, key)){
         //Si la clé a été ajouté on incrémente le nombre d'élément de la racine
-       (*r).nbElements++;
+       r->nbElements++;
        return true;
       }
     }
     //Si la clé à ajouter est plus grande que la clé de la racine on va l'ajouter à la branche droite
-    else if(key > (*r).key)
+    else if(key > r->key)
     {
       //On lance l'insertion de la clé à droite de la racine
-      if(insert((*r).right, key)){
+      if(insert(r->right, key)){
           //Si la clé a été ajouté on incrémente le nombre d'élément de la racine
-         (*r).nbElements++;
+         r->nbElements++;
          return true;
       }
     }
@@ -261,14 +261,14 @@ private:
     if(r == nullptr)
       return false;
     //Si la clÃ© est plus petite que la clé de la racine on va continuer le parcours dans la branche gauche
-    else if(key < (*r).key){
-      if(!contains((*r).left, key))
+    else if(key < r->key){
+      if(!contains(r->left, key))
          //Si la valeur n'a pas été trouvée on retourne false
          return false;
     }
-    else if(key > (*r).key){
+    else if(key > r->key){
       //Si la clé est plus grande que la clé de la racine on va continuer le parcours dans la branche droite
-      if(!contains((*r).right, key))
+      if(!contains(r->right, key))
          return false;
     }
     //Si la fonction contains n'est entrÃ©e dans aucunes des conditions cela signifie que la valeur à été trouvée
@@ -290,10 +290,10 @@ private:
   // @return Pointeur sur l'élément
   //
    static Node* minElement(Node* r){
-      if((*r).left == nullptr)
+      if(r->left == nullptr)
          return r;
       else
-         return minElement((*r).left);
+         return minElement(r->left);
    }
 
 public:
@@ -325,13 +325,13 @@ private:
    static Node* deleteMin(Node* r){
       if(r == nullptr)
          throw logic_error("Arbre Vide");
-      else if((*r).left == nullptr){
-         Node* tmp = (*r).right;
+      else if(r->left == nullptr){
+         Node* tmp = r->right;
          delete r;
          r = nullptr;
          return tmp;
       }
-      (*r).left = deleteMin((*r).left);
+      r->left = deleteMin(r->left);
       r->nbElements--;
       return r;
    }
@@ -383,37 +383,37 @@ private:
       return r;
    if(!contains(r, key))
       return nullptr;
-   if(key < (*r).key){
-      (*r).left = deleteEl((*r).left, key);
+   if(key < r->key){
+      r->left = deleteEl(r->left, key);
       r->nbElements--;
-      if((*r).left == nullptr)
+      if(r->left == nullptr)
          return nullptr;
    }
-   else if(key > (*r).key){
-      (*r).right = deleteEl((*r).right, key);
+   else if(key > r->key){
+      r->right = deleteEl(r->right, key);
       r->nbElements--;
-      if((*r).right == nullptr)
+      if(r->right == nullptr)
          return nullptr;
    }
    
    else{//Elément trouvé
       r->nbElements--;
-      if((*r).right == nullptr){
+      if(r->right == nullptr){
          delete r;
-         return (*r).left;
+         return r->left;
       }
-      else if((*r).left == nullptr){
+      else if(r->left == nullptr){
          delete r;
-         return (*r).right;
+         return r->right;
       }
       else{ //Suppression de Hibbard
-         Node* m = minElement((*r).right);
-         value_type tmpR = (*r).key;
-         reference a = const_cast <reference> ((*r).key);
-         reference b = const_cast <reference> ((*m).key);
+         Node* m = minElement(r->right);
+         value_type tmpR = r->key;
+         reference a = const_cast <reference> (r->key);
+         reference b = const_cast <reference> (m->key);
          a = b;
          b = tmpR;
-         deleteMin((*r).right);
+         deleteMin(r->right);
       }
    }
    return r;
@@ -571,11 +571,11 @@ private:
        R.gauche = null */
        if(tree == nullptr){}
        else{
-          linearize((*tree).right, list, ++cnt);
-          (*tree).right = list;
+          linearize(tree->right, list, ++cnt);
+          tree->right = list;
           list = tree;
-          linearize((*tree).left, list, ++cnt);
-          (*tree).left = NULL;
+          linearize(tree->left, list, ++cnt);
+          tree->left = NULL;
           cnt++;
        }
   }
