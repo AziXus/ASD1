@@ -1,6 +1,6 @@
 /**
  \file abr.cpp
- \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin MÃ¼ller
+ \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 29 Mai 2019
  Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 2.
  */
