@@ -194,6 +194,9 @@ private:
   // @param r la racine du sous-arbre dans lequel
   //          insérer la cle.
   // @param key la clé à insérer.
+  //  
+  // @remark en moyenne, O(log(n))
+  //         au pire, O(n) si l’arbre est dégénéré
   //
   // @return vrai si la cle est inseree. faux si elle etait deja presente.
   //
@@ -253,14 +256,17 @@ private:
   //
   // @param key la cle a rechercher
   // @param r   la racine du sous-arbre
+  //  
+  // @remark en moyenne, O(log(n))
+  //         au pire, O(n) si l’arbre est dégénéré
   //
   // @return vrai si la cle trouvee, faux sinon.
   //
   static bool contains(Node* r, const_reference key) noexcept {
-    //Si la racine est null cela signife que la clÃ© est introuvable
+    //Si la racine est null cela signife que la clé est introuvable
     if(r == nullptr)
       return false;
-    //Si la clÃ© est plus petite que la clé de la racine on va continuer le parcours dans la branche gauche
+    //Si la clé est plus petite que la clé de la racine on va continuer le parcours dans la branche gauche
     else if(key < r->key){
       if(!contains(r->left, key))
          //Si la valeur n'a pas été trouvée on retourne false
@@ -271,7 +277,7 @@ private:
       if(!contains(r->right, key))
          return false;
     }
-    //Si la fonction contains n'est entrÃ©e dans aucunes des conditions cela signifie que la valeur à été trouvée
+    //Si la fonction contains n'est entrée dans aucunes des conditions cela signifie que la valeur à été trouvée
     return true;
   }
 
@@ -438,6 +444,8 @@ public:
   // elements
   //
   // @exception std::logic_error si nécessaire
+  //  
+  // @remark
   //
   // ajoutez le code de gestion des exceptions, puis mettez en oeuvre
   // la fonction recursive nth_element(Node*, n)
@@ -450,28 +458,28 @@ public:
   }
   
 private:
-    /**
-     * Fonction permettant de trouver la valeur n de l'arbre. Les valeurs sont trouvées dans l'ordre croissant.
-     * @param r la racine du sous arbre 
-     * @param nodesVisited size_t en référence permettant de savoir le nombre de nombre de node qui ont été parcouru
-     * @param n la position n du node désiré
-     * @return le noeu voulu ou nullptr si le n était trop grand
-     */
-  static Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
-      if(r->left) {
-          Node* temp = findNodeN(r->left, nodesVisited, n);
-          if(temp)
-              return temp;
-      }
-      if(nodesVisited == n)
-          return r;
-      ++nodesVisited;
-      if(r->right){
-          Node* temp = findNodeN(r->right, nodesVisited, n);
-          if(temp)
-              return temp;
-      }
-      return nullptr;
+/**
+ * Fonction permettant de trouver la valeur du noeud n de l'arbre. Les valeurs sont trouvées dans l'ordre croissant.
+ * @param r la racine du sous arbre 
+ * @param nodesVisited size_t en référence permettant de savoir le nombre de node qui ont été visité
+ * @param n la position n du node désiré
+ * @return le noeud voulu ou nullptr si le n était trop grand
+ */
+ static Node* findNodeN(Node* r, size_t& nodesVisited, size_t n) {
+    if(r->left) {
+        Node* temp = findNodeN(r->left, nodesVisited, n);
+        if(temp)
+            return temp;
+    }
+    if(nodesVisited == n)
+        return r;
+    ++nodesVisited;
+    if(r->right){
+        Node* temp = findNodeN(r->right, nodesVisited, n);
+        if(temp)
+            return temp;
+    }
+    return nullptr;
   }
   
   //
@@ -639,6 +647,8 @@ private:
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
+  
   template < typename Fn >
   void parcoursPre(Node* R, Fn f){
       if(R != nullptr){
@@ -656,6 +666,7 @@ private:
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void parcoursSym(Node* R, Fn f){
       if(R != nullptr){
@@ -673,6 +684,7 @@ private:
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void parcoursPost(Node* R, Fn f){
       if(R != nullptr){
