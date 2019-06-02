@@ -1,7 +1,7 @@
 /**
  \file abr.cpp
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin MÃ¼ller
- \date 28 Mai 2019
+ \date 29 Mai 2019
  Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 2.
  */
 
@@ -562,21 +562,23 @@ private:
   //             avez uniquement le droit d'utiliser l'opérateur ++.
   //
   static void linearize(Node* tree, Node*& list, size_t& cnt) noexcept {
-    /* si R=nullptr alors
+       /* si R=nullptr alors
        retourner 0
        N <- linéariser(R.droit, L)
        R.droit = L
        L = R
        N <- N + linéariser(R.gauche, L)
        R.gauche = null */
-       if(tree == nullptr){}
+       if(tree == nullptr){ 
+           return;
+       }
        else{
-          linearize(tree->right, list, ++cnt);
+          linearize(tree->right, list, cnt);
           tree->right = list;
           list = tree;
-          linearize(tree->left, list, ++cnt);
+          list->nbElements = ++cnt;
+          linearize(tree->left, list, cnt);
           tree->left = NULL;
-          cnt++;
        }
   }
   
@@ -610,6 +612,23 @@ private:
   //             arboriser le sous arbre
   //
   static void arborize(Node*& tree, Node*& list, size_t cnt) noexcept {
+      /*
+       si N=0 alors
+        retourner nullptr
+       RG ← arboriser(L,(N-1)/2)
+       R ← L.pop()
+       R.gauche ← RG
+       R.droit ← arboriser(L,N/2)
+       retourner R
+       */
+      if(cnt == 0){
+          return;
+      }
+      tree->left = list->right;
+      arborize(tree, list->right, (cnt-1)/2);    
+      //tree = list;
+      arborize(tree, list->right, cnt/2);  
+      tree->right = list->right;
   }
   
   //
