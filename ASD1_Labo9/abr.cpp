@@ -2,7 +2,7 @@
  \file abr.cpp
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 29 Mai 2019
- Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 2.
+ Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 3.
  */
 
 //
@@ -25,56 +25,58 @@ using namespace std;
 template < typename T >
 class BinarySearchTree {
 public:
-  
-  using value_type = T;
-  using reference = T&;
-  using const_reference = const T&;
+
+    using value_type = T;
+    using reference = T&;
+    using const_reference = const T&;
 
 private:
-  /**
-   *  @brief Noeud de l'arbre.
-   *
-   * contient une cle et les liens vers les sous-arbres droit et gauche.
-   */
-  struct Node {
-    const value_type key; // clé non modifiable
-    Node* right;          // sous arbre avec des cles plus grandes
-    Node* left;           // sous arbre avec des cles plus petites
-    size_t nbElements;    // nombre de noeuds dans le sous arbre dont
-                          // ce noeud est la racine
-    
-    Node(const_reference key)  // seul constructeur disponible. key est obligatoire
-    : key(key), right(nullptr), left(nullptr), nbElements(1)
-    {
-      cout << "(C" << key << ") ";
-    }
-    ~Node()               // destructeur
-    {
-      cout << "(D" << key << ") ";
-    }
-    Node() = delete;             // pas de construction par défaut
-    Node(const Node&) = delete;  // pas de construction par copie
-    Node(Node&&) = delete;       // pas de construction par déplacement
-  };
-  
-  /**
-   *  @brief  Racine de l'arbre. nullptr si l'arbre est vide
-   */
-  Node* _root;
-  
+    /**
+     *  @brief Noeud de l'arbre.
+     *
+     * contient une cle et les liens vers les sous-arbres droit et gauche.
+     */
+    struct Node {
+        const value_type key; // clé non modifiable
+        Node* right;          // sous arbre avec des cles plus grandes
+        Node* left;           // sous arbre avec des cles plus petites
+        size_t nbElements;    // nombre de noeuds dans le sous arbre dont
+        // ce noeud est la racine
+
+        Node(const_reference key)  // seul constructeur disponible. key est obligatoire
+                : key(key), right(nullptr), left(nullptr), nbElements(1)
+        {
+          cout << "(C" << key << ") ";
+        }
+        ~Node()               // destructeur
+        {
+          cout << "(D" << key << ") ";
+        }
+        Node() = delete;             // pas de construction par défaut
+        Node(const Node&) = delete;  // pas de construction par copie
+        Node(Node&&) = delete;       // pas de construction par déplacement
+    };
+
+    /**
+     *  @brief  Racine de l'arbre. nullptr si l'arbre est vide
+     */
+    Node* _root;
+
 public:
-  /**
-   *  @brief Constructeur par défaut. Construit un arbre vide
-   */
-  BinarySearchTree() : _root(nullptr) {}
+    /**
+     *  @brief Constructeur par défaut. Construit un arbre vide
+     */
+    BinarySearchTree() : _root(nullptr) {}
 
 private:
-  /**
-   * Copie la node et sous-nodes vers une autre node.
-   * @param newNode Nouvelle Node à créer
-   * @param srcNode Node et sous-nodes à copier
-   */
-   void copyBinarySearchTree(Node*& newNode, Node*& srcNode) {
+    /**
+     * Copie la node et sous-nodes vers une autre node.
+     * @param newNode Nouvelle Node à créer
+     * @param srcNode Node et sous-nodes à copier
+     *
+     * @remark Complexité de O(n) car parcours entièrement l'arbre
+     */
+    void copyBinarySearchTree(Node*& newNode, Node*& srcNode) {
       if (srcNode == nullptr)
         return;
 
@@ -83,96 +85,105 @@ private:
 
       copyBinarySearchTree(newNode->left, srcNode->left);
       copyBinarySearchTree(newNode->right, srcNode->right);
-   }
+    }
 
 public:
-  /**
-   *  @brief Constucteur de copie.
-   *
-   *  @param other le BinarySearchTree à copier
-   *
-   */
-  BinarySearchTree( BinarySearchTree& other ) : BinarySearchTree() {
+    /**
+     *  @brief Constucteur de copie.
+     *
+     *  @param other le BinarySearchTree à copier
+     *
+     *  @remark Complexité de O(n) car parcours entièrement l'arbre
+     */
+    BinarySearchTree( BinarySearchTree& other ) : BinarySearchTree() {
       copyBinarySearchTree(_root, other._root);
-  }
-  
-  /**
-   *  @brief Opérateur d'affectation par copie.
-   *
-   *  @param other le BinarySearchTree à copier
-   *
-   */
-  BinarySearchTree& operator= ( const BinarySearchTree& other ) {
-    BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
+    }
 
-    this->swap(tmp);
-    return *this;
-  }
-  
-  /**
-   *  @brief Echange le contenu avec un autre BST
-   *
-   *  @param other le BST avec lequel on echange le contenu
-   *
-   */
-  void swap(BinarySearchTree& other ) noexcept {
-    if (other._root == _root)
-      return;
+    /**
+     *  @brief Opérateur d'affectation par copie.
+     *
+     *  @param other le BinarySearchTree à copier
+     *
+     *  @remark Complexité de O(n) car parcours entièrement l'arbre
+     */
+    BinarySearchTree& operator= ( const BinarySearchTree& other ) {
+      BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
 
-    Node* tmp = other._root;
-    other._root = this->_root;
-    this->_root = tmp;
-  }
-  
-  /**
-   *  @brief constructeur de copie par déplacement
-   *
-   *  @param other le BST dont on vole le contenu
-   *
-   */
-  BinarySearchTree( BinarySearchTree&& other ) noexcept {
-    _root = nullptr;
-    swap(other);
-  }
-  
-  /**
-   *  @brief Opérateur d'affectation par déplacement.
-   *
-   *  @param other le BST dont on vole le contenu
-   *
-   */
-  BinarySearchTree& operator= ( BinarySearchTree&& other ) noexcept {
-    this->swap(other);
+      this->swap(tmp);
+      return *this;
+    }
 
-    return *this;
-  }
-  
-  //
-  // @brief Destructeur
-  //
-  // Ne pas modifier mais écrire la fonction
-  // récursive privée deleteSubTree(Node*)
-  //
-  ~BinarySearchTree() {
-    deleteSubTree( _root );
-  }
-  
+    /**
+     *  @brief Echange le contenu avec un autre BST
+     *
+     *  @param other le BST avec lequel on echange le contenu
+     *
+     *  @remark Complexité constante O(1) car on echange uniquement des pointeurs
+     */
+    void swap(BinarySearchTree& other ) noexcept {
+      if (other._root == _root)
+        return;
+
+      Node* tmp = other._root;
+      other._root = this->_root;
+      this->_root = tmp;
+    }
+
+    /**
+     *  @brief constructeur de copie par déplacement
+     *
+     *  @param other le BST dont on vole le contenu
+     *
+     *  @remark Complexité constante O(1) car on effectue uniquement un swap de la root
+     *
+     */
+    BinarySearchTree( BinarySearchTree&& other ) noexcept {
+      _root = nullptr;
+      swap(other);
+    }
+
+    /**
+     *  @brief Opérateur d'affectation par déplacement.
+     *
+     *  @param other le BST dont on vole le contenu
+     *
+     *  @remark Complexité constante O(1) car on effectue uniquement un swap de la root
+     */
+    BinarySearchTree& operator= ( BinarySearchTree&& other ) noexcept {
+      this->swap(other);
+
+      return *this;
+    }
+
+    //
+    // @brief Destructeur
+    //
+    // Ne pas modifier mais écrire la fonction
+    // récursive privée deleteSubTree(Node*)
+    // @remark Complexité de O(n) car parcours entièrement l'arbre
+    //
+    ~BinarySearchTree() {
+      deleteSubTree( _root );
+    }
+
 private:
-  //
-  // @brief Fonction détruisant (delete) un sous arbre
-  //
-  // @param r la racine du sous arbre à détruire.
-  //          peut éventuellement valoir nullpt
-  //
-  static void deleteSubTree(Node* r) noexcept {
+    //
+    // @brief Fonction détruisant (delete) un sous arbre
+    //
+    // @param r la racine du sous arbre à détruire.
+    //          peut éventuellement valoir nullpt
+    //
+    // @remark Complexité de O(n) car parcours entièrement l'arbre
+    //
+    static void deleteSubTree(Node* r) noexcept {
       if (r == nullptr)
-          return;
+        return;
 
       deleteSubTree(r->left);
       deleteSubTree(r->right);
 
       delete r;
-  }
+    }
 
 public:
   //
