@@ -2,7 +2,7 @@
  \file abr.cpp
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 29 Mai 2019
- Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 3.
+ Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 2.
  */
 
 //
@@ -73,8 +73,6 @@ private:
    * Copie la node et sous-nodes vers une autre node.
    * @param newNode Nouvelle Node à créer
    * @param srcNode Node et sous-nodes à copier
-   *
-   * @remark Complexité de O(n) car parcours entièrement l'arbre
    */
    void copyBinarySearchTree(Node*& newNode, Node*& srcNode) {
       if (srcNode == nullptr)
@@ -93,7 +91,6 @@ public:
    *
    *  @param other le BinarySearchTree à copier
    *
-   *  @remark Complexité de O(n) car parcours entièrement l'arbre
    */
   BinarySearchTree( BinarySearchTree& other ) : BinarySearchTree() {
       copyBinarySearchTree(_root, other._root);
@@ -104,7 +101,6 @@ public:
    *
    *  @param other le BinarySearchTree à copier
    *
-   *  @remark Complexité de O(n) car parcours entièrement l'arbre
    */
   BinarySearchTree& operator= ( const BinarySearchTree& other ) {
     BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
@@ -118,7 +114,6 @@ public:
    *
    *  @param other le BST avec lequel on echange le contenu
    *
-   *  @remark Complexité constante O(1) car on echange uniquement des pointeurs
    */
   void swap(BinarySearchTree& other ) noexcept {
     if (other._root == _root)
@@ -134,8 +129,6 @@ public:
    *
    *  @param other le BST dont on vole le contenu
    *
-   *  @remark Complexité constante O(1) car on effectue uniquement un swap de la root
-   *
    */
   BinarySearchTree( BinarySearchTree&& other ) noexcept {
     _root = nullptr;
@@ -147,7 +140,6 @@ public:
    *
    *  @param other le BST dont on vole le contenu
    *
-   *  @remark Complexité constante O(1) car on effectue uniquement un swap de la root
    */
   BinarySearchTree& operator= ( BinarySearchTree&& other ) noexcept {
     this->swap(other);
@@ -160,7 +152,6 @@ public:
   //
   // Ne pas modifier mais écrire la fonction
   // récursive privée deleteSubTree(Node*)
-  // @remark Complexité de O(n) car parcours entièrement l'arbre
   //
   ~BinarySearchTree() {
     deleteSubTree( _root );
@@ -172,8 +163,6 @@ private:
   //
   // @param r la racine du sous arbre à détruire.
   //          peut éventuellement valoir nullpt
-  //
-  // @remark Complexité de O(n) car parcours entièrement l'arbre
   //
   static void deleteSubTree(Node* r) noexcept {
       if (r == nullptr)
@@ -621,10 +610,10 @@ private:
     
    static Node* arb(Node* tree, Node*& list, size_t cnt){
       if(cnt == 0)
-         return list;
-      std::cout << cnt << std::endl;
+         return nullptr;
       Node* RG = arb(tree, list, (cnt - 1)/2);
       tree = list;
+      tree->nbElements = cnt;
       tree->left = RG;
       list = list->right;
       tree->right = arb(tree, list, cnt/2);
@@ -655,8 +644,7 @@ private:
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
-  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
-  
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n 
   template < typename Fn >
   void parcoursPre(Node* R, Fn f){
       if(R != nullptr){
@@ -710,6 +698,7 @@ public:
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void visitPre (Fn f) {
       parcoursPre(_root, f);
@@ -722,6 +711,7 @@ public:
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void visitSym (Fn f) {
     parcoursSym(_root, f);
@@ -734,6 +724,7 @@ public:
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void visitPost (Fn f) {
     parcoursPost(_root, f);
