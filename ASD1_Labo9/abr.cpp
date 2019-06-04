@@ -231,7 +231,7 @@ private:
          return true;
       }
     }
-    //L'élément n'a pas été ajouté ce qui veut dire qu'il est déjà  dans l'arbre
+    //L'élément n'a pas été ajouté ce qui veut dire qu'il est déjà dans l'arbre
     return false;
   }
   
@@ -607,6 +607,19 @@ public:
   }
   
 private:
+    
+   static Node* arb(Node* tree, Node*& list, size_t cnt){
+      if(cnt == 0)
+         return list;
+      std::cout << cnt << std::endl;
+      Node* RG = arb(tree, list, (cnt - 1)/2);
+      tree = list;
+      tree->left = RG;
+      list = list->right;
+      tree->right = arb(tree, list, cnt/2);
+      return tree;
+   }
+   
   //
   // @brief arborise les cnt premiers elements d'une liste en un arbre
   //
@@ -619,24 +632,8 @@ private:
   // @param cnt  nombre d'elements de la liste que l'on doit utiliser pour
   //             arboriser le sous arbre
   //
-  static void arborize(Node*& tree, Node*& list, size_t cnt) noexcept {
-      /*
-       si N=0 alors
-        retourner nullptr
-       RG ← arboriser(L,(N-1)/2)
-       R ← L.pop()
-       R.gauche ← RG
-       R.droit ← arboriser(L,N/2)
-       retourner R
-       */
-      if(cnt == 0){
-          return;
-      }
-      tree->left = list->right;
-      arborize(tree, list->right, (cnt-1)/2);    
-      //tree = list;
-      arborize(tree, list->right, cnt/2);  
-      tree->right = list->right;
+  static void arborize(Node*& tree, Node*& list, size_t cnt) noexcept {      
+      tree = arb(tree, list, cnt);
   }
   
   //
