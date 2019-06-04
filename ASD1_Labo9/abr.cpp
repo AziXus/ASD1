@@ -299,6 +299,9 @@ private:
   //
   // @brief Recherche de la cle minimale.
   //
+  // @remark Compléxité en moyenne de O(log(n)) et
+  //         au pire, O(n) si l’arbre est dégénéré vers la gauche
+  //
   // @return une const reference a la cle minimale
   Node* minElement() const {
       return minElement(_root);
@@ -306,6 +309,9 @@ private:
 
   //
   // @brief Recherche de l'élément minimale.
+  //
+  // @remark Compléxité en moyenne de O(log(n)) et
+  //         au pire, O(n) si l’arbre est dégénéré vers la gauche
   //
   // @return Pointeur sur l'élément
   //
@@ -320,6 +326,9 @@ public:
   //
   // @brief Recherche de la cle minimale.
   //
+  // @remark Compléxité en moyenne de O(log(n)) et
+  //         au pire, O(n) si l’arbre est dégénéré vers la gauche
+  //
   // @return une const reference a la cle minimale
   const_reference min() const {
     return minElement()->key;
@@ -331,6 +340,9 @@ public:
   //
   // @exception std::logic_error si necessaire
   //
+  // @remark Compléxité en moyenne de O(log(n)) et
+  //         au pire, O(n) si l’arbre est dégénéré vers la gauche
+  //
   // vous pouvez mettre en oeuvre de manière iterative ou recursive a choix
   //
   void deleteMin() {
@@ -340,6 +352,10 @@ public:
 private:
   //
   // @brief Supprime le plus petit element de l'arbre.
+  //
+  // @remark Compléxité en moyenne de O(log(n)) et
+  //         au pire, O(n) si l’arbre est dégénéré vers la gauche
+  //
   //
   // @exception std::logic_error si necessaire
    static Node* deleteMin(Node* r){
@@ -364,6 +380,8 @@ public:
   //
   // @param key l'element a supprimer
   //
+  // @remark Compléxité en moyenne de O(log(n)) ou O(n) dans le pire cas.
+  //
   // si l'element n'est pas present, la fonction ne modifie pas
   // l'arbre mais retourne false. Si l'element est present, elle
   // retourne vrai
@@ -379,6 +397,8 @@ private:
   //
   // @brief Supprime l'element de cle key du sous arbre.
   //
+  // @remark Compléxité en moyenne de O(log(n)) ou O(n) dans le pire cas.
+  //
   // @param r la racine du sous arbre
   // @param key l'element a supprimer
   //
@@ -393,6 +413,8 @@ private:
   }
 
   // @brief Fonction recursive qui supprime l'element de cle key du sous arbre.
+  //
+  // @remark Compléxité en moyenne de O(log(n)) ou O(n) dans le pire cas.
   //
   // @param r la racine du sous arbre
   // @param key l'element a supprimer
@@ -444,6 +466,8 @@ private:
 public:
   //
   // @brief taille de l'arbre
+  //
+  // @remark Compléxité constante O(1) car la valeur est dans la node root.
   //
   // @return le nombre d'elements de l'arbre
   //
@@ -524,6 +548,9 @@ public:
   //
   // @param key la cle dont on cherche le rang
   //
+  // Compléxité en moyenne de O(log(n)) et
+  //         au pire, O(n) si l’arbre est dégénéré
+  //
   // @return la position entre 0 et size()-1, size_t(-1) si la cle est absente
   //
   // Ne pas modifier mais écrire la fonction
@@ -536,6 +563,9 @@ public:
 private:
   //
   // @brief position d'une cle dans l'ordre croissant des elements du sous-arbre
+  //
+  // Compléxité en moyenne de O(log(n)) et
+  //         au pire, O(n) si l’arbre est dégénéré
   //
   // @param key la cle dont on cherche le rang
   // @param r la racine du sous arbre
