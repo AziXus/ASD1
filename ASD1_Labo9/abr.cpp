@@ -2,7 +2,7 @@
  \file abr.cpp
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
  \date 29 Mai 2019
- Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 2.
+ Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 3.
  */
 
 //
@@ -73,6 +73,8 @@ private:
    * Copie la node et sous-nodes vers une autre node.
    * @param newNode Nouvelle Node à créer
    * @param srcNode Node et sous-nodes à copier
+   *
+   * @remark Complexité de O(n) car parcours entièrement l'arbre
    */
    void copyBinarySearchTree(Node*& newNode, Node*& srcNode) {
       if (srcNode == nullptr)
@@ -91,6 +93,7 @@ public:
    *
    *  @param other le BinarySearchTree à copier
    *
+   *  @remark Complexité de O(n) car parcours entièrement l'arbre
    */
   BinarySearchTree( BinarySearchTree& other ) : BinarySearchTree() {
       copyBinarySearchTree(_root, other._root);
@@ -101,6 +104,7 @@ public:
    *
    *  @param other le BinarySearchTree à copier
    *
+   *  @remark Complexité de O(n) car parcours entièrement l'arbre
    */
   BinarySearchTree& operator= ( const BinarySearchTree& other ) {
     BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
@@ -114,6 +118,7 @@ public:
    *
    *  @param other le BST avec lequel on echange le contenu
    *
+   *  @remark Complexité constante O(1) car on echange uniquement des pointeurs
    */
   void swap(BinarySearchTree& other ) noexcept {
     if (other._root == _root)
@@ -129,6 +134,8 @@ public:
    *
    *  @param other le BST dont on vole le contenu
    *
+   *  @remark Complexité constante O(1) car on effectue uniquement un swap de la root
+   *
    */
   BinarySearchTree( BinarySearchTree&& other ) noexcept {
     _root = nullptr;
@@ -140,6 +147,7 @@ public:
    *
    *  @param other le BST dont on vole le contenu
    *
+   *  @remark Complexité constante O(1) car on effectue uniquement un swap de la root
    */
   BinarySearchTree& operator= ( BinarySearchTree&& other ) noexcept {
     this->swap(other);
@@ -152,6 +160,7 @@ public:
   //
   // Ne pas modifier mais écrire la fonction
   // récursive privée deleteSubTree(Node*)
+  // @remark Complexité de O(n) car parcours entièrement l'arbre
   //
   ~BinarySearchTree() {
     deleteSubTree( _root );
@@ -163,6 +172,8 @@ private:
   //
   // @param r la racine du sous arbre à détruire.
   //          peut éventuellement valoir nullpt
+  //
+  // @remark Complexité de O(n) car parcours entièrement l'arbre
   //
   static void deleteSubTree(Node* r) noexcept {
       if (r == nullptr)
