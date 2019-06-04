@@ -191,13 +191,13 @@ private:
   //
   // @brief Insertion d'une cle dans un sous-arbre
   //
+  // @remark en moyenne, O(log(n))
+  //         au pire, O(n) si l’arbre est dégénéré
+  //
   // @param r la racine du sous-arbre dans lequel
   //          insérer la cle.
   // @param key la clé à insérer.
   //  
-  // @remark en moyenne, O(log(n))
-  //         au pire, O(n) si l’arbre est dégénéré
-  //
   // @return vrai si la cle est inseree. faux si elle etait deja presente.
   //
   // Si la cle est deja presente, cette fonction ne fait rien.
@@ -238,7 +238,10 @@ private:
 public:
   //
   // @brief Recherche d'une cle.
-  //
+  //  
+  // @remark en moyenne, O(log(n))
+  //         au pire, O(n) si l’arbre est dégénéré
+  //  
   // @param key la cle a rechercher
   //
   // @return vrai si la cle trouvee, faux sinon.
@@ -253,12 +256,12 @@ public:
 private:
   //
   // @brief Recherche d'une cle dans un sous-arbre
-  //
-  // @param key la cle a rechercher
-  // @param r   la racine du sous-arbre
   //  
   // @remark en moyenne, O(log(n))
   //         au pire, O(n) si l’arbre est dégénéré
+  //
+  // @param key la cle a rechercher
+  // @param r   la racine du sous-arbre
   //
   // @return vrai si la cle trouvee, faux sinon.
   //
@@ -282,15 +285,15 @@ private:
   }
 
 private:
-    //
-    // @brief Recherche de la cle minimale.
-    //
-    // @return une const reference a la cle minimale
-    Node* minElement() const {
-        return minElement(_root);
-    }
+  //
+  // @brief Recherche de la cle minimale.
+  //
+  // @return une const reference a la cle minimale
+  Node* minElement() const {
+      return minElement(_root);
+  }
 
-   //
+  //
   // @brief Recherche de l'élément minimale.
   //
   // @return Pointeur sur l'élément
@@ -440,12 +443,12 @@ public:
   //
   // @brief cle en position n
   //
+  // @remark O(n) car on va effectuer un parcours de l'arbre de manière croissante
+  //
   // @return une reference a la cle en position n par ordre croissant des
   // elements
   //
   // @exception std::logic_error si nécessaire
-  //  
-  // @remark
   //
   // ajoutez le code de gestion des exceptions, puis mettez en oeuvre
   // la fonction recursive nth_element(Node*, n)
@@ -632,6 +635,7 @@ private:
   // @param cnt  nombre d'elements de la liste que l'on doit utiliser pour
   //             arboriser le sous arbre
   //
+  // @remark 2^log2(n) = O(n) en moyenne car on 
   static void arborize(Node*& tree, Node*& list, size_t cnt) noexcept {      
       tree = arb(tree, list, cnt);
   }
