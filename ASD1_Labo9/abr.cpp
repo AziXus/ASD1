@@ -202,7 +202,7 @@ private:
   //
   // @brief Insertion d'une cle dans un sous-arbre
   //
-  // @remark en moyenne, O(log(n))
+  // @remark Compléxité en moyenne de O(log(n)) et
   //         au pire, O(n) si l’arbre est dégénéré
   //
   // @param r la racine du sous-arbre dans lequel
@@ -250,7 +250,7 @@ public:
   //
   // @brief Recherche d'une cle.
   //  
-  // @remark en moyenne, O(log(n))
+  // @remark Compléxité en moyenne de O(log(n)) et
   //         au pire, O(n) si l’arbre est dégénéré
   //  
   // @param key la cle a rechercher
@@ -268,7 +268,7 @@ private:
   //
   // @brief Recherche d'une cle dans un sous-arbre
   //  
-  // @remark en moyenne, O(log(n))
+  // @remark Compléxité en moyenne de O(log(n)) et
   //         au pire, O(n) si l’arbre est dégénéré
   //
   // @param key la cle a rechercher
@@ -454,7 +454,7 @@ public:
   //
   // @brief cle en position n
   //
-  // @remark O(n) car on va effectuer un parcours de l'arbre de manière croissante
+  // @remark Complexité en moyenne de O(n) car on va effectuer un parcours de l'arbre de manière croissante jusqu'à l'élément n
   //
   // @return une reference a la cle en position n par ordre croissant des
   // elements
@@ -472,8 +472,10 @@ public:
   }
   
 private:
+    
 /**
  * Fonction permettant de trouver la valeur du noeud n de l'arbre. Les valeurs sont trouvées dans l'ordre croissant.
+ * @remark Complexité en moyenne de O(n) car on va effectuer un parcours de l'arbre de manière croissante jusqu'à l'élément n
  * @param r la racine du sous arbre 
  * @param nodesVisited size_t en référence permettant de savoir le nombre de node qui ont été visité
  * @param n la position n du node désiré
@@ -498,6 +500,8 @@ private:
   
   //
   // @brief cle en position n dans un sous arbre
+  //
+  // @remark Complexité en moyenne de O(n) car on va effectuer un parcours de l'arbre de manière croissante jusqu'à l'élément n
   //
   // @param r la racine du sous arbre. ne peut pas etre nullptr
   // @param n la position n
@@ -574,6 +578,8 @@ private:
   //
   // @brief linearise une sous arbre tree en une liste
   //
+  // @remark Compléxité de O(n) car la compléxité est celle d'un parcours de l'arbre
+  //
   // @param tree pointe vers la racine de l'arbre a lineariser
   // @param list reference a la tete de la liste a creer. sera modifiee
   //             par la fonction pour que list pointe vers le plus petit
@@ -584,13 +590,6 @@ private:
   //             avez uniquement le droit d'utiliser l'opérateur ++.
   //
   static void linearize(Node* tree, Node*& list, size_t& cnt) noexcept {
-       /* si R=nullptr alors
-       retourner 0
-       N <- linéariser(R.droit, L)
-       R.droit = L
-       L = R
-       N <- N + linéariser(R.gauche, L)
-       R.gauche = null */
        if(tree == nullptr){ 
            return;
        }
@@ -608,6 +607,8 @@ public:
   //
   // @brief equilibre l'arbre
   //
+  // @remark Compléxité de O(n) car la compléxité est celle d'un parcours de l'arbre
+  //
   // applique l'algorithme d'equilibrage de l'arbre par linearisation et
   // arborisation
   //
@@ -621,21 +622,30 @@ public:
   }
   
 private:
-    
-   static Node* arb(Node* tree, Node*& list, size_t cnt){
-      if(cnt == 0)
-         return nullptr;
-      Node* RG = arb(tree, list, (cnt - 1)/2);
-      tree = list;
-      tree->nbElements = cnt;
-      tree->left = RG;
-      list = list->right;
-      tree->right = arb(tree, list, cnt/2);
-      return tree;
-   }
+  /**
+   * Fonction d'arborisation recursive qui retourne les cnt permiers éléments arborisés
+   * @remark 2^log2(n) = O(n) en moyenne
+   * @param tree adresse de node étant la racine de l'arbre
+   * @param list adresse en référence d'un node étant la liste des éléments linéariser
+   * @param cnt size_t indquant le nombre d'élément à linéariser
+   * @return le noeud de la racine de l'arbre arboriser.
+   */
+  static Node* arb(Node* tree, Node*& list, size_t cnt){
+     if(cnt == 0)
+        return nullptr;
+     Node* RG = arb(tree, list, (cnt - 1)/2);
+     tree = list;
+     tree->nbElements = cnt;
+     tree->left = RG;
+     list = list->right;
+     tree->right = arb(tree, list, cnt/2);
+     return tree;
+  }
    
   //
   // @brief arborise les cnt premiers elements d'une liste en un arbre
+  //
+  // @remark 2^log2(n) = O(n) en moyenne
   //
   // @param tree reference dans laquelle il faut ecrire la racine de l'arbre
   //             arborise par la fonction
@@ -646,7 +656,6 @@ private:
   // @param cnt  nombre d'elements de la liste que l'on doit utiliser pour
   //             arboriser le sous arbre
   //
-  // @remark 2^log2(n) = O(n) en moyenne car on 
   static void arborize(Node*& tree, Node*& list, size_t cnt) noexcept {      
       tree = arb(tree, list, cnt);
   }
