@@ -1,7 +1,7 @@
 /**
  \file abr.cpp
  \author Stéphane Teixeira Carvalho, Diego Villagrasa, Robin Müller
- \date 29 Mai 2019
+ \date 05 Juin 2019
  Labo 9 : Mettre en place les fonctions dans une classe BinarySearchTree pour passer le codecheck 3.
  */
 
@@ -107,9 +107,11 @@ public:
      *  @remark Complexité de O(n) car parcours entièrement l'arbre
      */
     BinarySearchTree& operator= ( const BinarySearchTree& other ) {
-      BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
+      if(this->_root != other->_root){
+        BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
 
-      this->swap(tmp);
+        this->swap(tmp);
+      }
       return *this;
     }
 
@@ -188,6 +190,9 @@ private:
 public:
   //
   // @brief Insertion d'une cle dans l'arbre
+  //  
+  // @remark Compléxité en moyenne de O(log(n)) et
+  //         au pire, O(n) si l’arbre est dégénéré
   //
   // @param key la clé à insérer.
   //
@@ -478,7 +483,7 @@ public:
   //
   // @brief cle en position n
   //
-  // @remark Complexité en moyenne de O(n) car on va effectuer un parcours de l'arbre de manière croissante jusqu'à l'élément n
+  // @remark Compléxité en moyenne de O(log(n)) on recherche un élément
   //
   // @return une reference a la cle en position n par ordre croissant des
   // elements
@@ -499,7 +504,7 @@ private:
     
 /**
  * Fonction permettant de trouver la valeur du noeud n de l'arbre. Les valeurs sont trouvées dans l'ordre croissant.
- * @remark Complexité en moyenne de O(n) car on va effectuer un parcours de l'arbre de manière croissante jusqu'à l'élément n
+ * @remark Compléxité en moyenne de O(log(n)) on recherche un élément
  * @param r la racine du sous arbre 
  * @param nodesVisited size_t en référence permettant de savoir le nombre de node qui ont été visité
  * @param n la position n du node désiré
@@ -525,7 +530,7 @@ private:
   //
   // @brief cle en position n dans un sous arbre
   //
-  // @remark Complexité en moyenne de O(n) car on va effectuer un parcours de l'arbre de manière croissante jusqu'à l'élément n
+  // @remark Compléxité en moyenne de O(log(n)) on recherche un élément
   //
   // @param r la racine du sous arbre. ne peut pas etre nullptr
   // @param n la position n
@@ -548,7 +553,7 @@ public:
   //
   // @param key la cle dont on cherche le rang
   //
-  // Compléxité en moyenne de O(log(n)) et
+  // @remark Compléxité en moyenne de O(log(n)) et
   //         au pire, O(n) si l’arbre est dégénéré
   //
   // @return la position entre 0 et size()-1, size_t(-1) si la cle est absente
@@ -564,7 +569,7 @@ private:
   //
   // @brief position d'une cle dans l'ordre croissant des elements du sous-arbre
   //
-  // Compléxité en moyenne de O(log(n)) et
+  // @remark Compléxité en moyenne de O(log(n)) et
   //         au pire, O(n) si l’arbre est dégénéré
   //
   // @param key la cle dont on cherche le rang
@@ -586,7 +591,9 @@ private:
   
 public:
   //
-  // @brief linearise l'arbre
+  // @brief linearise l'arbre      
+  //  
+  // @remark Compléxité de O(n) car la compléxité est celle d'un parcours de l'arbre
   //
   // transforme l'arbre en une liste simplement chainee composee des memes
   // noeuds que precedemment, mais dont les pointeurs left sont tous egaux
@@ -654,7 +661,7 @@ public:
 private:
   /**
    * Fonction d'arborisation recursive qui retourne les cnt permiers éléments arborisés
-   * @remark 2^log2(n) = O(n) en moyenne
+   * @remark Compléxité de O(n) car la compléxité est celle d'un parcours de l'arbre
    * @param tree adresse de node étant la racine de l'arbre
    * @param list adresse en référence d'un node étant la liste des éléments linéariser
    * @param cnt size_t indquant le nombre d'élément à linéariser
@@ -675,7 +682,7 @@ private:
   //
   // @brief arborise les cnt premiers elements d'une liste en un arbre
   //
-  // @remark 2^log2(n) = O(n) en moyenne
+  // @remark O(n) en moyenne car on parcourt l'arbre list
   //
   // @param tree reference dans laquelle il faut ecrire la racine de l'arbre
   //             arborise par la fonction
@@ -693,12 +700,13 @@ private:
   //
   // @brief Fonction permettant le parcours pré-ordonné de l'arbre de manière recursive 
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n 
+  //
   // @param R la racine du sous arbre
   // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
-  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n 
   template < typename Fn >
   void parcoursPre(Node* R, Fn f){
       if(R != nullptr){
@@ -711,12 +719,13 @@ private:
   //
   // @brief Fonction permettant le parcours symétrique de l'arbre de manière recursive 
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n 
+  //
   // @param R la racine du sous arbre
   // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
-  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void parcoursSym(Node* R, Fn f){
       if(R != nullptr){
@@ -729,12 +738,13 @@ private:
   //
   // @brief Fonction permettant le parcours post-ordonné de l'arbre de manière recursive 
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n 
+  //
   // @param R la racine du sous arbre
   // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
-  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void parcoursPost(Node* R, Fn f){
       if(R != nullptr){
@@ -748,11 +758,12 @@ public:
   //
   // @brief Parcours pre-ordonne de l'arbre
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n 
+  //
   // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
-  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void visitPre (Fn f) {
       parcoursPre(_root, f);
@@ -761,11 +772,12 @@ public:
   //
   // @brief Parcours symétrique de l'arbre
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n 
+  //
   // @param f une fonction capable d'Ãªtre appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
-  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void visitSym (Fn f) {
     parcoursSym(_root, f);
@@ -774,11 +786,12 @@ public:
   //
   // @brief Parcours post-ordonne de l'arbre
   //
+  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n 
+  //
   // @param f une fonction capable d'être appelée en recevant une cle
   //          en parametre. Pour le noeud n courrant, l'appel sera
   //          f(n->key);
   //
-  // @remark O(n) en moyenne et au pire car on passe sur chaque lien du noeud à l'aller et au retour donc au plus 3 * n
   template < typename Fn >
   void visitPost (Fn f) {
     parcoursPost(_root, f);
