@@ -107,7 +107,7 @@ public:
      *  @remark Complexité de O(n) car parcours entièrement l'arbre
      */
     BinarySearchTree& operator= ( const BinarySearchTree& other ) {
-      if(this->_root != other->_root){
+      if(this->_root != other._root){
         BinarySearchTree tmp(const_cast<BinarySearchTree&>(other));
 
         this->swap(tmp);
@@ -140,8 +140,10 @@ public:
      *
      */
     BinarySearchTree( BinarySearchTree&& other ) noexcept {
-      _root = nullptr;
-      swap(other);
+      if(this->_root != other._root){
+        _root = nullptr;
+        swap(other);
+      }
     }
 
     /**
