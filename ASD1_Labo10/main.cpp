@@ -26,20 +26,23 @@ Sommet ajoutVoisin(const Sommet& noeud, size_t pos, Deplacement deplacement){
     Sommet nouveauNoeud;
     nouveauNoeud.etat = noeud.etat;
     switch(deplacement){
-        //nouveauNoeud.etat[pos - NB_COLONNES] nous donne la case situé au dessus du 0 avec laquelle on peut échanger de place
+        //nouveauNoeud.etat[pos - NB_COLONNES] nous donne la case situé au dessus de la case 0 avec laquelle on peut échanger de place
         case HAUT   : swap(nouveauNoeud.etat[pos], nouveauNoeud.etat[pos - NB_COLONNES]);
                       nouveauNoeud.chemin = noeud.chemin + to_string(pos - NB_COLONNES);
                       break;
+        //nouveauNoeud.etat[pos + NB_COLONNES] nous donne la case situé en dessous de la case 0 avec laquelle on peut échanger de place
         case BAS    : swap(nouveauNoeud.etat[pos], nouveauNoeud.etat[pos + NB_COLONNES]);
                       nouveauNoeud.chemin = noeud.chemin + to_string(pos + NB_COLONNES);
                       break;
+        //nouveauNoeud.etat[pos + 1] nous donne la case situé juste à droite de la case 0
         case DROITE : swap(nouveauNoeud.etat[pos], nouveauNoeud.etat[pos + 1]);
                       nouveauNoeud.chemin = noeud.chemin + to_string(pos + 1);
                       break;
+        //nouveauNoeud.etat[pos - 1] nous donne la case situé juste à gauche de la case 0
         case GAUCHE : swap(nouveauNoeud.etat[pos], nouveauNoeud.etat[pos - 1]);
                       nouveauNoeud.chemin = noeud.chemin + to_string(pos - 1);
                       break;
-        default     : cout << "INCONNUE";
+        default     : cout << "Deplacement inconnu" << endl;
     }
     return nouveauNoeud;
 }
@@ -56,17 +59,17 @@ vector<Sommet> trouverVoisins(const Sommet& noeud) {
         etatsVoisin.push_back(ajoutVoisin(noeud, pos, HAUT));
     }
 
-    //Bas donc est pas sur la dernière ligne
+    //Possibilté de mouvement vers le bas donc est pas sur la dernière ligne plus petit que 6
     if (pos < (NB_COLONNES - 1) * NB_LIGNES) {
         etatsVoisin.push_back(ajoutVoisin(noeud, pos, BAS));
     }
 
-    //Droite
+    //Possibilté de mouvement vers la droite si la pos est dans la colonne 0 ou 1(pos % NB_COLONNES)
     if (pos % NB_COLONNES <= 1) {
         etatsVoisin.push_back(ajoutVoisin(noeud, pos, DROITE));
     }
 
-    //Gauche
+    //Possibilté de mouvement vers la gauche si la pos est dans la colonne 1 ou 2(pos % NB_COLONNES)
     if (pos % NB_COLONNES >= 1) {
         etatsVoisin.push_back(ajoutVoisin(noeud, pos, GAUCHE));
     }
@@ -92,7 +95,6 @@ bool BFS(const string& sommet, string& chemin) {
         auto parent = q.front();
         q.pop();
 
-//        parents[parent.etat] = true;
         parents.insert(parent.etat);
 
         auto voisins = trouverVoisins(parent);
@@ -129,7 +131,7 @@ int main() {
         for (char c : chemin)
             cout << c << " ";
     } else {
-        cout << "Aucun chemin n'a été trouvé" << endl;
+        cout << "Aucun chemin n'a ete trouve" << endl;
     }
 
     return EXIT_SUCCESS;
