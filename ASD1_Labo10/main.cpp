@@ -25,6 +25,7 @@ struct Sommet {
     string etat;
     string chemin;
 };
+
 /**
  * Déplace le noeud passé en paramètres vers une postion voisin donné
  * @param noeud sommet de type constant étant le noeud à deplacer
@@ -56,6 +57,7 @@ Sommet deplacementVoisin(const Sommet& noeud, size_t pos, Deplacement deplacemen
     }
     return nouveauNoeud;
 }
+
 /**
  * Permet de trouver les voisins d'un noeud
  * @param noeud variable de type Sommet étant le noeud auquel il faut trouvé ses voisions
@@ -92,14 +94,14 @@ vector<Sommet> trouverVoisins(const Sommet& noeud) {
 }
 
 /**
- * Permet le parcours en largeur d'un graphe en donnant son sommet de manière récursive
+ * Permet le parcours en largeur d'un graphe en donnant son sommet
  * @param sommet string contenant le sommet à partir duquel démarrer le parcours
  * @param chemin string contenant le chemin parcouru dans le graphe(contient les déplacments de la case 0)
- * @return vrai si le parcours à atteint l'état 01234578, faux sinon
+ * @return vrai si le parcours à atteint l'état 012345678, faux sinon
  */
 bool BFS(const string& sommet, string& chemin) {
     chemin = "";
-
+    //Si le sommet est déjà l'état cible on ne fait rien
     if (sommet == ETAT_CIBLE)
         return true;
 
@@ -120,11 +122,12 @@ bool BFS(const string& sommet, string& chemin) {
         auto voisins = trouverVoisins(parent);
 
         for (const auto& voisin : voisins) {
+            //Si on trouve l'état cible on sort de la fonction
             if (voisin.etat == ETAT_CIBLE) {
                 chemin = voisin.chemin;
                 return true;
             }
-
+            //Si l'état du taquin est déjà un parent on ne l'ajoute pas
             if (parents.find(voisin.etat) != parents.end())
                 continue;
 
@@ -138,13 +141,11 @@ bool BFS(const string& sommet, string& chemin) {
 
 int main() {
     string source, chemin;
-    bool entreeValide = false;
-    
+    bool entreeValide = false;  
     
     do {
         cout << "Etat du taquin : ";
         getline(cin, source);
-        //Ajouter fonction de vérification et de nettoyage de la saisie (espace)
         //On enlève les eventuelles espaces
         source.erase(remove_if(source.begin(), source.end(), ::isspace), source.end());
         entreeValide = (source.length() == 9 ? true : false);
