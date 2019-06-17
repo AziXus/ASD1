@@ -4,6 +4,11 @@
 \date 17 Juin 2019
 Labo 10 : Création d'un programme permettant de générer la séquence la plus courte pour résoudre un taquin 3x3.
 La solution donnera tout les déplacements à effectuer avec la case vide(0). Les cases sont notées de 0 à 8.
+
+Afin de trouver la solution la plus courte d'un taquin 4x4, il serait nécessaire de modifier l'algorithme
+de parcours en utilisant une priority_queue. Il faut également ajouter une méthode permettant d'évaluer
+le coût d'un état pour arriver jusqu'à l'état cible. De cette façon, on traite toujours en premier le
+l'état avec le coût le plus faible (donc le plus prometter). Utiliser un parcours IDA*.
 */
 #include <cstdlib>
 #include <iostream>
@@ -96,7 +101,7 @@ vector<Sommet> trouverVoisins(const Sommet& noeud) {
 /**
  * Permet le parcours en largeur d'un graphe en donnant son sommet
  * @param sommet string contenant le sommet à partir duquel démarrer le parcours
- * @param chemin string contenant le chemin parcouru dans le graphe(contient les déplacments de la case 0)
+ * @param chemin string contenant le chemin parcouru dans le graphe(contient les déplacements de la case 0)
  * @return vrai si le parcours à atteint l'état 012345678, faux sinon
  */
 bool BFS(const string& sommet, string& chemin) {
@@ -141,8 +146,8 @@ bool BFS(const string& sommet, string& chemin) {
 
 int main() {
     string source, chemin;
-    bool entreeValide = false;  
-    
+    bool entreeValide;
+
     do {
         cout << "Etat du taquin : ";
         getline(cin, source);
@@ -155,6 +160,7 @@ int main() {
         }
     } while (!entreeValide);    
 
+
     if (BFS(source, chemin)) {
         cout << "Le chemin suivant a ete trouve : ";
         for (char c : chemin)
@@ -165,4 +171,3 @@ int main() {
 
     return EXIT_SUCCESS;
 }
-
