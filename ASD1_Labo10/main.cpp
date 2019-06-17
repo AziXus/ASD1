@@ -118,7 +118,7 @@ int main() {
     source.erase(remove_if(source.begin(), source.end(), ::isspace), source.end());
 
     if (BFS(source, chemin)) {
-        cout << "Le chemin suivant a été trouvé : ";
+        cout << "Le chemin suivant a ete trouve : ";
         for (char c : chemin)
             cout << c << " ";
     } else {
