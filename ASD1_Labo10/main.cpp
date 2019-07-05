@@ -6,10 +6,11 @@ Labo 10 : Création d'un programme permettant de générer la séquence la plus 
 La solution donnera tout les déplacements à effectuer avec la case vide(0). Les cases sont notées de 0 à 8.
 
 Afin de trouver la solution la plus courte d'un taquin 4x4, il serait nécessaire de modifier l'algorithme
-de parcours en utilisant une priority_queue. Il faut également ajouter une méthode permettant d'évaluer
+de parcours en utilisant une priority_queue. Il faudrait également ajouter une méthode permettant d'évaluer
 le coût d'un état pour arriver jusqu'à l'état cible. De cette façon, on traite toujours en premier le
-l'état avec le coût le plus faible (donc le plus prometter). Utiliser un parcours IDA*.
+l'état avec le coût le plus faible (donc le plus prometteur). L'utilisation d'un parcours IDA* est nécessaire.
 */
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -42,19 +43,19 @@ Sommet deplacementVoisin(const Sommet& noeud, size_t pos, Deplacement deplacemen
     Sommet nouveauNoeud;
     nouveauNoeud.etat = noeud.etat;
     switch(deplacement){
-        //nouveauNoeud.etat[pos - NB_COLONNES] nous donne la case situé au dessus de la case 0 avec laquelle on peut échanger de place
+        //nouveauNoeud.etat[pos - NB_COLONNES] nous donne la case située au dessus de la case 0 avec laquelle on peut échanger de place
         case HAUT   : swap(nouveauNoeud.etat[pos], nouveauNoeud.etat[pos - NB_COLONNES]);
                       nouveauNoeud.chemin = noeud.chemin + to_string(pos - NB_COLONNES);
                       break;
-        //nouveauNoeud.etat[pos + NB_COLONNES] nous donne la case situé en dessous de la case 0 avec laquelle on peut échanger de place
+        //nouveauNoeud.etat[pos + NB_COLONNES] nous donne la case située en dessous de la case 0 avec laquelle on peut échanger de place
         case BAS    : swap(nouveauNoeud.etat[pos], nouveauNoeud.etat[pos + NB_COLONNES]);
                       nouveauNoeud.chemin = noeud.chemin + to_string(pos + NB_COLONNES);
                       break;
-        //nouveauNoeud.etat[pos + 1] nous donne la case situé juste à droite de la case 0
+        //nouveauNoeud.etat[pos + 1] nous donne la case située juste à droite de la case 0
         case DROITE : swap(nouveauNoeud.etat[pos], nouveauNoeud.etat[pos + 1]);
                       nouveauNoeud.chemin = noeud.chemin + to_string(pos + 1);
                       break;
-        //nouveauNoeud.etat[pos - 1] nous donne la case situé juste à gauche de la case 0
+        //nouveauNoeud.etat[pos - 1] nous donne la case située juste à gauche de la case 0
         case GAUCHE : swap(nouveauNoeud.etat[pos], nouveauNoeud.etat[pos - 1]);
                       nouveauNoeud.chemin = noeud.chemin + to_string(pos - 1);
                       break;
@@ -65,8 +66,8 @@ Sommet deplacementVoisin(const Sommet& noeud, size_t pos, Deplacement deplacemen
 
 /**
  * Permet de trouver les voisins d'un noeud
- * @param noeud variable de type Sommet étant le noeud auquel il faut trouvé ses voisions
- * @return un vecteur de Sommet contenant les différents voisins du sommet
+ * @param noeud variable de type Sommet étant le noeud auquel il faut trouver les voisins
+ * @return un vecteur de Sommets contenant les différents voisins du sommet
  */
 vector<Sommet> trouverVoisins(const Sommet& noeud) {
     vector<Sommet> etatsVoisin;
